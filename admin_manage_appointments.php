@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_dashboard</title>
+    <title>admin_manage_appointments</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
@@ -67,10 +67,10 @@
         <div class="container" style="display: flex; align-items: center;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Admin Dashboard
+                    Manage Appointments
                 </div>
                 <div style="color: #6B4A4A;">
-                    Quick access to business information
+                    Quick access to customer’s appointment
                 </div>
             </div>
             <div style="margin-left: auto;">
@@ -83,14 +83,7 @@
 
         <div class="container" style="margin-top: 30px; display: flex;">
             <div style="width: 50%;">
-                <div style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
-                    <div style="font-size: 30px; color: #6B4A4A;">203</div>
-                    <div style="font-size: 25px; color: #6B4A4A;">Accounts</div>
-                </div>
-            </div>
-
-            <div style="width: 50%;">
-                <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: 50%; transform: translate(-50%);">
+                <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
                     <div style="font-size: 30px; color: #6B4A4A;">7</div>
                     <div style="font-size: 25px; color: #6B4A4A;">Pending Appointments</div>
                 </div>
