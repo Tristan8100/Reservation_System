@@ -70,7 +70,7 @@
         <div class="container" style="display: flex; align-items: center;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Appointments
+                    Manage Appointments (Pending)
                 </div>
                 <div style="color: #6B4A4A;">
                     Quick access to customers appointment

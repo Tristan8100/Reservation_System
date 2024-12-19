@@ -14,7 +14,6 @@
             width: 50px;
         }
         .main_content1{
-            border: 1px solid;
             padding: 10px;
             width: 90%;
             margin-left: 8%;
@@ -186,65 +185,125 @@
         <div style="margin-top: 50px;">
             <div style="text-align: center; font-size: 30px;">Avail Services</div>
             <br>
+            
+            
             <div class="row">
-                <div class="col-12">
-
+            <div class="col-12">
                 <!-- The Table -->
                 <section class="intro">
-                <div class="bg-image h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                        <div class="col-12">
-                            <div class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 300px">
-                                <table class="table table-striped mb-0" style="table-layout: fixed; width: 100%;">
-                                    <thead style="background-color: #002d72;">
-                                    <tr>
-                                        <th scope="col">Service ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">price</th>
-                                        <th scope="col">duration</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="hidd" >1285</td>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                        <td class="hidd">qwerty</td>
-                                        <td class="hidd">Aaron Chapman</td>
+                    <div class="bg-image h-100">
+                        <div class="mask d-flex align-items-center h-100">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body p-0">
+                                                <div class="table-responsive table-scroll" 
+                                                    data-mdb-perfect-scrollbar="true" 
+                                                    style="position: relative; height: 300px;">
+                                                    <table class="table table-striped mb-0" 
+                                                        style="table-layout: fixed; width: 100%;">
+                                                        <thead style="background-color: #002d72;">
+                                                            <tr>
+                                                                <th scope="col">Service ID</th>
+                                                                <th scope="col">Name</th>
+                                                                <th scope="col">Price</th>
+                                                                <th scope="col">Duration</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>1285</td>
+                                                                <td>tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
+                                                                <td>qwerty</td>
+                                                                <td>Aaron Chapman</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>342</td>
+                                                                <td>ayaya@gmail.com</td>
+                                                                <td>ayyyayya</td>
+                                                                <td>Kamisato Ayaya</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
-
-
-                                    </tr>
-                                    <tr>
-                                        <td class="hidd" >342</td>
-                                        <td class="hidd">ayaya@gmail.com</td>
-                                        <td class="hidd">ayyyayya</td>
-                                        <td class="hidd">Kamisato Ayaya</td>
-                                    </tbody>
-                                </table>
-                                </div>
-                                
-                            </div>
-                            </div>
-                        </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-                
                 </section>
-                <!-- The Table -->
-                
-
-
-                </div>
-                
             </div>
+        </div>
+
+
+
+
+    
+
+            <br>
+            <div style="text-align: center; font-size: 30px;">Add Therapist</div>
+            <br>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- The Table -->
+                    <section class="intro">
+                        <div class="bg-image h-100">
+                            <div class="mask d-flex align-items-center h-100">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-12">
+                                            <form action="" method="GET">
+                                                <div class="card">
+                                                    <div class="card-body p-0">
+                                                        <div class="table-responsive table-scroll" 
+                                                            data-mdb-perfect-scrollbar="true" 
+                                                            style="position: relative; height: 300px;">
+                                                            
+                                                            <table class="table table-striped mb-0" 
+                                                                style="table-layout: fixed; width: 100%;">
+                                                                <thead style="background-color: #002d72;">
+                                                                    <tr>
+                                                                        <th scope="col">Therapist ID</th>
+                                                                        <th scope="col">Name</th>
+                                                                        <th scope="col">email</th>
+                                                                        <th scope="col">add</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>1285</td>
+                                                                        <td>Neuvilette</td>
+                                                                        <td>otter@gmail.com</td>
+                                                                        <td><input type="radio" name="selected_row" value="1285"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>342</td>
+                                                                        <td>ayaya</td>
+                                                                        <td>ayyyayya@gmail.com</td>
+                                                                        <td><input type="radio" name="selected_row" value="342"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit">Submit</button>
+                                                <button type="submit">Cancel</button>
+                                                <button type="submit">Ask customer to reassign</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
         </div>
 
 
