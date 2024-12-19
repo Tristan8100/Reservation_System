@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_appointment_specific_user</title>
+    <title>admin_manage_appointment_specific_user(tracked)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
@@ -95,86 +95,138 @@
         User00101@gmail.com
     </div>
     <div class="row" style="margin-top: 30px;">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Account ID
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Account ID
+            </div>
         </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            556603
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Name
-        </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            LLOOOOM
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                556603
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Phone Number
+         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Name
+            </div>
         </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            46468579358
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                loomloom
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Phone Number
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                092385729246
+            </div>
         </div>
     </div>
     <br>
     <div class="border"></div>
     <br>
     <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Reservation Type
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Status
+            </div>
         </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            Home Service
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Full Name
-        </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            Loomiee
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                Cancelled
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Phone Number
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Reservation Type
+            </div>
         </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            46468579358
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Date/Time
-        </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            12-25-24
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                Walk In
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Address
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Full Name
+            </div>
         </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            Null
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Landmark
-        </div>
-        <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            Null
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                Loomiee
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-6 d-flex justify-content-center align-items-center" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
-            Remarks
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Phone Number
+            </div>
         </div>
-        <div class="col-6" style="font-size: 15px; color: #828282; text-align: center;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales urna vitae tincidunt condimentum. Etiam sit amet sodales ex. In lobortis lectus nunc, vel facilisis purus venenatis vitae. Duis mauris metus, aliquet vel quam finibus, feugiat dignissim lacus. In justo justo, facilisis vitae molestie eu, condimentum ut est. Etiam hendrerit id nisi sed varius. Proin interdum id massa vitae commodo. Pellentesque eu ultrices elit, ac maximus arcu. Phasellus eu arcu sed lectus volutpat interdum vehicula vel enim.
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                092385729246
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Date/Time
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                12/22/24
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Address
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                NULL
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Landmark
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                NULL
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Remarks
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282; font-size: 20px;">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales urna vitae tincidunt condimentum. Etiam sit amet sodales ex. In lobortis lectus nunc, vel facilisis purus venenatis vitae. Duis mauris metus, aliquet vel quam finibus, feugiat dignissim lacus. In justo justo, facilisis vitae molestie eu, condimentum ut est. Etiam hendrerit id nisi sed varius. Proin interdum id massa vitae commodo. Pellentesque eu ultrices elit, ac maximus arcu. Phasellus eu arcu sed lectus volutpat interdum vehicula vel enim.
+            </div>
         </div>
     </div>
     </div>
@@ -256,7 +308,7 @@
                                 <div class="container">
                                     <div class="row justify-content-center">
                                         <div class="col-12">
-                                            <form action="" method="GET">
+
                                                 <div class="card">
                                                     <div class="card-body p-0">
                                                         <div class="table-responsive table-scroll" 
@@ -269,32 +321,23 @@
                                                                     <tr>
                                                                         <th scope="col">Therapist ID</th>
                                                                         <th scope="col">Name</th>
-                                                                        <th scope="col">email</th>
-                                                                        <th scope="col">add</th>
+                                                                        <th scope="col">Email</th>
+                                                                        <th scope="col">Gender</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>1285</td>
-                                                                        <td>Neuvilette</td>
-                                                                        <td>otter@gmail.com</td>
-                                                                        <td><input type="radio" name="selected_row" value="1285"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>342</td>
-                                                                        <td>ayaya</td>
-                                                                        <td>ayyyayya@gmail.com</td>
-                                                                        <td><input type="radio" name="selected_row" value="342"></td>
+                                                                        <td>NULL</td>
+                                                                        <td>NULL</td>
+                                                                        <td>NULL</td>
+                                                                        <td>NULL</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="submit">Submit</button>
-                                                <button type="submit">Cancel</button>
-                                                <button type="submit">Ask customer to reassign</button>
-                                            </form>
+
                                         </div>
                                     </div>
                                 </div>

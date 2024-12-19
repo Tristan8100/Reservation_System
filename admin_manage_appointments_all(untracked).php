@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_appointments_all(pending)</title>
+    <title>admin_manage_appointments_all(untracked)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
@@ -70,7 +70,7 @@
         <div class="container" style="display: flex; align-items: center;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Appointments (Pending)
+                    Manage Appointments (Untracked)
                 </div>
                 <div style="color: #6B4A4A;">
                     Quick access to customers appointment

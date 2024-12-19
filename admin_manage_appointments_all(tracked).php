@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_appointments_all(pending)</title>
+    <title>admin_manage_appointments_all(tracked)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
@@ -70,7 +70,7 @@
         <div class="container" style="display: flex; align-items: center;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Appointments (Pending)
+                    Manage Appointments (Tracked)
                 </div>
                 <div style="color: #6B4A4A;">
                     Quick access to customers appointment
@@ -82,7 +82,30 @@
         </div>
     <!-- TEMPLATE -->
 
-    
+        <div class="container">
+            <form method="GET" action="">
+            <!-- Status Filter -->
+            <label for="status-filter">Filter by Status:</label>
+            <select id="status-filter" name="status">
+                <option value="<?php echo isset($_GET['status']) ? $_GET['status'] : ''; ?>">All</option>
+                <option value="SUCCESS">SUCCESS</option>
+                <option value="NO-SHOW">NO-SHOW</option>
+                <option value="CANCELLED">CANCELLED</option>
+                <option value="CANCELLEDbyADMIN">CANCELLED by ADMIN</option>
+            </select>
+        
+            <!-- Start Date Filter -->
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" name="start_date" value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
+        
+            <!-- End Date Filter -->
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" name="end_date" value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
+        
+            <!-- Submit Button -->
+            <button type="submit">Filter</button>
+            </form>
+        </div>
 
 
         <div style="margin-top: 50px;">
