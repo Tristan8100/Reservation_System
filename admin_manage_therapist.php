@@ -113,27 +113,30 @@
         <div class="container">
             <div style="margin-top: 50px;">
                 <div class="row">
-                    <div class="col-4 border border-danger d-flex justify-content-center">
+                    <div class="col-4 d-flex justify-content-center">
                         <a href="" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
                                 <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">9</div>
                                 <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">All Therapist</div>
+                                <button style="margin-left: 50%; transform: translate(-50%); margin-top: 80px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
                             </div>
                         </a>
                     </div>
-                    <div class="col-4 border border-danger d-flex justify-content-center">
+                    <div class="col-4 d-flex justify-content-center">
                         <a href="" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
                                 <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Access</div>
                                 <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">Booked Therapist</div>
+                                <button style="margin-left: 50%; transform: translate(-50%); margin-top: 80px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
                             </div>
                         </a>
                     </div>
-                    <div class="col-4 border border-danger d-flex justify-content-center">
+                    <div class="col-4 d-flex justify-content-center">
                         <a href="" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
                                 <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Add Therapist</div>
                                 <div style="width: 100px; height: 100px; margin-left: 50%; transform: translate(-50%);"><img src="images/adduser.png" alt="..." class="img-thumbnail"></div>
+                                <button style="margin-left: 50%; transform: translate(-50%); margin-top: 20px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
                             </div>
                         </a>
                     </div>
