@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_therapist</title>
+    <title>admin_manage_services</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
@@ -67,10 +67,10 @@
         <div class="container" style="display: flex; align-items: center;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Therapist
+                    Manage Services
                 </div>
                 <div style="color: #6B4A4A;">
-                    Quick access to therapist
+                    Quick access to Services
                 </div>
             </div>
             <div style="margin-left: auto;">
@@ -84,16 +84,16 @@
         <div class="container" style="margin-top: 30px; display: flex;">
             <div style="width: 50%;">
                 <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
-                    <div style="font-size: 30px; color: #6B4A4A;">20</div>
-                    <div style="font-size: 25px; color: #6B4A4A;">Therapist</div>
+                    <div style="font-size: 30px; color: #6B4A4A;">12</div>
+                    <div style="font-size: 25px; color: #6B4A4A;">Services</div>
                 </div>
             </div>
             
 
             <div style="width: 50%;">
                 <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: auto;">
-                    <div style="font-size: 30px; color: #6B4A4A;">23</div>
-                    <div style="font-size: 25px; color: #6B4A4A;">Booked Slots Today</div>
+                    <div style="font-size: 30px; color: #6B4A4A;">3</div>
+                    <div style="font-size: 25px; color: #6B4A4A;">Categories</div>
                 </div>
             </div>
         </div>
@@ -102,10 +102,10 @@
         <div class="container" style="display: flex; align-items: center; margin-top: 50px;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Therapist Management Overview
+                    Service Management Overview
                 </div>
                 <div style="color: #6B4A4A;">
-                    Here’s a quick access to manage therapist
+                    Here’s a quick access to manage services
                 </div>
             </div>
         </div>
@@ -116,8 +116,8 @@
                     <div class="col-4 d-flex justify-content-center">
                         <a href="" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
-                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">9</div>
-                                <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">All Therapist</div>
+                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">12</div>
+                                <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">All Services</div>
                                 <button style="margin-left: 50%; transform: translate(-50%); margin-top: 80px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
                             </div>
                         </a>
@@ -125,8 +125,8 @@
                     <div class="col-4 d-flex justify-content-center">
                         <a href="" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
-                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Access</div>
-                                <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">Booked Therapist</div>
+                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Add</div>
+                                <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">Category</div>
                                 <button style="margin-left: 50%; transform: translate(-50%); margin-top: 80px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
                             </div>
                         </a>
@@ -134,8 +134,8 @@
                     <div class="col-4 d-flex justify-content-center">
                         <a href="" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
-                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Add Therapist</div>
-                                <div style="width: 100px; height: 100px; margin-left: 50%; transform: translate(-50%);"><img src="images/adduser.png" alt="..." class="img-thumbnail"></div>
+                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Add Service</div>
+                                <div style="width: 100px; height: 100px; margin-left: 50%; transform: translate(-50%);"><img src="images/message.png" alt="..." class="img-thumbnail"></div>
                                 <button style="margin-left: 50%; transform: translate(-50%); margin-top: 20px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
                             </div>
                         </a>
