@@ -89,7 +89,7 @@
                 </div>
             </div>
             
-            <div style="width: 50%;">
+            <div style="width: 40%;">
                 <a href="" style="text-decoration: none;">
                     <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: auto;">
                         <div style="font-size: 30px; color: #6B4A4A;">View all Appointments</div>
