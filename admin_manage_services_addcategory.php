@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_therapist_add</title>
+    <title>admin_manage_services_addcategory</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
@@ -67,7 +67,7 @@
         <div class="container" style="display: flex; align-items: center;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Add Therapist
+                    Add Services
                 </div>
             </div>
             <div style="margin-left: auto;">
@@ -77,38 +77,22 @@
     <!-- TEMPLATE -->
 
     <div class="container border border-danger d-flex justify-content-center" style="margin-top: 30px;">
-        <div class="shadow" style="background-color: #FFFFFF; padding: 20px; width: 500px; height: 530px; border-radius: 10px;">
+        <div class="shadow" style="background-color: #FFFFFF; padding: 20px; width: 500px; height: 400px; border-radius: 10px;">
             <form action="" style="display: flex; flex-direction: column;">
-                <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Add New Therapist</div>
+                <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Add New Services</div>
                 <div class="mb-3 row">
                     <div class="col" style="margin-top: 30px;">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <label for="sname" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" id="sname" name="sname">
                     </div>
                     <div class="col" style="margin-top: 30px;" >
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                </div>
-                <div class="mb-3 row" style="margin-top: 30px;">
-                    <div class="col">
-                        <label for="contact_number" class="form-label">Contact Number</label>
-                        <input type="text" class="form-control" id="contact_number" name="contact_number">
-                    </div>
-                    <div class="col">
-                        <label for="birth_date" class="form-label">Birth Date</label>
-                        <input type="date" class="form-control" id="birth_date" name="birth_date">
+                        <label for="text" class="form-label">prefix</label>
+                        <input type="text" class="form-control" id="text" name="prefix"></input>
                     </div>
                 </div>
 
                 <div class="mb-3" style="margin-top: 30px;">
-                    <label class="form-label">Gender</label>
-                    <div>
-                        <input type="radio" id="male" name="gender" value="Male">
-                        <label for="male">Male</label>
-                        <input type="radio" id="female" name="gender" value="Female">
-                        <label for="female">Female</label>
-                    </div>
+
                 </div>
                 <button type="submit" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
             </form>
