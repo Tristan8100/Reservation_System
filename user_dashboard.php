@@ -1,3 +1,20 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) && $_SESSION['user_role'] !== 'USER'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+    $userID;
+    
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

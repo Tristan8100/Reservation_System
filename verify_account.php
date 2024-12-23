@@ -1,23 +1,13 @@
 <?php
 
     include 'MVC/user_routes.php';
-
-    if (isset($_GET['getcode'])) {
-        $_SESSION['codee'] = $_GET['getcode'];
-        $vall = $_SESSION['codee'];
-        echo $_SESSION['codee'];
-    } elseif (!isset($_SESSION['codee'])) {
-        header('location: forgot_password.php');
-        exit;
+    //$control
+    if(isset($_GET['codes'])){
+        $control->verifyaccount($_GET['codes']);
     }
 
-
-    if(isset($_POST['submitreset'])){
-        if($_POST['passwordreset1'] === $_POST['passwordreset2']){
-            //update
-            $control->updatepassword($_POST['passwordreset2'], $_SESSION['codee']);
-            
-        }
+    if(isset($_POST['codes2'])){
+        $control->verifyaccount($_POST['verifyacc']);
     }
 
 ?>
@@ -28,7 +18,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset_Password</title>
+    <title>Verify_Account</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         /* Set a fixed height for the carousel */
@@ -86,19 +76,14 @@
             </div>
             <div class="col-6">
                 <div style="height: 100%; padding: 10px;">
-                    <div style="margin-top: -10px; margin-bottom: 20px; text-align: center; font-size: 20px;">Reset Password</div>
-                    <form action="reset_password.php" method="post">
-                        <input type="hidden" id="hi" name="hidee" class="form-control" 
-                        value="<?php echo $_SESSION['codee']; ?>" required>
+                    <div style="margin-top: 20px; margin-bottom: 20px; text-align: center; font-size: 20px;">Enter Verification Code</div>
+                    <div style="margin-top: -10px; margin-bottom: 20px; text-align: center; font-size: 15px; color: #797979;">Enter verification code or click the link directly.</div>
+                    <form action="verify_account.php" method="post" style="margin-top: 70px;">
                         <div class="mb-3">
-                            <label for="password1" class="form-label">Enter Your New Password</label>
-                            <input type="password" id="password1" name="passwordreset1" class="form-control" placeholder="Enter your password" required>
+                            <label for="number" class="form-label">Email</label>
+                            <input type="number" id="number" name="verifyacc" class="form-control" placeholder="Enter verification code" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="password2" class="form-label">Confirm New Password</label>
-                            <input type="password" id="password2" name="passwordreset2" class="form-control" placeholder="Enter your password" required>
-                        </div>
-                        <button type="submit" name="submitreset" class="btn btn-primary" style="background-color: #AC1515; color: #FFE141; margin-left: 50%; transform: translate(-50%);">Sign-up</button>
+                        <button type="submit" name="codes2" class="btn btn-primary" style="background-color: #AC1515; color: #FFE141; margin-left: 50%; transform: translate(-50%);">Submit</button>
                     </form>
                     <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Already have an Account? <a href="" style="color: #FFE141;">login</a> here</div>
 

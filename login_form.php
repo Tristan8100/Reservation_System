@@ -1,3 +1,14 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(isset($_POST['submitlog'])){
+        $control->processlogin($_POST['emaillog'], $_POST['passwordlog']);
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,19 +74,19 @@
                 <div style="height: 100%; padding: 10px;">
                     <div style="font-size: 80px; margin-top: -20px; color: #FF0000; ">D&E</div>
                     <div style="margin-top: -20px; margin-bottom: 20px;">Home and Hotel Massage Service</div>
-                    <form action="your-login-handler.php" method="post">
+                    <form action="login_form.php" method="post">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your Email" required>
+                            <input type="email" id="email" name="emaillog" class="form-control" placeholder="Enter your Email" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                            <input type="password" id="password" name="passwordlog" class="form-control" placeholder="Enter your password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="background-color: #AC1515; color: #FFE141; margin-left: 50%; transform: translate(-50%);">Login</button>
+                        <button type="submit" name="submitlog" class="btn btn-primary" style="background-color: #AC1515; color: #FFE141; margin-left: 50%; transform: translate(-50%);">Login</button>
                     </form>
-                    <div style="margin-left: 50%; transform: translate(-50%); text-align: center;"><a style="color: #FFE141;" href="">Forgot Password?</a></div>
-                    <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Don't Have an Account? <a href="" style="color: #FFE141;">sign-up</a> here</div>
+                    <div style="margin-left: 50%; transform: translate(-50%); text-align: center;"><a style="color: #FFE141;" href="forgot_password.php">Forgot Password?</a></div>
+                    <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Don't Have an Account? <a href="create_account.php" style="color: #FFE141;">sign-up</a> here</div>
 
                 </div>
             </div>

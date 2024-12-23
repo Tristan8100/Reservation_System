@@ -5,8 +5,11 @@
     //$control;
     if($_SERVER['REQUEST_METHOD'] === "POST"){
         if(isset($_POST['submitsign'])){
-            echo 'succ';
-            $control->insertnewacc($_POST['emailsign']);
+            //$_POST['rol']
+            //$_POST['namesign']
+            //$_POST['emailsign']
+            //$_POST['passwordsign']
+            $control->insertnewacc($_POST['rol'], $_POST['namesign'], $_POST['emailsign'], $_POST['passwordsign']);
         }
     }
 

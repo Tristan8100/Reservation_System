@@ -1,3 +1,14 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(isset($_POST['submitforgor'])){
+        $control->forgorpass($_POST['emailforgor']);
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,14 +74,14 @@
                 <div style="height: 100%; padding: 10px;">
                     <div style="margin-top: 20px; margin-bottom: 20px; text-align: center; font-size: 20px;">Forgot Password</div>
                     <div style="margin-top: -10px; margin-bottom: 20px; text-align: center; font-size: 15px; color: #797979;">Enter your email address to receive a verification code.</div>
-                    <form action="your-login-handler.php" method="post" style="margin-top: 70px;">
+                    <form action="forgot_password.php" method="post" style="margin-top: 70px;">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" id="email" name="emailforgor" class="form-control" placeholder="Enter your Email" required>
                         </div>
                         <button type="submit" name="submitforgor" class="btn btn-primary" style="background-color: #AC1515; color: #FFE141; margin-left: 50%; transform: translate(-50%);">Submit</button>
                     </form>
-                    <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Already have an Account? <a href="" style="color: #FFE141;">login</a> here</div>
+                    <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Already have an Account? <a href="login_form.php" style="color: #FFE141;">login</a> here</div>
 
                 </div>
             </div>
