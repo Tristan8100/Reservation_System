@@ -1,3 +1,18 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    //$control;
+    if($_SERVER['REQUEST_METHOD'] === "POST"){
+        if(isset($_POST['submitsign'])){
+            echo 'succ';
+            $control->insertnewacc($_POST['emailsign']);
+        }
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +77,8 @@
             <div class="col-6">
                 <div style="height: 100%; padding: 10px;">
                     <div style="margin-top: -10px; margin-bottom: 20px; text-align: center; font-size: 20px;">Create Account</div>
-                    <form action="your-login-handler.php" method="post">
+                    <form action="create_account.php" method="POST">
+                    <input type="hidden" id="rol" name="rol" class="form-control" value="USER" required>
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" id="name" name="namesign" class="form-control" placeholder="Enter your Name" required>
