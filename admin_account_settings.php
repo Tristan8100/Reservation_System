@@ -1,28 +1,9 @@
-<?php
-
-    include 'MVC/user_routes.php';
-
-    if(!isset($_SESSION['user_id']) && $_SESSION['user_role'] !== 'USER'){
-        header('location: login_form.php');
-        exit;
-    } else {
-        $userID = $_SESSION['user_id'];
-    }
-
-    
-    $user = $control->selectoneuser($userID);
-    //var_dump($user);
-    
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user_account_settings</title>
+    <title>admin_account_settings</title>
     <?php include 'side/css_dashboard.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -125,14 +106,14 @@
         <div style="display:flex; justify-content:center;">
             <div class="somemodal" style="display: none; border-radius: 10px; padding: 10px; border: 1px solid;">
                 <div class="ov1">
-                    <img src="<?php echo isset($user['user_image']) ? $user['user_image'] : "images/user1.png"; ?>" class="rounded d-block" style="width:100px;">
+                    <img src="images/user1.png" class="rounded d-block" style="width:100px;">
                     
                     <div class="ov2">
-                        <div style="font-size: 30px; margin-bottom:-10px; overflow: hidden; text-overflow: ellipsis; ">
-                            <?php echo $user['user_fullname'] ?>
+                        <div style="font-size: 30px; margin-bottom:-10px;">
+                            Username
                         </div>
                         <div>
-                            <?php echo $user['user_email'] ?>
+                            user001@gmail.com
                         </div>
                     </div>
 
@@ -168,14 +149,14 @@
             </div>
             <div class="contimg">
                 <div>
-                    <img src="<?php echo isset($user['user_image']) ? $user['user_image'] : "images/user1.png"; ?>" class="rounded d-block clickpicc">
+                    <img src="images/user1.png" class="rounded d-block clickpicc">
                 </div>
                 <div class="ov3">
                     <div style="font-size: 30px; margin-bottom:-10px;">
-                        <?php echo $user['user_fullname'] ?>
+                        Username
                     </div>
                     <div>
-                        <?php echo $user['user_email'] ?>
+                        user001@gmail.com
                     </div>
                 </div>
             </div>
