@@ -18,7 +18,7 @@
             <div class="separate"></div>
 
             <div class="bodysidebar">
-                <a class="options" href="">
+                <a class="options" href="user_account_settings.php">
                     <img class="img11" src="images/user1.png">
                     Edit Profile
                 </a>
