@@ -9,7 +9,9 @@
         $userID = $_SESSION['user_id'];
     }
 
-    $userID;
+    
+    $user = $control->selectoneuser($userID);
+    //var_dump($user);
     
 
 ?>
@@ -37,7 +39,7 @@
     <!---->
 
         <?php include 'side/sidebar.php' ?>
-
+        <?php echo "hi user ".$user['user_fullname']."" ?>
         <div class="navbar">
             <img class="pic0" src="images/menu.png">
             <div class="option">

@@ -4,10 +4,10 @@
                     <img class="upperpic" src="images/iconn.png">
                     <div class="uppertext_container">
                         <div class="uppertext">
-                            Username
+                            <?php echo $variable = isset($user['user_fullname']) ? $user['user_fullname'] : "no info"; ?>
                         </div>
                         <div class="uppertext_gmail">
-                            user001@gmail.com
+                            <?php echo $variable = isset($user['user_email']) ? $user['user_email'] : "no info"; ?>
                         </div>
                     </div>
                 </div>

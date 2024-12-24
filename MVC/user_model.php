@@ -91,7 +91,7 @@
             }
         }
 
-        public function updatepassword($pass, $id){
+        public function updatepasswordDB($pass, $id){
             $sql = "UPDATE user SET user_password = :pass WHERE user_ID = :id";
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':pass', $pass);

@@ -177,15 +177,18 @@
         }
 
         public function updatepassword($pass, $code){
+            echo $code;
             $val = $this->selectcode($code);
             if($val){
                 $hashedPassword = password_hash($pass, PASSWORD_BCRYPT);
-                $check = $this->updatepassword($hashedPassword, $val['user_ID']);
+                $check = $this->updatepasswordDB($hashedPassword, $val['user_ID']);
                 if($check === true){
+                    //
+                    $this->deletecode($val['user_ID']);
                     header('location: login_form.php');
                 }
             } else {
-                echo "NO USER FOUND";
+                echo "----NO USER FOUND11";
             }
         }
 

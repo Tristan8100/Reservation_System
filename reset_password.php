@@ -5,7 +5,7 @@
     if (isset($_GET['getcode'])) {
         $_SESSION['codee'] = $_GET['getcode'];
         $vall = $_SESSION['codee'];
-        echo $_SESSION['codee'];
+        
     } elseif (!isset($_SESSION['codee'])) {
         header('location: forgot_password.php');
         exit;
@@ -15,6 +15,7 @@
     if(isset($_POST['submitreset'])){
         if($_POST['passwordreset1'] === $_POST['passwordreset2']){
             //update
+            echo $_SESSION['codee'];
             $control->updatepassword($_POST['passwordreset2'], $_SESSION['codee']);
             
         }
