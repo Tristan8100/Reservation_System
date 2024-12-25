@@ -12,6 +12,16 @@
     
     $user = $control->selectoneuser($userID);
     //var_dump($user);
+    if(isset($_POST['uploadimg'])){
+        if (isset($_FILES['photoupload']) && $_FILES['photoupload']['error'] === UPLOAD_ERR_OK) {
+            $image = $_FILES['photoupload'];
+            $imageName = $image['name'];
+            $imageTmpName = $image['tmp_name'];
+            $imageData = file_get_contents($imageTmpName);
+
+            $control->uploadimg($imageData, $userID);
+        }
+    }
     
 
 ?>
@@ -125,7 +135,7 @@
         <div style="display:flex; justify-content:center;">
             <div class="somemodal" style="display: none; border-radius: 10px; padding: 10px; border: 1px solid;">
                 <div class="ov1">
-                    <img src="<?php echo isset($user['user_image']) ? $user['user_image'] : "images/user1.png"; ?>" class="rounded d-block" style="width:100px;">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user['user_image']); ?>" class="rounded d-block" style="width:100px;">
                     
                     <div class="ov2">
                         <div style="font-size: 30px; margin-bottom:-10px; overflow: hidden; text-overflow: ellipsis; ">
@@ -136,11 +146,11 @@
                         </div>
                     </div>
 
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="user_account_settings.php" method="POST" enctype="multipart/form-data">
                     <label for="photo">Upload Photo:</label>
-                    <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+                    <input type="file" id="photo" name="photoupload" accept="image/*" required><br><br>
 
-                    <input type="submit" value="Upload">
+                    <input type="submit" name="uploadimg">
                     </form>
 
                 </div>
@@ -168,7 +178,7 @@
             </div>
             <div class="contimg">
                 <div>
-                    <img src="<?php echo isset($user['user_image']) ? $user['user_image'] : "images/user1.png"; ?>" class="rounded d-block clickpicc">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user['user_image']); ?>" class="rounded d-block clickpicc">
                 </div>
                 <div class="ov3">
                     <div style="font-size: 30px; margin-bottom:-10px;">

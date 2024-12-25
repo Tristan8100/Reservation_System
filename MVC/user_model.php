@@ -103,6 +103,18 @@
             }
         }
 
+        public function updatepic($im, $id){
+            $sql = "UPDATE user SET user_image = :im WHERE user_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':im', $im, PDO::PARAM_LOB);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     }
 
 ?>

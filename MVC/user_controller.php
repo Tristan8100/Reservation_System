@@ -196,6 +196,26 @@
             return $this->selectuser($id);
         }
 
+        public function uploadimg($im, $id){
+            $im = $this->updatepic($im, $id);
+            if($im === true){
+                
+            } else if($im === false){
+                echo "falll";
+            }
+        }
+
+        public function getUserImage($id) {
+            $user = $this->selectuser($id);
+            
+            if ($user !== 'NOT FOUND' && isset($user['user_image'])) {
+                $mimeType = $user['user_image_type'] ?? 'image/jpeg';
+                return 'data:' . $mimeType . ';base64,' . base64_encode($user['user_image']);
+            }
+            
+            return null;  // Or return a placeholder if no image is found
+        }
+
 
     }
 
