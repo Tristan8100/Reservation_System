@@ -216,6 +216,23 @@
             return null;  // Or return a placeholder if no image is found
         }
 
+        public function updatepassword2($pass, $id){
+            $hashedPassword = password_hash($pass, PASSWORD_BCRYPT);
+            $check = $this->updatepasswordDB($hashedPassword, $id);
+            if($check){
+                header('location: login_form.php');
+            } else {
+                return false;
+            }
+        }
+
+        public function updateinfo($fn, $ue, $un, $id){
+            $check = $this->updateinfoDB($fn, $ue, $un, $id);
+            if($check){
+                header('location: login_form.php');
+            }
+        }
+
 
     }
 

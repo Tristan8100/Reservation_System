@@ -115,6 +115,20 @@
             }
         }
 
+        public function updateinfoDB($fn, $ue, $un, $id){
+            $sql = "UPDATE user SET user_fullname = :fn, user_email = :ue, user_number = :un WHERE user_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':fn', $fn);
+            $stmt->bindParam(':ue', $ue);
+            $stmt->bindParam(':un', $un);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     }
 
 ?>

@@ -24,9 +24,13 @@
     }
 
     if(isset($_POST['sub1'])){
-        if(password_verify($_POST['currpassword'], $user['user_password']) && $_POST['newpassword'] === $_POST['newpassword']){
-            
+        if(password_verify($_POST['currpassword'], $user['user_password']) && $_POST['newpassword'] === $_POST['newpassword2']){
+            $control->updatepassword2($_POST['newpassword'], $userID);
         }
+    }
+
+    if(isset($_POST['sub2'])){
+        $control->updateinfo($_POST['fn'], $_POST['ue'], $_POST['un'], $userID);
     }
     
 
@@ -217,16 +221,16 @@
                     </div>
 
                 </form>
-                <form action="" style="width: 50%; border: 1px solid;">
+                <form action="user_account_settings.php" method="POST" style="width: 50%; border: 1px solid;">
                     <div style="padding:10px;">
                         <label for="username">Username:</label> <br>
-                        <input type="text" id="username" name="username" required> <br>
+                        <input type="text" id="username" name="fn" value="<?php echo $user['user_fullname'] ?>" required> <br>
 
                         <label for="email">Enter Email</label> <br>
-                        <input type="text" id="email" name="email" required> <br>
+                        <input type="text" id="email" name="ue" value="<?php echo $user['user_email'] ?>" required> <br>
 
                         <label for="addnum">Add Number</label> <br>
-                        <input type="text" id="addnum" name="addnum" required> <br>
+                        <input type="number" id="addnum" name="un" value="<?php echo $user['user_number'] ?>" required> <br>
                     </div>
 
                     <input type="submit" name="sub2" value="Submit" class="btn" style="background-color: #6B4A4A; width:200px; color: white;">
