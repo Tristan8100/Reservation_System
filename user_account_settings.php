@@ -22,6 +22,12 @@
             $control->uploadimg($imageData, $userID);
         }
     }
+
+    if(isset($_POST['sub1'])){
+        if(password_verify($_POST['currpassword'], $user['user_password']) && $_POST['newpassword'] === $_POST['newpassword']){
+            
+        }
+    }
     
 
 ?>
@@ -195,20 +201,25 @@
                 <div class="changecont">Here’s a quick access to account information</div>
             </div>
 
-            <div class="forforms" style="color: #6B4A4A;">
-                <form class="ov4">
+            <div class="forforms" style="color: #6B4A4A; display: flex;">
+                <form action="user_account_settings.php" method="POST" class="ov4" style="width: 50%; border: 1px solid;">
                     <div style="padding: 10px;">
                         <label for="pass">Current Password:</label> <br>
-                        <input type="text" id="pass" name="password" required> <br>
+                        <input type="text" id="pass" name="currpassword" required> <br>
 
                         <label for="passnew">New Password:</label> <br>
                         <input type="text" id="passnew" name="newpassword" required> <br>
 
                         <label for="passnewconf">Confirm Password:</label> <br>
-                        <input type="text" id="passnewconf" name="confirmnewpassword" required> <br>
+                        <input type="text" id="passnewconf" name="newpassword2" required> <br>
+
+                        <input type="submit" name="sub1" value="Submit" class="btn mt-2" style="background-color: #6B4A4A; width:200px; color: white;">
                     </div>
+
+                </form>
+                <form action="" style="width: 50%; border: 1px solid;">
                     <div style="padding:10px;">
-                    <label for="username">Username:</label> <br>
+                        <label for="username">Username:</label> <br>
                         <input type="text" id="username" name="username" required> <br>
 
                         <label for="email">Enter Email</label> <br>
@@ -218,7 +229,7 @@
                         <input type="text" id="addnum" name="addnum" required> <br>
                     </div>
 
-                    <input type="submit" name="sub" value="Submit" class="btn" style="background-color: #6B4A4A; width:200px; color: white;">
+                    <input type="submit" name="sub2" value="Submit" class="btn" style="background-color: #6B4A4A; width:200px; color: white;">
                 </form>
             </div>
         </div>
