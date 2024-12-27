@@ -2,7 +2,7 @@
 
     include 'MVC/user_routes.php';
 
-    if(!isset($_SESSION['user_id']) && $_SESSION['user_role'] !== 'USER'){
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'USER'){
         header('location: login_form.php');
         exit;
     } else {
@@ -13,6 +13,7 @@
     $user = $control->selectoneuser($userID);
     //var_dump($user);
     
+    echo $_SESSION['user_role'];
 
 ?>
 

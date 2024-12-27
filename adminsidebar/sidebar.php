@@ -1,13 +1,13 @@
 <div class="sidebar">
             <div class="upper">
                 <div class="upper1">
-                    <img class="upperpic" src="images/iconn.png">
+                    <img class="upperpic" src="<?php echo disp($user); ?>">
                     <div class="uppertext_container">
                         <div class="uppertext">
-                            Admin
+                            <?php echo $user['user_fullname']; ?> <!-- declare $user as a new object -->
                         </div>
                         <div class="uppertext_gmail">
-                            admin001@gmail.com
+                            <?php echo $user['user_email']; ?>
                         </div>
                     </div>
                 </div>
@@ -18,11 +18,11 @@
             <div class="separate"></div>
 
             <div class="bodysidebar">
-                <a class="options" href="">
+                <a class="options" href="admin_dashboard.php">
                     <img class="img11" src="images/user1.png">
                     Admin Dashboard
                 </a>
-                <a class="options" href="">
+                <a class="options" href="admin_account_settings.php">
                     <img class="img11" src="images/settings.png">
                     Admin Settings
                 </a>
@@ -30,18 +30,18 @@
                     <img class="img11" src="images/manageacc.png">
                     Manage Accounts
                 </a>
-                <div class="options" href="">
+                <a class="options" href="">
                     <img class="img11 popi" src="images/appoint.png">
                     Manage Appointments
-                </div>
-                <div class="options" href="">
+                </a>
+                <a class="options" href="admin_manage_therapist.php">
                     <img class="img11 popi" src="images/therapistslot.png">
                     Therapist
-                </div>
-                <div class="options" href="">
+                </a>
+                <a class="options" href="">
                     <img class="img11 popi" src="images/message.png">
                     Services
-                </div>
+                </a>
                 
             </div>
         </div>

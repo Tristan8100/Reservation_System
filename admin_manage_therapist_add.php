@@ -1,3 +1,40 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+    //add therapist
+    if(isset($_POST['submitnewtherapist'])){
+        echo "succ";
+        $_POST['nametherapist'];
+        $_POST['emailtherapist'];
+        $_POST['contact_numbertherapist'];
+        $_POST['birth_datetherapist'];
+        $_POST['gendertherapist'];
+    }
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,39 +115,39 @@
 
     <div class="container border border-danger d-flex justify-content-center" style="margin-top: 30px;">
         <div class="shadow" style="background-color: #FFFFFF; padding: 20px; width: 500px; height: 530px; border-radius: 10px;">
-            <form action="" style="display: flex; flex-direction: column;">
+            <form action="admin_manage_therapist_add.php" method="POST" style="display: flex; flex-direction: column;">
                 <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Add New Therapist</div>
                 <div class="mb-3 row">
                     <div class="col" style="margin-top: 30px;">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="nametherapist" required>
                     </div>
                     <div class="col" style="margin-top: 30px;" >
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="emailtherapist" required>
                     </div>
                 </div>
                 <div class="mb-3 row" style="margin-top: 30px;">
                     <div class="col">
                         <label for="contact_number" class="form-label">Contact Number</label>
-                        <input type="text" class="form-control" id="contact_number" name="contact_number">
+                        <input type="number" class="form-control" id="contact_number" name="contact_numbertherapist" required>
                     </div>
                     <div class="col">
                         <label for="birth_date" class="form-label">Birth Date</label>
-                        <input type="date" class="form-control" id="birth_date" name="birth_date">
+                        <input type="date" class="form-control" id="birth_date" name="birth_datetherapist" required>
                     </div>
                 </div>
 
                 <div class="mb-3" style="margin-top: 30px;">
                     <label class="form-label">Gender</label>
                     <div>
-                        <input type="radio" id="male" name="gender" value="Male">
+                        <input type="radio" id="male" name="gendertherapist" value="Male" required>
                         <label for="male">Male</label>
-                        <input type="radio" id="female" name="gender" value="Female">
+                        <input type="radio" id="female" name="gendertherapist" value="Female" required>
                         <label for="female">Female</label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
+                <button type="submit" class="btn btn-primary" name="submitnewtherapist" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
             </form>
         </div>
     </div>

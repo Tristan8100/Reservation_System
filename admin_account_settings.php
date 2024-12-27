@@ -1,10 +1,64 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+    
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+
+    
+
+
+
+ 
+    if(isset($_POST['uploadimg'])){
+        if (isset($_FILES['photoupload']) && $_FILES['photoupload']['error'] === UPLOAD_ERR_OK) {
+            $image = $_FILES['photoupload'];
+            $imageName = $image['name'];
+            $imageTmpName = $image['tmp_name'];
+            $imageData = file_get_contents($imageTmpName);
+
+            $control->uploadimg($imageData, $userID);
+        }
+    }
+
+    if(isset($_POST['sub1'])){
+        if(password_verify($_POST['currpassword'], $user['user_password']) && $_POST['newpassword'] === $_POST['newpassword2']){
+            $control->updatepassword2($_POST['newpassword'], $userID);
+        }
+    }
+
+    if(isset($_POST['sub2'])){
+        $control->updateinfo($_POST['fn'], $_POST['un'], $userID);
+    }
+    
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin_account_settings</title>
-    <?php include 'side/css_dashboard.php' ?>
+    <?php include 'adminsidebar/css_dashboard.php' ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
@@ -101,27 +155,27 @@
 <body>
 
         <img class="pic0" src="images/menu.png">
-        <?php include 'side/sidebar.php' ?>
+        <?php include 'adminsidebar/sidebar.php' ?>
 
         <div style="display:flex; justify-content:center;">
             <div class="somemodal" style="display: none; border-radius: 10px; padding: 10px; border: 1px solid;">
                 <div class="ov1">
-                    <img src="images/user1.png" class="rounded d-block" style="width:100px;">
+                    <img src="<?php echo disp($user); ?>" class="rounded d-block" style="width:100px;">
                     
                     <div class="ov2">
-                        <div style="font-size: 30px; margin-bottom:-10px;">
-                            Username
+                        <div style="font-size: 30px; margin-bottom:-10px; overflow: hidden; text-overflow: ellipsis; ">
+                            <?php echo $user['user_fullname'] ?>
                         </div>
                         <div>
-                            user001@gmail.com
+                            <?php echo $user['user_email'] ?>
                         </div>
                     </div>
 
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="admin_account_settings.php" method="POST" enctype="multipart/form-data">
                     <label for="photo">Upload Photo:</label>
-                    <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+                    <input type="file" id="photo" name="photoupload" accept="image/*" required><br><br>
 
-                    <input type="submit" value="Upload">
+                    <input type="submit" name="uploadimg">
                     </form>
 
                 </div>
@@ -149,14 +203,14 @@
             </div>
             <div class="contimg">
                 <div>
-                    <img src="images/user1.png" class="rounded d-block clickpicc">
+                    <img src="<?php echo disp($user); ?>" class="rounded d-block clickpicc">
                 </div>
                 <div class="ov3">
                     <div style="font-size: 30px; margin-bottom:-10px;">
-                        Username
+                        <?php echo $user['user_fullname'] ?>
                     </div>
                     <div>
-                        user001@gmail.com
+                        <?php echo $user['user_email'] ?>
                     </div>
                 </div>
             </div>
@@ -166,36 +220,39 @@
                 <div class="changecont">Here’s a quick access to account information</div>
             </div>
 
-            <div class="forforms" style="color: #6B4A4A;">
-                <form class="ov4">
+            <div class="forforms" style="color: #6B4A4A; display: flex;">
+                <form action="admin_account_settings.php" method="POST" class="ov4" style="width: 50%; border: 1px solid;">
                     <div style="padding: 10px;">
                         <label for="pass">Current Password:</label> <br>
-                        <input type="text" id="pass" name="password" required> <br>
+                        <input type="text" id="pass" name="currpassword" required> <br>
 
                         <label for="passnew">New Password:</label> <br>
                         <input type="text" id="passnew" name="newpassword" required> <br>
 
                         <label for="passnewconf">Confirm Password:</label> <br>
-                        <input type="text" id="passnewconf" name="confirmnewpassword" required> <br>
-                    </div>
-                    <div style="padding:10px;">
-                    <label for="username">Username:</label> <br>
-                        <input type="text" id="username" name="username" required> <br>
+                        <input type="text" id="passnewconf" name="newpassword2" required> <br>
 
-                        <label for="email">Enter Email</label> <br>
-                        <input type="text" id="email" name="email" required> <br>
+                        <input type="submit" name="sub1" value="Submit" class="btn mt-2" style="background-color: #6B4A4A; width:200px; color: white;">
+                    </div>
+
+                </form>
+                <form action="admin_account_settings.php" method="POST" style="width: 50%; border: 1px solid;">
+                    <div style="padding:10px;">
+                        <label for="username">Username:</label> <br>
+                        <input type="text" id="username" name="fn" value="<?php echo $user['user_fullname'] ?>" required> <br>
+
 
                         <label for="addnum">Add Number</label> <br>
-                        <input type="text" id="addnum" name="addnum" required> <br>
+                        <input type="number" id="addnum" name="un" value="<?php echo $user['user_number'] ?>" required> <br>
                     </div>
 
-                    <input type="submit" name="sub" value="Submit" class="btn" style="background-color: #6B4A4A; width:200px; color: white;">
+                    <input type="submit" name="sub2" value="Submit" class="btn" style="background-color: #6B4A4A; width:200px; color: white;">
                 </form>
             </div>
         </div>
 
 
-        <?php include 'side/js_sidebar.php' ?>
+        <?php include 'adminsidebar/js_sidebar.php' ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         

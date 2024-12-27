@@ -2,7 +2,7 @@
 
     include 'MVC/user_routes.php';
 
-    if(!isset($_SESSION['user_id']) && $_SESSION['user_role'] !== 'USER'){
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'USER'){
         header('location: login_form.php');
         exit;
     } else {
@@ -23,6 +23,14 @@
         }
     }
 
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
     if(isset($_POST['sub1'])){
         if(password_verify($_POST['currpassword'], $user['user_password']) && $_POST['newpassword'] === $_POST['newpassword2']){
             $control->updatepassword2($_POST['newpassword'], $userID);
@@ -30,7 +38,7 @@
     }
 
     if(isset($_POST['sub2'])){
-        $control->updateinfo($_POST['fn'], $_POST['ue'], $_POST['un'], $userID);
+        $control->updateinfo($_POST['fn'], $_POST['un'], $userID, $user['user_email']);
     }
     
 
@@ -145,7 +153,7 @@
         <div style="display:flex; justify-content:center;">
             <div class="somemodal" style="display: none; border-radius: 10px; padding: 10px; border: 1px solid;">
                 <div class="ov1">
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user['user_image']); ?>" class="rounded d-block" style="width:100px;">
+                    <img src="<?php echo disp($user); ?>" class="rounded d-block" style="width:100px;">
                     
                     <div class="ov2">
                         <div style="font-size: 30px; margin-bottom:-10px; overflow: hidden; text-overflow: ellipsis; ">
@@ -188,7 +196,7 @@
             </div>
             <div class="contimg">
                 <div>
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user['user_image']); ?>" class="rounded d-block clickpicc">
+                    <img src="<?php echo disp($user); ?>" class="rounded d-block clickpicc">
                 </div>
                 <div class="ov3">
                     <div style="font-size: 30px; margin-bottom:-10px;">
@@ -226,8 +234,6 @@
                         <label for="username">Username:</label> <br>
                         <input type="text" id="username" name="fn" value="<?php echo $user['user_fullname'] ?>" required> <br>
 
-                        <label for="email">Enter Email</label> <br>
-                        <input type="text" id="email" name="ue" value="<?php echo $user['user_email'] ?>" required> <br>
 
                         <label for="addnum">Add Number</label> <br>
                         <input type="number" id="addnum" name="un" value="<?php echo $user['user_number'] ?>" required> <br>

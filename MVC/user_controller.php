@@ -226,8 +226,8 @@
             }
         }
 
-        public function updateinfo($fn, $ue, $un, $id){
-            $check = $this->updateinfoDB($fn, $ue, $un, $id);
+        public function updateinfo($fn, $un, $id){
+            $check = $this->updateinfoDB($fn, $un, $id);
             if($check){
                 header('location: login_form.php');
             }
