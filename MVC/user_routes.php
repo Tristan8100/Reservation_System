@@ -6,4 +6,6 @@
 
     $control = new usercontrol;
 
+    $therapistcontrol = new therapistcontrol;
+
 ?>

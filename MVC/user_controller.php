@@ -236,4 +236,23 @@
 
     }
 
+
+    class therapistcontrol extends therapistmodel{
+
+        public function createtherapist($tf, $te, $tg){
+            $val = $this->addtherapist($tf, $te, $tg);
+            if($val){
+                header('location: admin_manage_therapist_add.php?mess="success"');
+            }
+        }
+
+        public function selectalltherapist(){
+            return $this->getall();
+        }
+
+        public function fetchonetherapist($id){
+            return $this->getonetherapist($id);
+        }
+    }
+
 ?>

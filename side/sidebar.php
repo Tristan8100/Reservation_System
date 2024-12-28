@@ -18,8 +18,12 @@
             <div class="separate"></div>
 
             <div class="bodysidebar">
-                <a class="options" href="user_account_settings.php">
+                <a class="options" href="user_dashboard.php">
                     <img class="img11" src="images/user1.png">
+                    User Dashboard
+                </a>
+                <a class="options" href="user_account_settings.php">
+                    <img class="img11" src="images/settings.png">
                     Edit Profile
                 </a>
                 <a class="options" href="">

@@ -130,4 +130,41 @@
 
     }
 
+    class therapistmodel extends DB{
+
+        public function getonetherapist($id){
+            $sql = 'SELECT * FROM therapist WHERE therapist_ID = :id';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id',  $id);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getall(){
+            $sql = 'SELECT * FROM therapist WHERE therapist_status = "ACTIVE"';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function addtherapist($tf, $te, $tg){
+            $sql = "INSERT INTO therapist (therapist_fullname, therapist_email, therapist_gender) VALUES (:tf, :te, :tg)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':tf', $tf);
+            $stmt->bindParam(':te', $te);
+            $stmt->bindParam(':tg', $tg);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
 ?>

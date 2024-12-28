@@ -1,3 +1,41 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+  
+    //fetch therapist
+
+    $therapist = $therapistcontrol->selectalltherapist();
+
+    //to ensure there's always an ID
+    if(isset($_GET['id'])){
+        $val = $therapistcontrol->fetchonetherapist($_GET['id']);
+    } else {
+        header('location: admin_manage_therapist_all.php');
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,15 +119,11 @@
         </div>
     <!-- TEMPLATE -->
 
-    <div class="modal-body">
-        <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-            <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
-    </div>
-    <div>
+
                                                         
     </div>
     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        nameeee
+        <?php echo $val['therapist_fullname']; ?>
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
@@ -99,7 +133,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                nameeee
+                <?php echo $val['therapist_ID']; ?>
             </div>
         </div>
     </div>
@@ -111,7 +145,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                nameee@gmail.com
+                <?php echo $val['therapist_email']; ?>
             </div>
         </div>
     </div>
@@ -123,22 +157,11 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                loomloom
+                <?php echo $val['therapist_fullname']; ?>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Phone Number
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                092385729246
-            </div>
-        </div>
-    </div>
+
     <br>
     <div class="border"></div>
     <br>

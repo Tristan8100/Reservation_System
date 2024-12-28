@@ -27,8 +27,8 @@
         $_POST['nametherapist'];
         $_POST['emailtherapist'];
         $_POST['contact_numbertherapist'];
-        $_POST['birth_datetherapist'];
         $_POST['gendertherapist'];
+        $therapistcontrol->createtherapist($_POST['nametherapist'], $_POST['emailtherapist'], $_POST['gendertherapist']);
     }
 
 ?>
@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href=""><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Log Out</button></a>
+                <a href="admin_manage_therapist.php"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->
@@ -132,10 +132,7 @@
                         <label for="contact_number" class="form-label">Contact Number</label>
                         <input type="number" class="form-control" id="contact_number" name="contact_numbertherapist" required>
                     </div>
-                    <div class="col">
-                        <label for="birth_date" class="form-label">Birth Date</label>
-                        <input type="date" class="form-control" id="birth_date" name="birth_datetherapist" required>
-                    </div>
+                    
                 </div>
 
                 <div class="mb-3" style="margin-top: 30px;">
