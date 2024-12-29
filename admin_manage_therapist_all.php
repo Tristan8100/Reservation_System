@@ -24,7 +24,20 @@
   
     //fetch therapist
 
-    $therapist = $therapistcontrol->selectalltherapist();
+    //$therapist = $therapistcontrol->selectalltherapist();
+    //$therapist = $therapistcontrol->selectactivetherapist();
+    //$therapist = $therapistcontrol->selectinactivetherapist();
+    if(isset($_GET['status'])){
+        if($_GET['status'] === "ACTIVE"){
+            $therapist = $therapistcontrol->selectactivetherapist();
+        } else if($_GET['status'] === "INACTIVE") {
+            $therapist = $therapistcontrol->selectinactivetherapist();
+        } else if($_GET['status'] === "ALL"){
+            $therapist = $therapistcontrol->selectalltherapist();
+        }
+    } else if (!isset($_GET['status'])){
+        $therapist = $therapistcontrol->selectalltherapist();
+    }
 
 ?>
 
@@ -112,6 +125,19 @@
         </div>
     <!-- TEMPLATE -->
 
+
+        <!-- Dropdown Filter -->
+        <form method="GET" action="" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-md-4">
+                <select name="status" class="form-select" onchange="this.form.submit()">
+                    <option value="ALL" <?= isset($_GET['status']) === 'ALL' ? 'selected' : '' ?>>All</option>
+                    <option value="ACTIVE" <?= isset($_GET['status']) && $_GET['status'] === 'ACTIVE' ? 'selected' : '' ?>>Active</option>
+                    <option value="INACTIVE" <?= isset($_GET['status']) && $_GET['status'] === 'INACTIVE' ? 'selected' : '' ?>>Inactive</option>
+                </select>
+            </div>
+        </div>
+        </form>
     
 
 

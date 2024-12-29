@@ -1,3 +1,28 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +148,7 @@
                         </a>
                     </div>
                     <div class="col-4 d-flex justify-content-center">
-                        <a href="" style="text-decoration: none;">
+                        <a href="admin_manage_services_addcategory.php" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
                                 <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Add</div>
                                 <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">Category</div>
@@ -132,7 +157,7 @@
                         </a>
                     </div>
                     <div class="col-4 d-flex justify-content-center">
-                        <a href="" style="text-decoration: none;">
+                        <a href="admin_manage_services_addservices.php" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
                                 <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Add Service</div>
                                 <div style="width: 100px; height: 100px; margin-left: 50%; transform: translate(-50%);"><img src="images/message.png" alt="..." class="img-thumbnail"></div>

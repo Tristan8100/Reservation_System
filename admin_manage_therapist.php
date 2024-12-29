@@ -21,6 +21,9 @@
         }
     }
 
+    //therapist count
+    $count = $therapistcontrol->getcount();
+
 ?>
 
 
@@ -110,7 +113,7 @@
         <div class="container" style="margin-top: 30px; display: flex;">
             <div style="width: 50%;">
                 <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
-                    <div style="font-size: 30px; color: #6B4A4A;">20</div>
+                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $count['total_rows']; ?></div>
                     <div style="font-size: 25px; color: #6B4A4A;">Therapist</div>
                 </div>
             </div>
@@ -140,9 +143,9 @@
             <div style="margin-top: 50px;">
                 <div class="row">
                     <div class="col-4 d-flex justify-content-center">
-                        <a href="" style="text-decoration: none;">
+                        <a href="admin_manage_therapist_all.php" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
-                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">9</div>
+                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;"><?php echo $count['total_rows']; ?></div>
                                 <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">All Therapist</div>
                                 <button style="margin-left: 50%; transform: translate(-50%); margin-top: 80px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
                             </div>

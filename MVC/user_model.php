@@ -144,7 +144,7 @@
         }
 
         public function getall(){
-            $sql = 'SELECT * FROM therapist WHERE therapist_status = "ACTIVE"';
+            $sql = 'SELECT * FROM therapist';
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -161,6 +161,36 @@
             $stmt->bindParam(':tg', $tg);
             if ($stmt->execute()) {
                 return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function therapistcount(){
+            $sql = "SELECT COUNT(*) AS total_rows FROM therapist";
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function allactive(){
+            $sql = 'SELECT * FROM therapist WHERE therapist_status = "ACTIVE"';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function allinactive(){
+            $sql = 'SELECT * FROM therapist WHERE therapist_status = "INACTIVE"';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } else {
                 return false;
             }

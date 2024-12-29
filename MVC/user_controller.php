@@ -253,6 +253,18 @@
         public function fetchonetherapist($id){
             return $this->getonetherapist($id);
         }
+
+        public function selectactivetherapist(){
+            return $this->allactive();
+        }
+
+        public function selectinactivetherapist(){
+            return $this->allinactive();
+        }
+
+        public function getcount(){
+            return $this->therapistcount();
+        }
     }
 
 ?>
