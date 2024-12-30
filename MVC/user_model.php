@@ -208,4 +208,93 @@
         }
     }
 
+
+
+
+    class categorymodel extends DB {
+
+
+        public function getallcategory(){
+            $sql = 'SELECT * FROM category';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function checkcategory($cp){
+            $sql = 'SELECT * FROM category WHERE category_prefix = :cp';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':cp', $cp);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function addcategory($cm, $cp){
+            $sql = "INSERT INTO category (category_name, category_prefix) VALUES (:cm, :cp)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':cm', $cm);
+            $stmt->bindParam(':cp', $cp);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function categorycount(){
+            $sql = "SELECT COUNT(*) AS total_rows FROM category";
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function updatecategory($cn, $cp, $id){
+            $sql = "UPDATE category SET category_name = :cn, category_prefix = :cp WHERE category_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':cn', $cn);
+            $stmt->bindParam(':cp', $cp);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function checkcategory2($cp, $id){
+            $sql = 'SELECT * FROM category WHERE category_prefix = :cp AND category_ID != :id';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':cp', $cp);
+            $stmt->bindParam(':id', $id);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getonecategory($id){
+            $sql = 'SELECT * FROM category WHERE category_ID = :id';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+
+
+    }
+
 ?>

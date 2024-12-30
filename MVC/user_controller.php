@@ -276,4 +276,48 @@
         }
     }
 
+
+
+
+    class categorycontrol extends categorymodel {
+
+
+        public function createcategory($cm, $cp){
+            $check = $this->checkcategory($cp);
+            if(!empty($check)){
+                header('location: admin_manage_services_addcategory.php?warning=No-Duplication');
+            } else if(empty($check)){
+                $val = $this->addcategory($cm, $cp);
+                if($val){
+                    header('location: admin_manage_services_addcategory.php?mess=succ');
+                }
+            }
+        }
+
+        public function getcategorycount(){
+            return $this->categorycount();
+        }
+
+        public function fetchcategory(){
+            return $this->getallcategory();
+        }
+
+        public function editcategory($cn, $cp, $id){
+            $check = $this->checkcategory2($cp, $id);
+            if(!empty($check)){
+                header('location: admin_manage_services_addcategory(edit).php?warning=No-Duplication');
+            } else if(empty($check)){
+                $val = $this->updatecategory($cn, $cp, $id);
+                if($val){
+                    header('location: admin_manage_services.php?mess=suuuuu');
+                }
+            }
+        }
+
+        public function fetchonecategory($id){
+            return $this->getonecategory($id);
+        }
+
+    }
+
 ?>

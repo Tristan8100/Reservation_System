@@ -8,4 +8,6 @@
 
     $therapistcontrol = new therapistcontrol;
 
+    $categorycontrol = new categorycontrol;
+
 ?>

@@ -20,6 +20,10 @@
             return "images/adduser.png"; // Default image
         }
     }
+
+
+    //category
+    $categorycount = $categorycontrol->getcategorycount();
 ?>
 
 
@@ -117,7 +121,7 @@
 
             <div style="width: 50%;">
                 <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: auto;">
-                    <div style="font-size: 30px; color: #6B4A4A;">3</div>
+                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $categorycount['total_rows'] ?></div>
                     <div style="font-size: 25px; color: #6B4A4A;">Categories</div>
                 </div>
             </div>
@@ -139,7 +143,7 @@
             <div style="margin-top: 50px;">
                 <div class="row">
                     <div class="col-4 d-flex justify-content-center">
-                        <a href="" style="text-decoration: none;">
+                        <a href="admin_manage_services_allservices.php" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
                                 <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">12</div>
                                 <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">All Services</div>

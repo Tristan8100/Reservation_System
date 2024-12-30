@@ -24,11 +24,22 @@
 
 
     //category
-    if(isset($_POST['categorysub'])){
+    if(isset($_POST['categoryedit'])){
+        //execute the edit
         $_POST['categoryname'];
         $_POST['categoryprefix'];
-        $categorycontrol->createcategory($_POST['categoryname'], $_POST['categoryprefix']);
+        $categorycontrol->editcategory($_POST['categoryname'], $_POST['categoryprefix'], $_POST['categoryid'] );
     }
+
+
+
+    //to catch if no value
+    if(isset($_GET['edit'])){
+        $val1 = $categorycontrol->fetchonecategory($_GET['edit']);
+    }
+    
+
+    
 
 ?>
 
@@ -101,34 +112,37 @@
         <div class="container" style="display: flex; align-items: center;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Add Services
+                    Edit Category
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href=""><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Log Out</button></a>
+                <a href="admin_manage_services.php"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->
 
     <div class="container border border-danger d-flex justify-content-center" style="margin-top: 30px;">
         <div class="shadow" style="background-color: #FFFFFF; padding: 20px; width: 500px; height: 400px; border-radius: 10px;">
-            <form action="admin_manage_services_addcategory.php" method="POST" style="display: flex; flex-direction: column;">
-                <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Add New Category</div>
+            <form action="admin_manage_services_addcategory(edit).php" method="POST" style="display: flex; flex-direction: column;">
+                <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Edit Category</div>
                 <div class="mb-3 row">
+                <input type="hidden" class="form-control" id="idd" value="<?php echo $val1['category_ID'] ?>" name="categoryid" required>
                     <div class="col" style="margin-top: 30px;">
                         <label for="sname" class="form-label">Category Name</label>
-                        <input type="text" class="form-control" id="sname" name="categoryname" required>
+                        <input type="text" class="form-control" id="sname" value="<?php echo isset($val1['category_name']) ? $val1['category_name'] : ''; ?>"
+                        name="categoryname" required>
                     </div>
                     <div class="col" style="margin-top: 30px;" >
                         <label for="text" class="form-label">prefix</label>
-                        <input type="text" class="form-control" id="text" name="categoryprefix" maxlength="2" pattern="[A-Za-z]{2}" required>
+                        <input type="text" class="form-control" id="sname1" value="<?php echo isset($val1['category_prefix']) ? $val1['category_prefix'] : ''; ?>"
+                        name="categoryprefix" required>
                     </div>
                 </div>
 
                 <div class="mb-3" style="margin-top: 30px;">
 
                 </div>
-                <button type="submit" name="categorysub" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
+                <button type="submit" name="categoryedit" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Edit</button>
             </form>
         </div>
     </div>
