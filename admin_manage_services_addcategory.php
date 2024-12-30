@@ -1,3 +1,35 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+
+
+    //category
+    if(isset($_POST['categorysub'])){
+
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,8 +110,8 @@
 
     <div class="container border border-danger d-flex justify-content-center" style="margin-top: 30px;">
         <div class="shadow" style="background-color: #FFFFFF; padding: 20px; width: 500px; height: 400px; border-radius: 10px;">
-            <form action="" style="display: flex; flex-direction: column;">
-                <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Add New Services</div>
+            <form action="admin_manage_services_addcategory.php" method="POST" style="display: flex; flex-direction: column;">
+                <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Add New Category</div>
                 <div class="mb-3 row">
                     <div class="col" style="margin-top: 30px;">
                         <label for="sname" class="form-label">Category Name</label>
@@ -94,7 +126,7 @@
                 <div class="mb-3" style="margin-top: 30px;">
 
                 </div>
-                <button type="submit" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
+                <button type="submit" name="categorysub" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
             </form>
         </div>
     </div>

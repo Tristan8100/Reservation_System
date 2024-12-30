@@ -195,6 +195,17 @@
                 return false;
             }
         }
+
+        public function markasinactive($id){
+            $sql = "UPDATE therapist SET therapist_status = 'INACTIVE' WHERE therapist_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 ?>

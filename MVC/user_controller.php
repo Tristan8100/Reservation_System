@@ -237,6 +237,8 @@
     }
 
 
+
+
     class therapistcontrol extends therapistmodel{
 
         public function createtherapist($tf, $te, $tg){
@@ -264,6 +266,13 @@
 
         public function getcount(){
             return $this->therapistcount();
+        }
+
+        public function deletetherapist($id){
+            $val = $this->markasinactive($id);
+            if($val){
+                header("location: admin_manage_therapist_all.php");
+            }
         }
     }
 

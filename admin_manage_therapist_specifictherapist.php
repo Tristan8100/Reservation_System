@@ -22,15 +22,18 @@
     }
 
   
-    //fetch therapist
-
-    $therapist = $therapistcontrol->selectalltherapist();
 
     //to ensure there's always an ID
     if(isset($_GET['id'])){
         $val = $therapistcontrol->fetchonetherapist($_GET['id']);
     } else {
         header('location: admin_manage_therapist_all.php');
+    }
+
+    if(isset($_GET['delete'])){
+        //execute deletion
+        echo "suuc";
+        $therapistcontrol->deletetherapist($val['therapist_ID']);
     }
 
 ?>
@@ -102,7 +105,7 @@
     <img class="pic0" src="images/menu.png" style="margin-top: 10px;" >
     <?php include "adminsidebar/sidebar.php"; ?>
 
-    <div class="main_content1">
+<div class="main_content1">
     <!-- TEMPLATE -->
         <div class="container" style="display: flex; align-items: center;">
             <div>
@@ -121,7 +124,7 @@
 
 
                                                         
-    </div>
+    
     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
         <?php echo $val['therapist_fullname']; ?>
     </div>
@@ -161,12 +164,25 @@
             </div>
         </div>
     </div>
+    <div class="row">
+         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Status
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                <?php echo $val['therapist_status']; ?>
+            </div>
+        </div>
+    </div>
 
     <br>
     <div class="border"></div>
     <br>
 
-    </div>
+    <button><a href="admin_manage_therapist_specifictherapist.php?id=<?php echo $val['therapist_ID']; ?>&delete=true">Mark as Inactive</a></button>
+
 
     
 
@@ -290,8 +306,7 @@
             </div>
 
         </div>
-
-
+</div>
     
 
 
