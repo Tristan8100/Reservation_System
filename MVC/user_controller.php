@@ -241,8 +241,8 @@
 
     class therapistcontrol extends therapistmodel{
 
-        public function createtherapist($tf, $te, $tg){
-            $val = $this->addtherapist($tf, $te, $tg);
+        public function createtherapist($tf, $te, $tg, $tn){
+            $val = $this->addtherapist($tf, $te, $tg, $tn);
             if($val){
                 header('location: admin_manage_therapist_add.php?mess="success"');
             }
@@ -266,6 +266,13 @@
 
         public function getcount(){
             return $this->therapistcount();
+        }
+
+        public function updateonetherapist($tf, $te, $tg, $tn, $id){
+            $val = $this->updatetherapist($tf, $te, $tg, $tn, $id);
+            if($val){
+                header('location: admin_manage_therapist.php?mess=successfull');
+            }
         }
 
         public function deletetherapist($id){

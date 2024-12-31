@@ -161,7 +161,8 @@
                                         <th scope="col">Therapist ID</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Date Hired</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Edit</th>
                                         <th scope="col">View</th>
                                     </tr>
                                     </thead>
@@ -171,7 +172,12 @@
                                         <td class="hidd"><?= $row['therapist_ID'] ?></td>
                                         <td class="hidd"><?= $row['therapist_email'] ?></td>
                                         <td class="hidd"><?= $row['therapist_fullname'] ?></td>
-                                        <td class="hidd"><?= $row['therapist_hireddate'] ?></td>
+                                        <td class="hidd"><?= $row['therapist_gender'] ?></td>
+                                        <td class="hidd">
+                                            <button>
+                                                <a href="admin_manage_therapist_add(edit).php?editid=<?= $row['therapist_ID'] ?>">click</a>
+                                            </button>
+                                        </td>
                                         <td class="hidd">
                                             <button>
                                                 <a href="admin_manage_therapist_specifictherapist.php?id=<?= $row['therapist_ID'] ?>">click</a>

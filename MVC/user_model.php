@@ -153,12 +153,13 @@
             }
         }
 
-        public function addtherapist($tf, $te, $tg){
-            $sql = "INSERT INTO therapist (therapist_fullname, therapist_email, therapist_gender) VALUES (:tf, :te, :tg)";
+        public function addtherapist($tf, $te, $tg, $tn){
+            $sql = "INSERT INTO therapist (therapist_fullname, therapist_email, therapist_gender, therapist_number) VALUES (:tf, :te, :tg, :tn)";
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':tf', $tf);
             $stmt->bindParam(':te', $te);
             $stmt->bindParam(':tg', $tg);
+            $stmt->bindParam(':tn', $tn);
             if ($stmt->execute()) {
                 return true;
             } else {
@@ -206,6 +207,22 @@
                 return false;
             }
         }
+
+        public function updatetherapist($tf, $te, $tg, $tn, $id){
+            $sql = "UPDATE therapist SET therapist_fullname = :tf, therapist_email = :te, therapist_gender = :tg, therapist_number = :tn WHERE therapist_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':tf', $tf);
+            $stmt->bindParam(':te', $te);
+            $stmt->bindParam(':tg', $tg);
+            $stmt->bindParam(':tn', $tn);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     }
 
 
