@@ -10,4 +10,6 @@
 
     $categorycontrol = new categorycontrol;
 
+    $servicecontrol = new servicecontrol;
+
 ?>

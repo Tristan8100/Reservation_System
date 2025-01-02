@@ -327,4 +327,22 @@
 
     }
 
+
+
+    class servicecontrol extends servicemodel {
+
+
+        public function createservice(){
+            do {
+                $randomNumber = rand(100000, 999999);
+                $prefix = "BI";
+                $newid = $prefix . $randomNumber;
+                $check = $this->getoneservice($newid);
+            } while (!empty($check));
+            
+            
+        }
+
+    }
+
 ?>

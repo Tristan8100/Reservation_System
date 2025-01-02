@@ -21,6 +21,21 @@
         }
     }
 
+    $categoryvalue = $categorycontrol->fetchcategory();
+
+    //override
+    if(isset($_POST['uploadimg'])){
+        if (isset($_FILES['photoupload']) && $_FILES['photoupload']['error'] === UPLOAD_ERR_OK) {
+            $image = $_FILES['photoupload'];
+            $imageName = $image['name'];
+            $imageTmpName = $image['tmp_name'];
+            $imageData = file_get_contents($imageTmpName);
+
+            $control->uploadimg($imageData, $userID);
+        }
+    }
+
+
 ?>
 
 
@@ -104,46 +119,44 @@
 
     <div class="container border border-danger d-flex justify-content-center" style="margin-top: 30px;">
         <div class="shadow" style="background-color: #FFFFFF; padding: 20px; width: 500px; height: 600px; border-radius: 10px;">
-            <form action="" style="display: flex; flex-direction: column;">
+            <form action="admin_manage_services_addservices.php" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column;">
                 <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Add New Services</div>
                 <div class="mb-3 row">
                     <div class="col" style="margin-top: 30px;">
                         <label for="sname" class="form-label">Service Name</label>
-                        <input type="text" class="form-control" id="sname" name="sname">
+                        <input type="text" class="form-control" id="sname" name="categoryname">
                     </div>
                     <div class="col" style="margin-top: 30px;" >
                         <label for="text" class="form-label">Description</label>
-                        <textarea type="text" class="form-control" id="text" name="desc"></textarea>
+                        <textarea type="text" class="form-control" id="text" name="categorydesc"></textarea>
                     </div>
                 </div>
                 <div class="mb-3 row" style="margin-top: 30px;">
                     <div class="col">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="price" name="price">
+                        <input type="number" class="form-control" id="price" name="categoryprice">
                     </div>
                     <div class="col">
                         <label for="duration" class="form-label">Duration</label>
-                        <input type="number" class="form-control" id="duration" name="duration">
+                        <input type="number" class="form-control" id="duration" name="categoryduration">
                     </div>
                 </div>
 
                 <div class="mb-3 row" style="margin-top: 30px;">
                     <div class="col-6">
                         <label for="status-filter">Category:</label>
-                        <select id="status-filter" name="status">
-                            <option value="">All</option>
-                            <option value="SUCCESS">SUCCESS</option>
-                            <option value="NO-SHOW">NO-SHOW</option>
-                            <option value="CANCELLED">CANCELLED</option>
-                            <option value="CANCELLEDbyADMIN">CANCELLED by ADMIN</option>
+                        <select id="status-filter" name="selectcategory">
+                        <?php foreach ($categoryvalue as $value): ?>
+                            <option value="<?= $value['category_prefix'] ?>"><?= $value['category_name'] ?></option>
+                        <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="col-6">
                         <label for="picture">Choose a picture to upload:</label><br><br>
-                        <input type="file" id="picture" name="picture" accept="image/*" required><br><br>
+                        <input type="file" id="picture" name="categorypicture" accept="image/*" required><br><br>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
+                <button type="submit" name="addservice" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
             </form>
         </div>
     </div>

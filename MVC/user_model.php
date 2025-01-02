@@ -232,7 +232,7 @@
 
 
         public function getallcategory(){
-            $sql = 'SELECT * FROM category';
+            $sql = 'SELECT * FROM category WHERE category_status = "ACTIVE"';
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -310,6 +310,53 @@
             }
         }
 
+
+
+    }
+
+
+
+    class servicemodel extends DB {
+
+
+        public function getallservice(){
+            $sql = 'SELECT * FROM `service`';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getoneservice($id){
+            $sql = 'SELECT * FROM `service` WHERE service_ID = :id';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function addservice($id, $cidfk, $sn, $si, $sdesc, $sp, $sdur){
+            $sql = "INSERT INTO `service` (service_ID, category_IDFK, `service_name`, service_image, service_description, service_price, service_duration ) VALUES (:id, :cidfk, :sn, :si, :sdesc, :sp, :sdur)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':cidfk', $cidfk);
+            $stmt->bindParam(':sn', $sn);
+            $stmt->bindParam(':si', $si, PDO::PARAM_LOB);
+            $stmt->bindParam(':sdesc', $sdesc);
+            $stmt->bindParam(':sp', $sp);
+            $stmt->bindParam(':sdur', $sdur);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+            
+        }
 
 
     }
