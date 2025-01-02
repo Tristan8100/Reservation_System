@@ -332,13 +332,17 @@
     class servicecontrol extends servicemodel {
 
 
-        public function createservice(){
+        public function createservice($cidfk, $sn, $si, $sdesc, $sp, $sdur, $prefix){
             do {
                 $randomNumber = rand(100000, 999999);
-                $prefix = "BI";
+                //$prefix = "BI";  will use in the arguments
                 $newid = $prefix . $randomNumber;
                 $check = $this->getoneservice($newid);
             } while (!empty($check));
+            $val = $this->addservice($newid, $cidfk, $sn, $si, $sdesc, $sp, $sdur);
+            if($val){
+                header('location: admin_manage_services.php?mess=successss');
+            }
             
             
         }

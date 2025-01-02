@@ -24,14 +24,19 @@
     $categoryvalue = $categorycontrol->fetchcategory();
 
     //override
-    if(isset($_POST['uploadimg'])){
-        if (isset($_FILES['photoupload']) && $_FILES['photoupload']['error'] === UPLOAD_ERR_OK) {
-            $image = $_FILES['photoupload'];
-            $imageName = $image['name'];
+    if(isset($_POST['addservice'])){
+        if (isset($_FILES['categorypicture']) && $_FILES['categorypicture']['error'] === UPLOAD_ERR_OK) {
+            $image = $_FILES['categorypicture'];
+            //$imageName = $image['name'];
             $imageTmpName = $image['tmp_name'];
             $imageData = file_get_contents($imageTmpName);
+            //$control->uploadimg($imageData, $userID);
 
-            $control->uploadimg($imageData, $userID);
+            $selectedValue = $_POST['selectcategory'];
+            list($prefix, $cidfk) = explode('|', $selectedValue);
+            //$_POST['categoryduration'];
+
+            $servicecontrol->createservice($cidfk, $_POST['categoryname'], $imageData, $_POST['categorydesc'], $_POST['categoryprice'], $_POST['categoryduration'], $prefix);
         }
     }
 
@@ -147,7 +152,7 @@
                         <label for="status-filter">Category:</label>
                         <select id="status-filter" name="selectcategory">
                         <?php foreach ($categoryvalue as $value): ?>
-                            <option value="<?= $value['category_prefix'] ?>"><?= $value['category_name'] ?></option>
+                            <option value="<?= $value['category_prefix'] . '|' . $value['category_ID'] ?>"><?= $value['category_name'] ?></option>
                         <?php endforeach; ?>
                         </select>
                     </div>
