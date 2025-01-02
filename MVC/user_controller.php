@@ -343,9 +343,12 @@
             if($val){
                 header('location: admin_manage_services.php?mess=successss');
             }
-            
-            
         }
+
+        public function fetchallservice(){
+            return $this->getallservice();
+        }
+
 
     }
 
