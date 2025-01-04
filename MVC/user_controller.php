@@ -349,6 +349,10 @@
             return $this->getallservice();
         }
 
+        public function fetchoneservice($id){
+            return $this->getoneservice($id);
+        }
+
 
     }
 

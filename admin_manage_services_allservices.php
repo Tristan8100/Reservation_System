@@ -27,6 +27,7 @@
     $allservice = $servicecontrol->fetchallservice();
     //$onecategory = $categorycontrol->fetchonecategory($cid);
 
+    //use to display picture
     function dispservice($use){
         if (!empty($use)) {
             return 'data:image/jpeg;base64,' . base64_encode($use);
@@ -160,55 +161,63 @@
                                         <td class="hidd"><?php $category = $categorycontrol->fetchonecategory($row['category_IDFK']);  echo $category['category_name']; ?></td>
                                         <td class="hidd"><?php echo $row['service_duration']; ?></td>
                                         <td class="hidd"><?php echo $row['service_price']; ?></td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
-                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#exampleModal">click</button></td>
+                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#<?php echo $row['service_ID']; ?>">click</button></td>
                                                                 <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="<?php echo $row['service_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog moddd" style="max-width: 500px;">
                                                 <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 50%; transform: translate(-50%);">Profile Details</h1>
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 50%; transform: translate(-50%);">Service Details</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
+                                                    <div class="container" style="width: 250px; border: 1px solid #ccc;">
                                                         <img src="<?php echo dispservice($row['service_image']); ?>" class="img-fluid" alt="Responsive image">
                                                     </div>
                                                     <div>
                                                         
                                                     </div>
                                                     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        User00101
+                                                        <?php echo $row['service_name']; ?>
                                                     </div>
                                                     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        User00101@gmail.com
+                                                        <?php echo $row['service_description']; ?>
                                                     </div>
                                                     <div class="row" style="margin-top: 30px;">
                                                         <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Account ID
+                                                            Service ID
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            556603
+                                                            <?php echo $row['service_ID']; ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Name
+                                                            Service Name
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            LLOOOOM
+                                                            <?php echo $row['service_name']; ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Phone Number
+                                                            Service price
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            46468579358
+                                                            <?php echo $row['service_price']; ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6" style="font-size: 25px; padding-left: 30px;">
+                                                            Service duration
+                                                        </div>
+                                                        <div class="col-6" style="font-size: 25px; color: #828282;">
+                                                            <?php echo $row['service_duration']; ?>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">              <!-- PASS ID AS GET -->
-                                                    <a href=""><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Transaction</button></a>
+                                                    <a href="admin_manage_services_addservices(edit).php?edit=<?php echo $row['service_ID']; ?>"><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">Edit</button></a>
                                                 </div>
                                                 </div>
                                             </div>

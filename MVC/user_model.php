@@ -334,7 +334,7 @@
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':id', $id);
             if($stmt->execute()){
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $stmt->fetch(PDO::FETCH_ASSOC);
             } else {
                 return false;
             }
@@ -355,7 +355,39 @@
             } else {
                 return false;
             }
-            
+        }
+
+        public function editservicewithimage($sn, $cidfk, $sm, $sdesc, $sp, $sdur, $id){
+            $sql = "UPDATE `service` SET `service_name` = :sn, category_IDFK = :cidfk, service_image = :sm, service_description = :sdesc, service_price = :sp, service_duration = :sdur WHERE service_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':sn', $sn);
+            $stmt->bindParam(':cidfk', $cidfk);
+            $stmt->bindParam(':sm', $sm);
+            $stmt->bindParam(':sdesc', $sdesc);
+            $stmt->bindParam(':sp', $sp);
+            $stmt->bindParam(':sdur', $sdur);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function editservicenoimage($sn, $cidfk, $sdesc, $sp, $sdur, $id){
+            $sql = "UPDATE `service` SET `service_name` = :sn, category_IDFK = :cidfk, service_description = :sdesc, service_price = :sp, service_duration = :sdur WHERE service_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':sn', $sn);
+            $stmt->bindParam(':cidfk', $cidfk);
+            $stmt->bindParam(':sdesc', $sdesc);
+            $stmt->bindParam(':sp', $sp);
+            $stmt->bindParam(':sdur', $sdur);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
 
