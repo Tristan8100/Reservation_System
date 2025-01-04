@@ -362,7 +362,7 @@
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':sn', $sn);
             $stmt->bindParam(':cidfk', $cidfk);
-            $stmt->bindParam(':sm', $sm);
+            $stmt->bindParam(':sm', $sm, PDO::PARAM_LOB);
             $stmt->bindParam(':sdesc', $sdesc);
             $stmt->bindParam(':sp', $sp);
             $stmt->bindParam(':sdur', $sdur);

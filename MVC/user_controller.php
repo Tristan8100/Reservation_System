@@ -353,6 +353,17 @@
             return $this->getoneservice($id);
         }
 
+        public function editserviceimg($sn, $cidfk, $sm, $sdesc, $sp, $sdur, $id){
+            $check = $this->editservicewithimage($sn, $cidfk, $sm, $sdesc, $sp, $sdur, $id);
+            if($check === true){
+                header('location: admin_manage_services.php?editmess=success');
+            }
+        }
+
+        public function editservice($sn, $cidfk, $sdesc, $sp, $sdur, $id){
+            return $this->editservicenoimage($sn, $cidfk, $sdesc, $sp, $sdur, $id);
+        }
+
 
     }
 

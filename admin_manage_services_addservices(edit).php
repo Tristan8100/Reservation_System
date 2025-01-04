@@ -46,7 +46,10 @@
     }
 
         //category
-    $allservice = $servicecontrol->fetchoneservice($_GET['edit']);
+    if(isset($_GET['edit'])){
+        $allservice = $servicecontrol->fetchoneservice($_GET['edit']);
+    }
+    
     //$onecategory = $categorycontrol->fetchonecategory($cid);
     
     //use to display picture
@@ -55,6 +58,28 @@
             return 'data:image/jpeg;base64,' . base64_encode($use);
         } else {
             return "images/adduser.png"; // Default image
+        }
+    }
+
+    if(isset($_POST['editservice'])){
+        if(!empty($_FILES['categorypicture']['tmp_name'])){
+            if (isset($_FILES['categorypicture']) && $_FILES['categorypicture']['error'] === UPLOAD_ERR_OK) {
+                $image = $_FILES['categorypicture'];
+                $imageName = $image['name'];
+                $imageTmpName = $image['tmp_name'];
+                $imageData = file_get_contents($imageTmpName);//the image file
+    
+                //$control->uploadimg($imageData, $userID);
+                $_POST['service_ID'];
+                $_POST['categoryname'];
+                $_POST['categorydesc'];
+                $_POST['categoryprice'];
+                $_POST['categoryduration'];
+                $_POST['selectcategory'];
+                $servicecontrol->editserviceimg($_POST['categoryname'], $_POST['selectcategory'], $imageData, $_POST['categorydesc'], $_POST['categoryprice'], $_POST['categoryduration'], $_POST['service_ID']);
+            }
+        } else{
+            echo "not set";
         }
     }
 
@@ -145,7 +170,7 @@
             <form action="admin_manage_services_addservices(edit).php" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column;">
                 <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Edit Service</div>
                 <div class="mb-3 row">
-                <input type="text" class="form-control" id="service_ID" value="<?php echo isset($allservice['service_ID']) ? $allservice['service_ID'] : NULL; ?>" name="categoryname">
+                <input type="hidden" class="form-control" id="service_ID" value="<?php echo isset($allservice['service_ID']) ? $allservice['service_ID'] : NULL; ?>" name="service_ID">
                     <div class="col" style="margin-top: 30px;">
                         <label for="sname" class="form-label">Service Name</label>
                         <input type="text" class="form-control" id="sname" value="<?php echo isset($allservice['service_name']) ? $allservice['service_name'] : ''; ?>" name="categoryname">
@@ -171,7 +196,7 @@
                     <label for="status-filter">Category:</label>
                     <select id="status-filter" name="selectcategory">
                         <?php foreach ($categoryvalue as $value): ?>
-                            <option value="<?= $value['category_prefix'] . '|' . $value['category_ID'] ?>" 
+                            <option value="<?= $value['category_ID'] ?>" 
                                 <?php echo (isset($allservice['category_IDFK']) && $allservice['category_IDFK'] == $value['category_ID']) ? 'selected' : ''; ?>>
                                 <?= $value['category_name'] ?>
                             </option>
@@ -185,8 +210,10 @@
                         <p>Current Image: <img src="<?= dispservice($allservice['service_image']); ?>" alt="Current Service Image" style="max-width: 100px;"></p>
                         <?php endif; ?>
                     </div>
+
+                    <button type="submit" name="editservice" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
                 </div>
-                <button type="submit" name="editservice" class="btn btn-primary" style="background-color: #6B4A4A; border-color: #6B4A4A;">Add</button>
+                
 
             </form>
         </div>
