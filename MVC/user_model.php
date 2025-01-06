@@ -393,4 +393,52 @@
 
     }
 
+    class reservationmodel extends DB {
+
+
+        public function getallreservation(){
+            $sql = 'SELECT * FROM reservation';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getreservationperuser($usid, $rid){
+            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_ID = :rid';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':usid', $usid);
+            $stmt->bindParam(':rid', $rid);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function addreservation($rid, $uidfk, $rdt, $rt, $rp, $ra, $rl, $rg, $rr){
+            $sql = "INSERT INTO reservation (reservation_ID, user_IDFK, reservation_datetime, reservation_type, reservation_phone, reservation_address, reservation_landmark, reservation_gender, reservation_remarks) 
+            VALUES (:rid, :uidfk, :rdt, :rt, :rp, :ra, :rl, :rg, :rr)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':rid', $rid);
+            $stmt->bindParam(':uidfk', $uidfk);
+            $stmt->bindParam(':rdt', $rdt);
+            $stmt->bindParam(':rt', $rt);
+            $stmt->bindParam(':rp', $rp);
+            $stmt->bindParam(':ra', $ra);
+            $stmt->bindParam(':rl', $rl);
+            $stmt->bindParam(':rg', $rg);
+            $stmt->bindParam(':rr', $rr);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+    }
+
 ?>

@@ -12,4 +12,6 @@
 
     $servicecontrol = new servicecontrol;
 
+    $reservationcontrol = new reservationcontrol;
+
 ?>

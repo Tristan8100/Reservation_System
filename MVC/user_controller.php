@@ -367,4 +367,32 @@
 
     }
 
+    class reservationcontrol extends reservationmodel {
+        
+        public function addnewreservation($prefix, $uidfk, $rdt, $rp, $ra, $rl, $rg, $rr){
+            do {
+                $randomNumber = rand(100000, 999999);
+                
+                $newid = $prefix . $randomNumber;
+                $check = $this->getallreservation($newid);
+            } while (!empty($check));
+            if($prefix === "HS"){
+                $type = "HOME SERVICE";
+            } else if($prefix === "WI"){
+                $type = "Walk In";
+            }
+            $val = $this->addreservation($newid, $uidfk, $rdt, $type, $rp, $ra, $rl, $rg, $rr);
+            if($val){
+                header('location: user_addservice.php?resID='.$newid.'');
+            }
+        }
+
+        public function getreservation($usid, $rid){
+            return $this->getreservationperuser($usid, $rid);
+        }
+
+    }
+
+    
+
 ?>
