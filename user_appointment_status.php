@@ -1,3 +1,55 @@
+<?php
+
+include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'USER'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+    
+    $user = $control->selectoneuser($userID);
+    //var_dump($user);
+    if(isset($_POST['uploadimg'])){
+        if (isset($_FILES['photoupload']) && $_FILES['photoupload']['error'] === UPLOAD_ERR_OK) {
+            $image = $_FILES['photoupload'];
+            $imageName = $image['name'];
+            $imageTmpName = $image['tmp_name'];
+            $imageData = file_get_contents($imageTmpName);
+
+            $control->uploadimg($imageData, $userID);
+        }
+    }
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+
+    //category
+    $allcategory = $categorycontrol->fetchcategory();
+    $allservice = $servicecontrol->fetchallservice();
+    //$onecategory = $categorycontrol->fetchonecategory($cid);
+    $allreservation = $reservationcontrol->pendingreservationperuser($userID);
+
+    //use to display picture
+    function dispservice($use){
+        if (!empty($use)) {
+            return 'data:image/jpeg;base64,' . base64_encode($use);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +72,7 @@
             margin-left: 8%;
         }
         .cont2{
-            width: 300px;
+            width: 600px;
             position: fixed;
         }
     </style>
@@ -44,75 +96,81 @@
                 <th scope="col">Name</th>
                 <th scope="col">Phone Number</th>
                 <th scope="col">Date</th>
-                <th scope="col">Status</th>
+                <th scope="col">Reservation Type</th>
                 <th scope="col">Date</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
+                <?php foreach ($allreservation as $reserve): ?>
                 <tr>
-                <td>Tim Henson</td>
-                <td>09273859272</td>
-                <td>12-23-24 9:25am</td>
-                <td>Pending</td> <!-- put id based on user id as well as getpop -->
-                <td><button class="btn toch" id="11" style="background-color: #A1A1A1; color: white;">view</button></td>
+                <td><?php echo $reserve['reservation_name']; ?></td>
+                <td><?php echo $reserve['reservation_phone']; ?></td>
+                <td><?php echo $reserve['reservation_datetime']; ?></td>
+                <td><?php echo $reserve['reservation_type']; ?></td> <!-- put id based on user id as well as getpop -->
+                <td><button class="btn toch" id="<?php echo $reserve['reservation_ID']; ?>" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
 
                                   <!-- HERE -->
                 <div style="border: 1px solid; display: flex; justify-content:center;">
-                <div id="11" class="card cont2 shadow p-3 getpop" style="margin-top: -80px; display: none;">
+                <div id="<?php echo $reserve['reservation_ID']; ?>" class="card cont2 shadow p-3 getpop" style="margin-top: -80px; display: none;">
                         <form class="forr">
                             <div class="textabove" style="font-size: 30px; font-weight: 500; text-align: center;">
-                                Your Appointment1
+                                Your Appointment
                             </div>
                             <br>
-                        <div class="nme">
-                            <label>Full Name</label>
-                                <br>
-                                <input type="text" class="fil" style="border: 1px solid; width: 100%; ">
-                                <br><br>
-                                <label>Contact Number</label>
-                                <br>
-                                <input type="text" class="fil" style="border: 1px solid; width: 100%; ">
-                                <br><br>
-
-                                <label for="datetime">Select Date and Time:</label>
-                                <br>
-                                <input style="width: 100%;" class="fil" type="datetime-local" id="datetime" name="datetime">
-                                <br><br>
-                                
-                                <label>Address</label>
-                                <br>
-                                <input type="text" class="fil" style="border: 1px solid; width: 100%; ">
-                                <br><br>
-
-                                <label>Landmark</label>
-                                <br>
-                                <input type="text" class="fil" style="border: 1px solid; width: 100%; ">
-                                <br><br>
-
-                                <div>Choose Therapist:</div>
-                                <input type="radio" name="gender" value="male">
-                                <label>Male</label><br>
-
-                                <input type="radio" name="gender" value="female">
-                                <label>Female</label><br><br>
-
-                                <label>Remarks</label>
-                                <br>
-                                <textarea style="width: 100%; height: 150px;"></textarea>
-                                <br><br>
-
-                                <input style="width: 100%; height: 40px; background-color: #6B4A4A; color:white; border-radius:10px;" type="submit">
+                            <div class="container border border-danger">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <h5 class="col card-title">Reservation ID</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_ID']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Reservation type</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_type']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Phone number</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_phone']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Preffered therapist</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_gender']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Duration</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_duration']; ?> minutes</h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Total</h5>
+                                        <h5 class="col card-title text-muted">₱<?php echo $reserve['reservation_total']; ?></h5>
+                                    </div>
+                                    <br>
+                                    <h5>For Home Service</h5>
+                                    <br>
+                                    <div class="row">
+                                        <h5 class="col card-title">location</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_address']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">landmark</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_landmark']; ?></h5>
+                                    </div>
+                                    <br>
+                                    <h5 class="col card-title">Remarks</h5>
+                                    <p class="card-text"><?php echo $reserve['reservation_remarks']; ?></p>
+                                    <a href="#" class="card-link">Cancel</a>
+                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
+                <?php endforeach; ?>
 
                 <!-- try area -->
                 <tr>
                 <td>Tim Henson</td>
                 <td>09273859272</td>
-                <td>12-23-24 9:25am</td>
+                <td>12-23-24 9:25ammmmm</td>
                 <td>Pending</td> <!-- put id based on user id as well as getpop -->
                 <td><button class="btn toch" id="12" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
@@ -125,45 +183,7 @@
                                 Your Appointment
                             </div>
                             <br>
-                        <div class="nme">
-                            <label>Full Name</label>
-                                <br>
-                                <input type="text" class="fil" style="border: 1px solid; width: 100%; ">
-                                <br><br>
-                                <label>Contact Number</label>
-                                <br>
-                                <input type="text" class="fil" style="border: 1px solid; width: 100%; ">
-                                <br><br>
-
-                                <label for="datetime">Select Date and Time:</label>
-                                <br>
-                                <input style="width: 100%;" class="fil" type="datetime-local" id="datetime" name="datetime">
-                                <br><br>
-                                
-                                <label>Address</label>
-                                <br>
-                                <input type="text" class="fil" style="border: 1px solid; width: 100%; ">
-                                <br><br>
-
-                                <label>Landmark</label>
-                                <br>
-                                <input type="text" class="fil" style="border: 1px solid; width: 100%; ">
-                                <br><br>
-
-                                <div>Choose Therapist:</div>
-                                <input type="radio" name="gender" value="male">
-                                <label>Male</label><br>
-
-                                <input type="radio" name="gender" value="female">
-                                <label>Female</label><br><br>
-
-                                <label>Remarks</label>
-                                <br>
-                                <textarea style="width: 100%; height: 150px;"></textarea>
-                                <br><br>
-
-                                <input style="width: 100%; height: 40px; background-color: #6B4A4A; color:white; border-radius:10px;" type="submit">
-                            </div>
+                        
                         </form>
                     </div>
                 </div>

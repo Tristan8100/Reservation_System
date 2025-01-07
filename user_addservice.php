@@ -52,8 +52,10 @@ include 'MVC/user_routes.php';
 
     if(isset($_POST['submitadd'])){
         $valuearray = $_POST['selected_services'];
+        $duration = $_POST['service_duration'];
+        $price = $_POST['service_price'];
         //var_dump($valuearray);
-        $reservationcontrol->addservicereserve($_POST['rid'], $valuearray, $userID);
+        $reservationcontrol->addservicereserve($_POST['rid'], $valuearray, $userID, $duration, $price);
 
     }
 
@@ -188,6 +190,8 @@ include 'MVC/user_routes.php';
                                                 <td class="hidd">
                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#modal-<?php echo $row['service_ID']; ?>">Details</button>
                                                     <input type="checkbox" name="selected_services[]" value="<?php echo $row['service_ID']; ?>"> Select
+                                                    <input type="hidden" name="service_duration[]" value="<?php echo $row['service_duration']; ?>">
+                                                    <input type="hidden" name="service_price[]" value="<?php echo $row['service_price']; ?>">
                                                 </td>
                                                 <div class="modal fade" id="modal-<?php echo $row['service_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog moddd" style="max-width: 500px;">

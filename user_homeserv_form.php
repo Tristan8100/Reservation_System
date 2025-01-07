@@ -36,7 +36,7 @@ include 'MVC/user_routes.php';
     //$reservationcontrol;
     if(isset($_POST['addreservation'])){
         $reservationcontrol->addnewreservation($_POST['reservation_typepref'], $userID, $_POST['datetime'], 
-        $_POST['phonenum'], $_POST['address'], $_POST['landmark'], $_POST['gender'], $_POST['remarks']);
+        $_POST['phonenum'], $_POST['address'], $_POST['landmark'], $_POST['gender'], $_POST['remarks'], $_POST['fullname']);
     }
 
 ?>

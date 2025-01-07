@@ -369,7 +369,7 @@
 
     class reservationcontrol extends reservationmodel {
         
-        public function addnewreservation($prefix, $uidfk, $rdt, $rp, $ra, $rl, $rg, $rr){
+        public function addnewreservation($prefix, $uidfk, $rdt, $rp, $ra, $rl, $rg, $rr, $rname){
             do {
                 $randomNumber = rand(100000, 999999);
                 
@@ -381,7 +381,7 @@
             } else if($prefix === "WI"){
                 $type = "Walk In";
             }
-            $val = $this->addreservation($newid, $uidfk, $rdt, $type, $rp, $ra, $rl, $rg, $rr);
+            $val = $this->addreservation($newid, $uidfk, $rdt, $type, $rp, $ra, $rl, $rg, $rr, $rname);
             if($val){
                 header('location: user_addservice.php?resID='.$newid.'');
             }
@@ -391,12 +391,24 @@
             return $this->getreservationperuser($usid, $rid);
         }
 
-        public function addservicereserve($ridfk, $sidfk, $uidfk){
-            foreach($sidfk as $serviceadd){
-                $this->addreservationservice($ridfk, $serviceadd, $uidfk);
+        public function addservicereserve($ridfk, $sidfk, $uidfk, $duration, $price){
+            $length = count($sidfk); // Assuming all arrays have the same length
+            $totalduration = 0;
+            $totalprice = 0.00;
+            for ($i = 0; $i < $length; $i++) {
+                $sidfk[$i];
+                $totalduration += $duration[$i];
+                $totalprice += $price[$i];
+
+                $this->addreservationservice($ridfk, $sidfk[$i], $uidfk, $duration[$i], $price[$i]);
             }
+            $this->updatedurprice($totalprice, $totalduration, $ridfk);
             header('location: user_dashboard.php?mess=added');
             
+        }
+
+        public function pendingreservationperuser($id){
+            return $this->getpendinguser($id);
         }
 
 

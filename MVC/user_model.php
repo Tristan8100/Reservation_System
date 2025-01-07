@@ -417,6 +417,7 @@
             }
         }
 
+    
         public function getreservationperuser($usid, $rid){
             $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_ID = :rid';
             $stmt = $this->connect()->prepare($sql);
@@ -429,9 +430,22 @@
             }
         }
 
-        public function addreservation($rid, $uidfk, $rdt, $rt, $rp, $ra, $rl, $rg, $rr){
-            $sql = "INSERT INTO reservation (reservation_ID, user_IDFK, reservation_datetime, reservation_type, reservation_phone, reservation_address, reservation_landmark, reservation_gender, reservation_remarks) 
-            VALUES (:rid, :uidfk, :rdt, :rt, :rp, :ra, :rl, :rg, :rr)";
+        public function updatedurprice($price, $duration, $id){
+            $sql = "UPDATE reservation SET reservation_duration = :rdur, reservation_total = :rtotal WHERE reservation_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':rdur', $duration);
+            $stmt->bindParam(':rtotal', $price);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function addreservation($rid, $uidfk, $rdt, $rt, $rp, $ra, $rl, $rg, $rr, $rname){
+            $sql = "INSERT INTO reservation (reservation_ID, user_IDFK, reservation_datetime, reservation_type, reservation_phone, reservation_address, reservation_landmark, reservation_gender, reservation_remarks, reservation_name) 
+            VALUES (:rid, :uidfk, :rdt, :rt, :rp, :ra, :rl, :rg, :rr, :rname)";
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':rid', $rid);
             $stmt->bindParam(':uidfk', $uidfk);
@@ -442,6 +456,7 @@
             $stmt->bindParam(':rl', $rl);
             $stmt->bindParam(':rg', $rg);
             $stmt->bindParam(':rr', $rr);
+            $stmt->bindParam('rname', $rname);
             if ($stmt->execute()) {
                 return true;
             } else {
@@ -449,14 +464,28 @@
             }
         }
 
-        public function addreservationservice($ridfk, $sidfk, $uidfk){
-            $sql = "INSERT INTO reservation_services (reservation_IDFK, service_IDFK, user_IDFK) VALUES (:ridfk, :sidfk, :uidfk)";
+        public function addreservationservice($ridfk, $sidfk, $uidfk, $duration, $price){
+            $sql = "INSERT INTO reservation_services (reservation_IDFK, service_IDFK, user_IDFK, reservation_price, reservation_duration) VALUES (:ridfk, :sidfk, :uidfk, :rp, :rdur)";
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':ridfk', $ridfk);
             $stmt->bindParam(':sidfk', $sidfk);
             $stmt->bindParam(':uidfk', $uidfk);
+            $stmt->bindParam(':rp', $price);
+            $stmt->bindParam(':rdur', $duration);
             if ($stmt->execute()) {
                 return true;
+            } else {
+                return false;
+            }
+        }
+
+        //for fetchin reservations
+        public function getpendinguser($usid){
+            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status = \'PENDING\' ORDER BY reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':usid', $usid);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } else {
                 return false;
             }
