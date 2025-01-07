@@ -406,6 +406,17 @@
             }
         }
 
+        public function getallone($id){
+            $sql = 'SELECT * FROM reservation WHERE reservation_ID = :id';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
         public function getreservationperuser($usid, $rid){
             $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_ID = :rid';
             $stmt = $this->connect()->prepare($sql);
@@ -431,6 +442,19 @@
             $stmt->bindParam(':rl', $rl);
             $stmt->bindParam(':rg', $rg);
             $stmt->bindParam(':rr', $rr);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function addreservationservice($ridfk, $sidfk, $uidfk){
+            $sql = "INSERT INTO reservation_services (reservation_IDFK, service_IDFK, user_IDFK) VALUES (:ridfk, :sidfk, :uidfk)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':ridfk', $ridfk);
+            $stmt->bindParam(':sidfk', $sidfk);
+            $stmt->bindParam(':uidfk', $uidfk);
             if ($stmt->execute()) {
                 return true;
             } else {

@@ -374,7 +374,7 @@
                 $randomNumber = rand(100000, 999999);
                 
                 $newid = $prefix . $randomNumber;
-                $check = $this->getallreservation($newid);
+                $check = $this->getallone($newid);
             } while (!empty($check));
             if($prefix === "HS"){
                 $type = "HOME SERVICE";
@@ -390,6 +390,15 @@
         public function getreservation($usid, $rid){
             return $this->getreservationperuser($usid, $rid);
         }
+
+        public function addservicereserve($ridfk, $sidfk, $uidfk){
+            foreach($sidfk as $serviceadd){
+                $this->addreservationservice($ridfk, $serviceadd, $uidfk);
+            }
+            header('location: user_dashboard.php?mess=added');
+            
+        }
+
 
     }
 

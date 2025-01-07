@@ -49,6 +49,15 @@ include 'MVC/user_routes.php';
 
     $value = $reservationcontrol->getreservation($userID, $_GET['resID']);
 
+
+    if(isset($_POST['submitadd'])){
+        $valuearray = $_POST['selected_services'];
+        //var_dump($valuearray);
+        $reservationcontrol->addservicereserve($_POST['rid'], $valuearray, $userID);
+
+    }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -166,7 +175,8 @@ include 'MVC/user_routes.php';
                                     </thead>
                                     
                                     <tbody>
-                                        <form method="POST" action="process_selected_services.php">
+                                        <form method="POST" action="user_addservice.php">
+                                            <input type="hidden" name="rid" value="<?php echo $value['reservation_ID']; ?>" >
                                             <?php foreach ($allservice as $row): ?>
                                             <tr>
                                                 <td class="hidd"><?php echo $row['service_ID']; ?></td>
@@ -223,7 +233,7 @@ include 'MVC/user_routes.php';
                                             <?php endforeach; ?>
                                             <tr>
                                                 <td colspan="7" class="text-center">
-                                                    <button type="submit" class="btn btn-primary">Submit Selected Services</button>
+                                                    <button type="submit" name="submitadd" class="btn btn-primary">Submit Selected Services</button>
                                                 </td>
                                             </tr>
                                         </form>
