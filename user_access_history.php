@@ -1,3 +1,36 @@
+<?php
+
+include 'MVC/user_routes.php';
+
+if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'USER'){
+    header('location: login_form.php');
+    exit;
+} else {
+    $userID = $_SESSION['user_id'];
+}
+
+
+$user = $control->selectoneuser($userID);
+
+function disp($use){
+    if (!empty($use['user_image'])) {
+        return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+    } else {
+        return "images/adduser.png"; // Default image
+    }
+}
+
+
+//category
+$allcategory = $categorycontrol->fetchcategory();
+$allservice = $servicecontrol->fetchallservice();
+//$onecategory = $categorycontrol->fetchonecategory($cid);
+$allreservation = $reservationcontrol->notpendingreservationperuser($userID);
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,23 +105,79 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider">
+                <?php foreach($allreservation as $reservation): ?>
                 <tr>
-                <td>Ayayayaya</td>
-                <td>09273859272</td>
-                <td>12-23-24 9:25am</td>
-                <td>Cancelled</td> <!-- put id based on user id as well as getpop -->
-                <td><button class="btn tochh" id="11" style="background-color: #A1A1A1; color: white;">view</button></td>
+                <td><?php echo $reservation['reservation_name']; ?></td>
+                <td><?php echo $reservation['reservation_phone']; ?></td>
+                <td><?php echo $reservation['reservation_datetime']; ?></td>
+                <td><?php echo $reservation['reservation_status']; ?></td> <!-- put id based on user id as well as getpop -->
+                <td><button class="btn tochh" id="<?php echo $reservation['reservation_ID']; ?>" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
 
-                <div class="contr shadow" id="11" style="padding: 10px; width: 650px; border-radius: 10px; height: 400px; position: fixed; color: black; background-color: aliceblue;">
-                    <div style="font-size: 20px;">Reservation type: Walk-in</div>
-                    <div>Full Name: Ayayayayaya</div>
-                    <div>Contact Number: 09273859272</div>
-                    <div>Date & Time: 12-25-24 10:00:00 am</div>
-                    <div>Address: Walk-in</div>
-                    <div>Therapist: Lumineee</div>
-                    <div>Remarks: AYAYAYAYAYAYAYA</div>
+                <div class="contr shadow" id="<?php echo $reservation['reservation_ID']; ?>" style="padding: 10px; width: 650px; border-radius: 10px; height: 600px; position: fixed; color: black; background-color: aliceblue;">
+                <form class="forr">
+                            <div class="textabove" style="font-size: 30px; font-weight: 500; text-align: center;">
+                                Your Appointment
+                            </div>
+                            <br>
+                            <div class="container border border-danger">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <h5 class="col card-title">Reservation ID</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_ID']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Reservation type</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_type']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Phone number</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_phone']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Preffered therapist</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_gender']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Duration</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_duration']; ?> minutes</h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Total</h5>
+                                        <h5 class="col card-title text-muted">₱<?php echo $reservation['reservation_total']; ?></h5>
+                                    </div>
+                                    <br>
+                                    <h5>For Home Service</h5>
+                                    <br>
+                                    <div class="row">
+                                        <h5 class="col card-title">location</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_address']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">landmark</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_landmark']; ?></h5>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <h5 class="col card-title">Services</h5>
+                                    </div>
+                                        <?php $val = $reservationcontrol->fetchresser($reservation['reservation_ID']); foreach($val as $value): $get = $servicecontrol->fetchoneservice($value['service_IDFK'])?>
+                                        <div class="row">
+                                            <h5 class="col card-title text-muted"><?php echo $value['service_IDFK']; ?></h5>
+                                            <h5 class="col card-title text-muted"><?php echo $get['service_name']; ?></h5>
+                                            <h5 class="col card-title text-muted"><?php echo $get['service_price']; ?></h5>
+                                            <h5 class="col card-title text-muted"><?php echo $get['service_duration']; ?></h5>
+                                        </div>
+                                        
+                                        <?php endforeach ?>
+                                    <br>
+                                    <h5 class="col card-title">Remarks</h5>
+                                    <p class="card-text"><?php echo $reservation['reservation_remarks']; ?></p>
+                                </div>
+                            </div>
+                        </form>
                 </div>
+                <?php endforeach ?>
 
 
 

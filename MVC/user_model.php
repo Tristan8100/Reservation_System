@@ -128,6 +128,16 @@
             }
         }
 
+        public function usercount(){
+            $sql = "SELECT COUNT(*) AS total FROM user";
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
     }
 
     class therapistmodel extends DB{
@@ -491,6 +501,17 @@
             }
         }
 
+        public function getnotpendinguser($usid){
+            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' ORDER BY reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':usid', $usid);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
         public function getresser($id){
             $sql = 'SELECT rs.*, r.* FROM reservation_services rs INNER JOIN reservation r ON r.reservation_ID = rs.reservation_IDFK WHERE r.reservation_ID = :id';
             $stmt = $this->connect()->prepare($sql);
@@ -508,6 +529,16 @@
             $stmt->bindParam(':id', $id);
             if ($stmt->execute()) {
                 return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function countpending(){
+            $sql = 'SELECT COUNT(*) AS total FROM reservation WHERE reservation_status = \'PENDING\'';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
             } else {
                 return false;
             }

@@ -110,14 +110,14 @@
         <div class="container" style="margin-top: 30px; display: flex;">
             <div style="width: 50%;">
                 <div style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
-                    <div style="font-size: 30px; color: #6B4A4A;">203</div>
+                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $control->fetchusercount()['total']; ?></div>
                     <div style="font-size: 25px; color: #6B4A4A;">Accounts</div>
                 </div>
             </div>
 
             <div style="width: 50%;">
                 <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: 50%; transform: translate(-50%);">
-                    <div style="font-size: 30px; color: #6B4A4A;">7</div>
+                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $reservationcontrol->countallpending()['total']; ?></div>
                     <div style="font-size: 25px; color: #6B4A4A;">Pending Appointments</div>
                 </div>
             </div>

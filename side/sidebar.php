@@ -26,7 +26,7 @@
                     <img class="img11" src="images/settings.png">
                     Edit Profile
                 </a>
-                <a class="options" href="">
+                <a class="options" href="user_access_history.php">
                     <img class="img11" src="images/transact.png">
                     History
                 </a>
@@ -47,7 +47,7 @@
                     <img class="img11" src="images/appoint.png">
                         Walk In
                     </a>
-                    <a class="options" href="">
+                    <a class="options" href="user_appointment_status.php">
                     <img class="img11" src="images/appoint.png">
                         Appointment Status
                     </a>

@@ -233,6 +233,10 @@
             }
         }
 
+        public function fetchusercount(){
+            return $this->usercount();
+        }
+
 
     }
 
@@ -379,7 +383,7 @@
             if($prefix === "HS"){
                 $type = "HOME SERVICE";
             } else if($prefix === "WI"){
-                $type = "Walk In";
+                $type = "WALK IN";
             }
             $val = $this->addreservation($newid, $uidfk, $rdt, $type, $rp, $ra, $rl, $rg, $rr, $rname);
             if($val){
@@ -411,12 +415,20 @@
             return $this->getpendinguser($id);
         }
 
+        public function notpendingreservationperuser($id){
+            return $this->getnotpendinguser($id);
+        }
+
         public function fetchresser($rid){
             return $this->getresser($rid);
         }
 
         public function cancelreservation($id){
             return $this->cancelreserve($id);
+        }
+
+        public function countallpending(){
+            return $this->countpending();
         }
 
 

@@ -11,17 +11,6 @@ include 'MVC/user_routes.php';
 
     
     $user = $control->selectoneuser($userID);
-    //var_dump($user);
-    if(isset($_POST['uploadimg'])){
-        if (isset($_FILES['photoupload']) && $_FILES['photoupload']['error'] === UPLOAD_ERR_OK) {
-            $image = $_FILES['photoupload'];
-            $imageName = $image['name'];
-            $imageTmpName = $image['tmp_name'];
-            $imageData = file_get_contents($imageTmpName);
-
-            $control->uploadimg($imageData, $userID);
-        }
-    }
 
     function disp($use){
         if (!empty($use['user_image'])) {
@@ -43,14 +32,7 @@ include 'MVC/user_routes.php';
         $reservationcontrol->cancelreservation($_GET['cancel']);
     }
 
-    //use to display picture
-    function dispservice($use){
-        if (!empty($use)) {
-            return 'data:image/jpeg;base64,' . base64_encode($use);
-        } else {
-            return "images/adduser.png"; // Default image
-        }
-    }
+
 
 ?>
 
