@@ -411,6 +411,14 @@
             return $this->getpendinguser($id);
         }
 
+        public function fetchresser($rid){
+            return $this->getresser($rid);
+        }
+
+        public function cancelreservation($id){
+            return $this->cancelreserve($id);
+        }
+
 
     }
 

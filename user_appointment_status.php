@@ -38,6 +38,11 @@ include 'MVC/user_routes.php';
     //$onecategory = $categorycontrol->fetchonecategory($cid);
     $allreservation = $reservationcontrol->pendingreservationperuser($userID);
 
+    if(isset($_GET['cancel'])){
+        //execute the cancel process
+        $reservationcontrol->cancelreservation($_GET['cancel']);
+    }
+
     //use to display picture
     function dispservice($use){
         if (!empty($use)) {
@@ -156,38 +161,28 @@ include 'MVC/user_routes.php';
                                         <h5 class="col card-title text-muted"><?php echo $reserve['reservation_landmark']; ?></h5>
                                     </div>
                                     <br>
+                                    <div class="row">
+                                        <h5 class="col card-title">Services</h5>
+                                    </div>
+                                        <?php $val = $reservationcontrol->fetchresser($reserve['reservation_ID']); foreach($val as $value): $get = $servicecontrol->fetchoneservice($value['service_IDFK'])?>
+                                        <div class="row">
+                                            <h5 class="col card-title text-muted"><?php echo $value['service_IDFK']; ?></h5>
+                                            <h5 class="col card-title text-muted"><?php echo $get['service_name']; ?></h5>
+                                            <h5 class="col card-title text-muted"><?php echo $get['service_price']; ?></h5>
+                                            <h5 class="col card-title text-muted"><?php echo $get['service_duration']; ?></h5>
+                                        </div>
+                                        
+                                        <?php endforeach ?>
+                                    <br>
                                     <h5 class="col card-title">Remarks</h5>
                                     <p class="card-text"><?php echo $reserve['reservation_remarks']; ?></p>
-                                    <a href="#" class="card-link">Cancel</a>
+                                    <a href="user_appointment_status.php?cancel=<?php echo $reserve['reservation_ID']; ?>" class="card-link">Cancel</a>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
                 <?php endforeach; ?>
-
-                <!-- try area -->
-                <tr>
-                <td>Tim Henson</td>
-                <td>09273859272</td>
-                <td>12-23-24 9:25ammmmm</td>
-                <td>Pending</td> <!-- put id based on user id as well as getpop -->
-                <td><button class="btn toch" id="12" style="background-color: #A1A1A1; color: white;">view</button></td>
-                </tr>
-
-                                  <!-- HERE -->
-                <div style="border: 1px solid; display: flex; justify-content:center;">
-                <div id="12" class="card cont2 shadow p-3 getpop" style="margin-top: -80px; display: none;">
-                        <form class="forr">
-                            <div class="textabove" style="font-size: 30px; font-weight: 500; text-align: center;">
-                                Your Appointment
-                            </div>
-                            <br>
-                        
-                        </form>
-                    </div>
-                </div>
-    <!-- End of try area -->
 
             </tbody>
         </table>
