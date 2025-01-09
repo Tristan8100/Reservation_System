@@ -30,6 +30,10 @@
         $reservation = $reservationcontrol->getindividualreservation($_GET['id']);
     }
 
+    if(isset($_POST['submitres'])){
+        var_dump($_POST['appointments']);
+    }
+
 ?>
 
 
@@ -376,7 +380,7 @@
                                                 </div>
                                                 <button type="submit">Submit</button>
                                                 <button type="submit">Cancel</button>
-                                                <button type="submit">Ask customer to reassign</button>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ask customer to reschedule</button>
                                             </form>
                                             <a href=""><button>View Therapist Schedule on date()</button></a>
                                         </div>
@@ -388,6 +392,27 @@
                 </div>
             </div>
 
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Reschedule Form</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="admin_manage_appointments_specificuser(pending).php" method="POST">
+                <div class="modal-body contentt">
+                        <button class="but" type="button">Add DateTime</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="submitres" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+                </div>
+            </div>
+            </div>
+
         </div>
 
 
@@ -397,6 +422,35 @@
 
     <?php include "adminsidebar/js_sidebar.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
+    <script>
+        const buttonclick = document.querySelector('.but');
+const contentt = document.querySelector('.contentt');
+
+// Add new datetime input and remove button when clicking 'Add DateTime'
+buttonclick.addEventListener('click', () => {
+    const value = document.createElement('div');
+    value.className = 'item';
+    value.innerHTML = `
+        <label for="appointment">Select a new appointment date and time:</label>
+        <input type="datetime-local" id="appointment" name="appointments[]">
+        <br>
+        <button class="clk" type="button">remove</button>
+    `;
+    contentt.append(value);
+});
+
+// Event delegation: Listen for clicks on remove buttons inside contentt
+contentt.addEventListener('click', (event) => {
+    // Check if the clicked element has the class 'clk' (remove button)
+    if (event.target.classList.contains('clk')) {
+        // Remove the parent div of the clicked remove button
+        event.target.parentElement.remove();
+    }
+});
+
+
+        
+        
+    </script>
 </body>
 </html>
