@@ -22,6 +22,9 @@
     }
 
 
+    $allcategory = $categorycontrol->fetchcategory();
+    $allservice = $servicecontrol->fetchallservice();
+    $alltherapist = $therapistcontrol->selectactivetherapist();
 
     if(isset($_GET['id'])){
         $reservation = $reservationcontrol->getindividualreservation($_GET['id']);
@@ -296,18 +299,15 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <?php foreach($allservice as $service): ?>
                                                             <tr>
-                                                                <td>1285</td>
-                                                                <td>tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                                                <td>qwerty</td>
-                                                                <td>Aaron Chapman</td>
+                                                                <td><?php echo $service['service_ID']; ?></td>
+                                                                <td><?php echo $service['service_name']; ?></td>
+                                                                <td>₱<?php echo $service['service_price']; ?></td>
+                                                                <td><?php echo $service['service_duration']; ?> minutes</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>342</td>
-                                                                <td>ayaya@gmail.com</td>
-                                                                <td>ayyyayya</td>
-                                                                <td>Kamisato Ayaya</td>
-                                                            </tr>
+                                                            <?php endforeach ?>
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -359,20 +359,16 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    <?php foreach($alltherapist as $therapist): ?>
                                                                     <tr>
-                                                                        <td>1285</td>
-                                                                        <td>Neuvilette</td>
-                                                                        <td>otter@gmail.com</td>
-                                                                        <td>Male</td>
-                                                                        <td><input type="radio" name="selected_row" value="1285"></td>
+                                                                        <td><?php echo $therapist['therapist_ID']; ?></td>
+                                                                        <td><?php echo $therapist['therapist_fullname']; ?></td>
+                                                                        <td><?php echo $therapist['therapist_email']; ?></td>
+                                                                        <td><?php echo $therapist['therapist_gender']; ?></td>
+                                                                        <td><input type="radio" name="selected_row" value="<?php echo $therapist['therapist_ID']; ?>"></td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>342</td>
-                                                                        <td>ayaya</td>
-                                                                        <td>ayyyayya@gmail.com</td>
-                                                                        <td>Female</td>
-                                                                        <td><input type="radio" name="selected_row" value="342"></td>
-                                                                    </tr>
+                                                                    <?php endforeach ?>
+                                                                    
                                                                 </tbody>
                                                             </table>
                                                         </div>

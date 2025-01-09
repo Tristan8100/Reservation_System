@@ -439,6 +439,32 @@
             return $this->getpendinguserindividual($rid);
         }
 
+        public function sendstatus($email, $sub ,$content){
+            $mail = new PHPMailer(true);
+
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'gtristan543@gmail.com';
+            $mail->Password = 'beyd fvmz dhdl xkcb';
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = 465;
+
+            $mail->setFrom('gtristan543@gmail.com');
+            $mail->addAddress($email); //marktristan260@gmail.com
+            $mail->isHTML(true);
+            $mail->Subject = $sub;
+            $mail->Body = "
+            <h5>Message:</h5>
+            <p>".$content."</p>";
+
+            $mail->send();
+
+            $message = 'Send Succesfully';
+
+            header("Location: admin_manage_appointments_all(pending).php");
+        }
+
 
     }
 
