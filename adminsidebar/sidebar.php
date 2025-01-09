@@ -30,7 +30,7 @@
                     <img class="img11" src="images/manageacc.png">
                     Manage Accounts
                 </a>
-                <a class="options" href="">
+                <a class="options" href="admin_manage_appointments.php">
                     <img class="img11 popi" src="images/appoint.png">
                     Manage Appointments
                 </a>

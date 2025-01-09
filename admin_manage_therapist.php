@@ -152,7 +152,7 @@
                         </a>
                     </div>
                     <div class="col-4 d-flex justify-content-center">
-                        <a href="" style="text-decoration: none;">
+                        <a href="admin_manage_therapist_booked.php" style="text-decoration: none;">
                             <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
                                 <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Access</div>
                                 <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">Booked Therapist</div>

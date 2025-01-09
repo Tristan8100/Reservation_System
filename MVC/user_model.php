@@ -544,6 +544,27 @@
             }
         }
 
+        public function getpendingall(){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE reservation_status = \'PENDING\' ORDER BY reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getpendinguserindividual($rid){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE reservation_status = \'PENDING\' AND reservation_ID = :rid';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':rid', $rid);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
 
     }
 

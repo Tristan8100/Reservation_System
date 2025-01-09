@@ -1,3 +1,35 @@
+<?php
+
+include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+        //category
+    $allcategory = $categorycontrol->fetchcategory();
+    $allservice = $servicecontrol->fetchallservice();
+    //$onecategory = $categorycontrol->fetchonecategory($cid);
+    $allreservation = $reservationcontrol->getallpendingreservation();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,11 +152,11 @@
 
         <div style="margin-top: 50px;">
             <div class="row">
-                <div class="col-9">
+                <div class="col-12">
 
                 <!-- The Table -->
                 <section class="intro">
-                <div class="bg-image h-100" style="background-color: #f5f7fa;">
+                <div class="bg-image h-100">
                     <div class="mask d-flex align-items-center h-100">
                     <div class="container">
                         <div class="row justify-content-center">
@@ -144,27 +176,20 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($allreservation as $reserve): ?>
                                     <tr>
-                                        <td class="hidd" >1285</td>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                        <td class="hidd">qwerty</td>
-                                        <td class="hidd">Aaron Chapman</td>
-                                        <td class="hidd">1068358649358</td>
-                                        <td class="hidd">10-12-23</td>
+                                        <td class="hidd" ><?php echo $reserve['reservation_ID']; ?></td>
+                                        <td class="hidd"><?php echo $reserve['user_email']; ?></td>
+                                        <td class="hidd"><?php echo $reserve['user_fullname']; ?></td>
+                                        <td class="hidd"><?php echo $reserve['reservation_name']; ?></td>
+                                        <td class="hidd"><?php echo $reserve['reservation_phone']; ?></td>
+                                        <td class="hidd"><?php echo $reserve['reservation_datetime']; if($reserve['reservation_datetime'] < date('Y-m-d H:i:s')) { echo " LATE"; }?></td>
                                     </tr>
-                                    <tr>
-                                    <td class="hidd" >1285</td>
-                                        <td class="hidd">lumine12356@gmail.com</td>
-                                        <td class="hidd">loomloom</td>
-                                        <td class="hidd">Lumieee</td>
-                                        <td class="hidd">458935734257</td>
-                                        <td class="hidd">11-12-24</td>
-                                    </tr>
-                                    
+                                    <?php endforeach ?>
                                     </tbody>
                                 </table>
                                 </div>
-                                <a href=""><button style="width: 100%; height: 40px; border-radius: 10px; background-color: #6B4A4A; color: white;">Show All</button></a>
+                                <a href="admin_manage_appointments_all(pending).php"><button style="width: 100%; height: 40px; border-radius: 10px; background-color: #6B4A4A; color: white;">Show All</button></a>
                             </div>
                             </div>
                         </div>
@@ -174,50 +199,6 @@
                 </div>
                 
                 </section>
-                <!-- The Table -->
-                
-
-
-                </div>
-                <div class="col-3">
-
-                <section class="intro">
-                <div class="bg-image h-100" style="background-color: #f5f7fa;">
-                    <div class="mask d-flex align-items-center h-100">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                        <div class="col-12">
-                            <div class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px">
-                                <table class="table table-striped mb-0">
-                                    <thead style="background-color: #002d72;">
-                                    <tr>
-                                        <th scope="col" style="text-align: center;">New Accounts</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="hidd">lumine12356@gmail.com</td>
-                                    </tr>
-                                    
-                                    </tbody>
-                                </table>
-                                </div>
-                                <a href=""><button style="width: 100%; height: 40px; border-radius: 10px; background-color: #6B4A4A; color: white;">Show All</button></a>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </section>
-
-                </div>
             </div>
         </div>
 

@@ -20,6 +20,13 @@
             return "images/adduser.png"; // Default image
         }
     }
+
+
+
+    if(isset($_GET['id'])){
+        $reservation = $reservationcontrol->getindividualreservation($_GET['id']);
+    }
+
 ?>
 
 
@@ -108,16 +115,16 @@
 
     <div class="modal-body">
         <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-            <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
+            <img src="<?php echo disp($reservation); ?>" class="img-fluid" alt="Responsive image">
     </div>
     <div>
                                                         
     </div>
     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        User00101
+        <?php echo isset($reservation['user_fullname']) ? $reservation['user_fullname'] : ''; ?>
     </div>
     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-        User00101@gmail.com
+        <?php echo isset($reservation['user_email']) ? $reservation['user_email'] : ''; ?>
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
@@ -127,7 +134,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                556603
+                <?php echo isset($reservation['user_ID']) ? $reservation['user_ID'] : ''; ?>
             </div>
         </div>
     </div>
@@ -139,7 +146,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                loomloom
+                <?php echo isset($reservation['user_fullname']) ? $reservation['user_fullname'] : ''; ?>
             </div>
         </div>
     </div>
@@ -151,7 +158,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                092385729246
+                <?php echo isset($reservation['user_number']) ? $reservation['user_number'] : ''; ?>
             </div>
         </div>
     </div>
@@ -161,12 +168,24 @@
     <div class="row">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-left: auto; text-align:right;">
+                Reservation ID
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                <?php echo isset($reservation['reservation_ID']) ? $reservation['reservation_ID'] : ''; ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
                 Reservation Type
             </div>
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                Walk In
+                <?php echo isset($reservation['reservation_type']) ? $reservation['reservation_type'] : ''; ?>
             </div>
         </div>
     </div>
@@ -178,7 +197,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                Loomiee
+                <?php echo isset($reservation['reservation_name']) ? $reservation['reservation_name'] : ''; ?>
             </div>
         </div>
     </div>
@@ -190,7 +209,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                092385729246
+                <?php echo isset($reservation['reservation_phone']) ? $reservation['reservation_phone'] : ''; ?>
             </div>
         </div>
     </div>
@@ -202,7 +221,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                12/22/24
+                <?php echo isset($reservation['reservation_datetime']) ? $reservation['reservation_datetime'] : ''; ?>
             </div>
         </div>
     </div>
@@ -214,7 +233,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                NULL
+                <?php echo isset($reservation['reservation_address']) ? $reservation['reservation_address'] : ''; ?>
             </div>
         </div>
     </div>
@@ -226,7 +245,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                NULL
+                <?php echo isset($reservation['reservation_landmark']) ? $reservation['reservation_landmark'] : ''; ?>
             </div>
         </div>
     </div>
@@ -238,7 +257,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282; font-size: 20px;">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales urna vitae tincidunt condimentum. Etiam sit amet sodales ex. In lobortis lectus nunc, vel facilisis purus venenatis vitae. Duis mauris metus, aliquet vel quam finibus, feugiat dignissim lacus. In justo justo, facilisis vitae molestie eu, condimentum ut est. Etiam hendrerit id nisi sed varius. Proin interdum id massa vitae commodo. Pellentesque eu ultrices elit, ac maximus arcu. Phasellus eu arcu sed lectus volutpat interdum vehicula vel enim.
+                <?php echo isset($reservation['reservation_remarks']) ? $reservation['reservation_remarks'] : ''; ?>
             </div>
         </div>
     </div>

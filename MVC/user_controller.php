@@ -431,6 +431,14 @@
             return $this->countpending();
         }
 
+        public function getallpendingreservation(){
+            return $this->getpendingall();
+        }
+
+        public function getindividualreservation($rid){
+            return $this->getpendinguserindividual($rid);
+        }
+
 
     }
 
