@@ -439,6 +439,31 @@
             return $this->getpendinguserindividual($rid);
         }
 
+        public function sendresched($email, $sub ,$time, $name, $datetime, $id){
+
+            $value = "";
+            foreach($time as $arr){
+                $value .= "<div>".$arr."</div><br>";
+            }
+
+            $content = "<div>Dear ".$name.",<br><br>
+            We regret to inform you that your appointment on ".$datetime." with a reservation ID of ".$id." cannot proceed due to therapist unavailability. We sincerely apologize for the inconvenience.<br><br>
+
+            We would be happy to reschedule your session. Our next available slots are provided below. Please let us know which works best for you, or if you prefer a different time.<br><br>
+
+            Thank you for your understanding and flexibility!<br><br>
+
+            D&E Spa</div><br>" . $value;
+            $check = $this->sendstatus($email, $sub, $content);
+            if($check === true){
+                $check2 = $this->reschedule($id);
+                if($check2 === true){
+                    header('location: admin_manage_appointments.php?mess=resched');
+                }
+            }
+
+        }
+
         public function sendstatus($email, $sub ,$content){
             $mail = new PHPMailer(true);
 
@@ -455,14 +480,15 @@
             $mail->isHTML(true);
             $mail->Subject = $sub;
             $mail->Body = "
-            <h5>Message:</h5>
-            <p>".$content."</p>";
+            <h5>Message:</h5><br>".$content."";
 
-            $mail->send();
+            if($mail->send()){
+                return true;
+            } else {
+                return false;
+            }
 
-            $message = 'Send Succesfully';
-
-            header("Location: admin_manage_appointments_all(pending).php");
+            
         }
 
 

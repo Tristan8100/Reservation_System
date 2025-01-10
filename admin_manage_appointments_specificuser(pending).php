@@ -31,7 +31,7 @@
     }
 
     if(isset($_POST['submitres'])){
-        var_dump($_POST['appointments']);
+        $reservationcontrol->sendresched($_POST['user_email'], $_POST['resch'] ,$_POST['appointments'], $_POST['user_fullname'], $_POST['reservation_datetime'], $_POST['reservation_ID']);
     }
 
 ?>
@@ -379,7 +379,7 @@
                                                     </div>
                                                 </div>
                                                 <button type="submit">Submit</button>
-                                                <button type="submit">Cancel</button>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">Cancel</button>
                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ask customer to reschedule</button>
                                             </form>
                                             <a href=""><button>View Therapist Schedule on date()</button></a>
@@ -401,8 +401,55 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="admin_manage_appointments_specificuser(pending).php" method="POST">
+                    <input type="hidden" name="user_fullname" value="<?php echo $reservation['user_fullname']; ?>">
+                    <input type="hidden" name="reservation_datetime" value="<?php echo $reservation['reservation_datetime']; ?>">
+                    <input type="hidden" name="reservation_ID" value="<?php echo $reservation['reservation_ID']; ?>">
+                    <input type="hidden" name="user_email" value="<?php echo $reservation['user_email']; ?>">
+                    <input type="hidden" name="resch" value="Reschedule">
+                    <input type="hidden" name="data" value="<?php echo json_encode($reservation); ?>">
                 <div class="modal-body contentt">
                         <button class="but" type="button">Add DateTime</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="submitres" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+                </div>
+            </div>
+            </div>
+
+
+                        <!-- Modal -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cancellation Form</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="admin_manage_appointments_specificuser(pending).php" method="POST">
+                <div class="modal-body contentt">
+                    <!-- Radio button options with full descriptions as values -->
+                    <div class="mt-3">
+                    <label for="reason">Select a reason for cancellation:</label><br>
+                    <div>
+                        <input type="radio" id="reason1" name="cancellation_reason" value="SPAM">
+                        <label for="reason1">SPAM</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="reason2" name="cancellation_reason" value="Reason 2: Scheduling conflict">
+                        <label for="reason2">Scheduling conflict</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="reason3" name="cancellation_reason" value="Out of Working Hours">
+                        <label for="reason3">Out of Working Hours</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="reason4" name="cancellation_reason" value="Others">
+                        <label for="reason3">Others</label>
+                    </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

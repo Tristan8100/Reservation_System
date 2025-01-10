@@ -534,6 +534,17 @@
             }
         }
 
+        public function reschedule($id){
+            $sql = "UPDATE reservation SET reservation_status = 'RESCHEDULE' WHERE reservation_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         public function countpending(){
             $sql = 'SELECT COUNT(*) AS total FROM reservation WHERE reservation_status = \'PENDING\'';
             $stmt = $this->connect()->prepare($sql);
