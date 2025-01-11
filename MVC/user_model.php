@@ -534,6 +534,30 @@
             }
         }
 
+        public function cancelbyadmin($id){
+            $sql = "UPDATE reservation SET reservation_status = 'CANCELLED BY ADMIN' WHERE reservation_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function accept($id, $tid, $re){
+            $sql = "UPDATE reservation SET reservation_status = 'ACCEPTED', therapist_IDFK = :tid, reservation_ends = :re WHERE reservation_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':tid', $tid);
+            $stmt->bindParam(':re', $re);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         public function reschedule($id){
             $sql = "UPDATE reservation SET reservation_status = 'RESCHEDULE' WHERE reservation_ID = :id";
             $stmt = $this->connect()->prepare($sql);

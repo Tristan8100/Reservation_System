@@ -34,6 +34,15 @@
         $reservationcontrol->sendresched($_POST['user_email'], $_POST['resch'] ,$_POST['appointments'], $_POST['user_fullname'], $_POST['reservation_datetime'], $_POST['reservation_ID']);
     }
 
+    if(isset($_POST['submitcancel'])){
+        $_POST['cancellation_reason'];
+        $reservationcontrol->sendcanceladmin($_POST['user_email'], $_POST['cancel'] , $_POST['user_fullname'], $_POST['cancellation_reason'], $_POST['reservation_ID'], $_POST['reservation_datetime']);
+    }
+
+    if(isset($_POST['selected_row']) && isset($_POST['submitaccept'])){
+        $reservationcontrol->acceptreservation($_POST['reservation_ID'], $_POST['selected_row'], $_POST['user_fullname'], $_POST['reservation_datetime'], $_POST['accept'], $_POST['user_email'], $_POST['reservation_duration']);
+    }
+
 ?>
 
 
@@ -344,7 +353,13 @@
                                 <div class="container">
                                     <div class="row justify-content-center">
                                         <div class="col-12">
-                                            <form action="" method="GET">
+                                            <form action="admin_manage_appointments_specificuser(pending).php" method="POST">
+                                                    <input type="hidden" name="user_fullname" value="<?php echo $reservation['user_fullname']; ?>">
+                                                    <input type="hidden" name="reservation_datetime" value="<?php echo $reservation['reservation_datetime']; ?>">
+                                                    <input type="hidden" name="reservation_duration" value="<?php echo $reservation['reservation_duration']; ?>">
+                                                    <input type="hidden" name="reservation_ID" value="<?php echo $reservation['reservation_ID']; ?>">
+                                                    <input type="hidden" name="user_email" value="<?php echo $reservation['user_email']; ?>">
+                                                    <input type="hidden" name="accept" value="Accepted">
                                                 <div class="card">
                                                     <div class="card-body p-0">
                                                         <div class="table-responsive table-scroll" 
@@ -378,7 +393,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="submit">Submit</button>
+                                                <button type="submit" name="submitaccept">Submit</button>
                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">Cancel</button>
                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ask customer to reschedule</button>
                                             </form>
@@ -429,6 +444,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="admin_manage_appointments_specificuser(pending).php" method="POST">
+                    <input type="hidden" name="user_fullname" value="<?php echo $reservation['user_fullname']; ?>">
+                    <input type="hidden" name="reservation_datetime" value="<?php echo $reservation['reservation_datetime']; ?>">
+                    <input type="hidden" name="reservation_ID" value="<?php echo $reservation['reservation_ID']; ?>">
+                    <input type="hidden" name="user_email" value="<?php echo $reservation['user_email']; ?>">
+                    <input type="hidden" name="cancel" value="Cancelled">
                 <div class="modal-body contentt">
                     <!-- Radio button options with full descriptions as values -->
                     <div class="mt-3">
@@ -453,7 +473,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="submitres" class="btn btn-primary">Save changes</button>
+                    <button type="submit" name="submitcancel" class="btn btn-primary">Save changes</button>
                 </div>
                 </form>
                 </div>

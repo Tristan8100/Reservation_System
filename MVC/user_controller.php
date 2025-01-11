@@ -464,6 +464,34 @@
 
         }
 
+        public function sendcanceladmin($email, $sub , $name, $content, $id, $date){
+            $message = "Hi " . $name . "your reservation with an ID of " . $id . "on" . $date . "was cancelled due to: " .$content;
+            $check = $this->sendstatus($email, $sub, $message);
+            if($check === true){
+                $check2 = $this->cancelbyadmin($id);
+                if($check2 === true){
+                    header('location: admin_manage_appointments.php?mess=cancelled');
+                }
+            }
+
+        }
+
+        public function acceptreservation($id, $tid, $name, $date, $sub, $email, $minutes){
+            $newdatetime = new DateTime($date);
+
+            $newdatetime->add(new DateInterval('PT' . $minutes . 'M'));
+            $formattedDate = $newdatetime->format('Y-m-d H:i:s'); 
+            $message = "Hi " . $name . "your reservation with an ID of " . $id . " on " . $date . "was accepted, the expected time ends: " . $newdatetime->format('Y-m-d H:i:s');
+            $check = $this->sendstatus($email, $sub, $message);
+            if($check === true){
+                $check2 = $this->accept($id, $tid, $formattedDate);
+                if($check2 === true){
+                    header('location: admin_manage_appointments.php?mess=accepted');
+                }
+            }
+            
+        }
+
         public function sendstatus($email, $sub ,$content){
             $mail = new PHPMailer(true);
 
