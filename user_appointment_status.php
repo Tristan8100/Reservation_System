@@ -84,6 +84,7 @@ include 'MVC/user_routes.php';
                 <th scope="col">Phone Number</th>
                 <th scope="col">Date</th>
                 <th scope="col">Reservation Type</th>
+                <th scope="col">Status</th>
                 <th scope="col">Date</th>
                 </tr>
             </thead>
@@ -94,6 +95,7 @@ include 'MVC/user_routes.php';
                 <td><?php echo $reserve['reservation_phone']; ?></td>
                 <td><?php echo $reserve['reservation_datetime']; ?></td>
                 <td><?php echo $reserve['reservation_type']; ?></td> <!-- put id based on user id as well as getpop -->
+                <td><?php echo $reserve['reservation_status']; ?></td>
                 <td><button class="btn toch" id="<?php echo $reserve['reservation_ID']; ?>" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
 
@@ -158,7 +160,12 @@ include 'MVC/user_routes.php';
                                     <br>
                                     <h5 class="col card-title">Remarks</h5>
                                     <p class="card-text"><?php echo $reserve['reservation_remarks']; ?></p>
-                                    <a href="user_appointment_status.php?cancel=<?php echo $reserve['reservation_ID']; ?>" class="card-link">Cancel</a>
+                                    <?php if($reserve['reservation_status'] === "ACCEPTED"){
+                                        echo "";
+                                    } elseif($reserve['reservation_status'] === "PENDING") {
+                                        echo '<a href="user_appointment_status.php?cancel=' . $reserve['reservation_ID'] . '" class="card-link">Cancel</a>';
+                                    } ?>
+                                    
                                 </div>
                             </div>
                         </form>

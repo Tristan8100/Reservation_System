@@ -519,6 +519,18 @@
             
         }
 
+        public function fetchalluntracked(){
+            return $this->countuntracked();
+        }
+
+        public function getoneuntracked($rid){
+            return $this->oneuntracked($rid);
+        }
+
+        public function getalluntrackedreservation(){
+            return $this->alluntracked();
+        }
+
 
     }
 

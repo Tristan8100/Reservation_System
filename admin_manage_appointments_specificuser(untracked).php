@@ -1,3 +1,36 @@
+<?php
+
+include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+        //category
+    $allcategory = $categorycontrol->fetchcategory();
+    $allservice = $servicecontrol->fetchallservice();
+
+    $untrackedreservation = $reservationcontrol->getoneuntracked($_GET['id']);
+    $reservationservices = $reservationcontrol->fetchresser($_GET['id']);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,16 +116,16 @@
 
     <div class="modal-body">
         <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-            <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
+            <img src="<?php echo disp($untrackedreservation); ?>" class="img-fluid" alt="Responsive image">
     </div>
     <div>
                                                         
     </div>
     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        User00101
+        <?php echo $untrackedreservation['user_fullname']; ?>
     </div>
     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-        User00101@gmail.com
+        <?php echo $untrackedreservation['user_email']; ?>
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
@@ -102,7 +135,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                556603
+                <?php echo $untrackedreservation['user_ID']; ?>
             </div>
         </div>
     </div>
@@ -114,7 +147,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                loomloom
+                <?php echo $untrackedreservation['user_fullname']; ?>
             </div>
         </div>
     </div>
@@ -126,7 +159,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                092385729246
+                <?php echo $untrackedreservation['user_number']; ?>
             </div>
         </div>
     </div>
@@ -141,7 +174,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                Walk In
+                <?php echo $untrackedreservation['reservation_type']; ?>
             </div>
         </div>
     </div>
@@ -153,7 +186,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                Loomiee
+                <?php echo $untrackedreservation['reservation_name']; ?>
             </div>
         </div>
     </div>
@@ -165,7 +198,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                092385729246
+                <?php echo $untrackedreservation['reservation_phone']; ?>
             </div>
         </div>
     </div>
@@ -177,7 +210,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                12/22/24
+                <?php echo $untrackedreservation['reservation_datetime']; ?>
             </div>
         </div>
     </div>
@@ -189,7 +222,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                NULL
+                <?php echo $untrackedreservation['reservation_address']; ?>
             </div>
         </div>
     </div>
@@ -201,7 +234,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                NULL
+                <?php echo $untrackedreservation['reservation_landmark']; ?>
             </div>
         </div>
     </div>
@@ -213,7 +246,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282; font-size: 20px;">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales urna vitae tincidunt condimentum. Etiam sit amet sodales ex. In lobortis lectus nunc, vel facilisis purus venenatis vitae. Duis mauris metus, aliquet vel quam finibus, feugiat dignissim lacus. In justo justo, facilisis vitae molestie eu, condimentum ut est. Etiam hendrerit id nisi sed varius. Proin interdum id massa vitae commodo. Pellentesque eu ultrices elit, ac maximus arcu. Phasellus eu arcu sed lectus volutpat interdum vehicula vel enim.
+                <?php echo $untrackedreservation['reservation_remarks']; ?>
             </div>
         </div>
     </div>
@@ -252,18 +285,14 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <?php foreach($reservationservices as $availed): ?>
                                                             <tr>
-                                                                <td>1285</td>
-                                                                <td>tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                                                <td>qwerty</td>
-                                                                <td>Aaron Chapman</td>
+                                                                <td><?php echo $availed['service_IDFK']; ?></td>
+                                                                <td><?php echo $availed['service_name']; ?></td>
+                                                                <td><?php echo $availed['reservation_price']; ?></td>
+                                                                <td><?php echo $availed['reservation_duration']; ?></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>342</td>
-                                                                <td>ayaya@gmail.com</td>
-                                                                <td>ayyyayya</td>
-                                                                <td>Kamisato Ayaya</td>
-                                                            </tr>
+                                                            <?php endforeach ?>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -314,9 +343,9 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>1285</td>
-                                                                        <td>Neuvilette</td>
-                                                                        <td>otter@gmail.com</td>
+                                                                        <td><?php echo $availed['therapist_IDFK']; ?></td>
+                                                                        <td><?php echo $therapistcontrol->fetchonetherapist($availed['therapist_IDFK'])['therapist_fullname']; ?></td>
+                                                                        <td><?php echo $therapistcontrol->fetchonetherapist($availed['therapist_IDFK'])['therapist_email']; ?></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

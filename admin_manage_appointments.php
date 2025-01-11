@@ -27,6 +27,9 @@ include 'MVC/user_routes.php';
     //$onecategory = $categorycontrol->fetchonecategory($cid);
     $allreservation = $reservationcontrol->getallpendingreservation();
 
+    $countpending = $reservationcontrol->countallpending();
+    $countuntracked = $reservationcontrol->fetchalluntracked();
+    //var_dump($countuntracked);
 ?>
 
 
@@ -116,7 +119,7 @@ include 'MVC/user_routes.php';
         <div class="container" style="margin-top: 30px; display: flex;">
             <div style="width: 50%;">
                 <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
-                    <div style="font-size: 30px; color: #6B4A4A;">7</div>
+                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $countpending['total']; ?></div>
                     <div style="font-size: 25px; color: #6B4A4A;">Pending Appointments</div>
                 </div>
             </div>
@@ -132,8 +135,8 @@ include 'MVC/user_routes.php';
 
             <div style="width: 50%;">
                 <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: auto;">
-                    <div style="font-size: 30px; color: #6B4A4A;">3</div>
-                    <div style="font-size: 25px; color: #6B4A4A;">Untracked Appointments</div>
+                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $countuntracked['total']; ?></div>
+                    <a href="admin_manage_appointments_all(untracked).php"><div style="font-size: 25px; color: #6B4A4A;">Untracked Appointments</div></a>
                 </div>
             </div>
         </div>

@@ -491,7 +491,7 @@
 
         //for fetchin reservations
         public function getpendinguser($usid){
-            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status = \'PENDING\' ORDER BY reservation_datetime ASC';
+            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status = \'PENDING\' OR reservation_status = \'ACCEPTED\' ORDER BY reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':usid', $usid);
             if($stmt->execute()){
@@ -502,7 +502,7 @@
         }
 
         public function getnotpendinguser($usid){
-            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' ORDER BY reservation_datetime ASC';
+            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' AND reservation_status != \'ACCEPTED\' ORDER BY reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':usid', $usid);
             if($stmt->execute()){
@@ -513,7 +513,12 @@
         }
 
         public function getresser($id){
-            $sql = 'SELECT rs.*, r.* FROM reservation_services rs INNER JOIN reservation r ON r.reservation_ID = rs.reservation_IDFK WHERE r.reservation_ID = :id';
+            $sql = 'SELECT rs.*, r.*, s.*
+            FROM reservation_services rs
+            INNER JOIN reservation r ON r.reservation_ID = rs.reservation_IDFK
+            INNER JOIN service s ON s.service_ID = rs.service_IDFK
+            WHERE r.reservation_ID = :id;
+            ';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':id', $id);
             if($stmt->execute()){
@@ -572,6 +577,37 @@
         public function countpending(){
             $sql = 'SELECT COUNT(*) AS total FROM reservation WHERE reservation_status = \'PENDING\'';
             $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function countuntracked(){
+            $sql = 'SELECT COUNT(*) AS total FROM reservation WHERE reservation_status = \'ACCEPTED\' AND reservation_datetime < NOW() ';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function alluntracked(){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_datetime < NOW() ORDER BY r.reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchALL(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function oneuntracked($rid){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_datetime < NOW() AND r.reservation_ID = :rid ORDER BY r.reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':rid', $rid);
             if($stmt->execute()){
                 return $stmt->fetch(PDO::FETCH_ASSOC);
             } else {

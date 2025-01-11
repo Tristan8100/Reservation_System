@@ -152,7 +152,7 @@ include 'MVC/user_routes.php';
                                         <td class="hidd"><?php echo $reserve['user_fullname']; ?></td>
                                         <td class="hidd"><?php echo $reserve['reservation_name']; ?></td>
                                         <td class="hidd"><?php echo $reserve['reservation_phone']; ?></td>
-                                        <td class="hidd"><?php echo $reserve['reservation_datetime']; ?></td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
+                                        <td class="hidd"><?php echo $reserve['reservation_datetime']; if($reserve['reservation_datetime'] < date('Y-m-d H:i:s')) { echo " LATE"; }?></td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
                                         <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#<?php echo $reserve['reservation_ID']; ?>">click</button></td>
                                                                 <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
                                         <div class="modal fade" id="<?php echo $reserve['reservation_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
