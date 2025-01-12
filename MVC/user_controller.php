@@ -538,6 +538,18 @@
             }
         }
 
+        public function fetchalltracked(){
+            return $this->tracked();
+        }
+
+        public function fetchstatus($status){
+            return $this->getstatus($status);
+        }
+
+        public function fetchdate($datee){
+            return $this->getdate($datee);
+        }
+
 
     }
 

@@ -21,6 +21,26 @@ include 'MVC/user_routes.php';
         }
     }
 
+
+
+    $tracked = $reservationcontrol->fetchalltracked();
+
+    if(isset($_GET['filter'])){
+        if($_GET['status'] != "ALL" && $_GET['date'] === ""){
+            $tracked = $reservationcontrol->fetchstatus($_GET['status']);
+        } elseif($_GET['status'] == "ALL" && $_GET['date'] === ""){
+            $tracked = $reservationcontrol->fetchalltracked();
+        }
+
+        if($_GET['date'] != "" && $_GET['status'] === "ALL"){
+            //fetch filter by date and don't filter status
+        } elseif ($_GET['date'] != "" && $_GET['status'] != "ALL"){
+            //fetch filter by date and fetch filter status
+        }
+    }
+    
+
+
 ?>
 
 
@@ -109,27 +129,23 @@ include 'MVC/user_routes.php';
     <!-- TEMPLATE -->
 
         <div class="container">
-            <form method="GET" action="">
+            <form method="GET" action="admin_manage_appointments_all(tracked).php">
             <!-- Status Filter -->
             <label for="status-filter">Filter by Status:</label>
             <select id="status-filter" name="status">
-                <option value="<?php echo isset($_GET['status']) ? $_GET['status'] : ''; ?>">All</option>
-                <option value="SUCCESS">SUCCESS</option>
-                <option value="NO-SHOW">NO-SHOW</option>
-                <option value="CANCELLED">CANCELLED</option>
-                <option value="CANCELLEDbyADMIN">CANCELLED by ADMIN</option>
+                <option value="ALL">All</option>
+                <option value="SUCCESS" <?php echo (isset($_GET['status']) && $_GET['status'] === 'SUCCESS') ? 'selected' : ''; ?>>SUCCESS</option>
+                <option value="NO-SHOW" <?php echo (isset($_GET['status']) && $_GET['status'] === 'NO-SHOW') ? 'selected' : ''; ?>>NO-SHOW</option>
+                <option value="CANCELLED" <?php echo (isset($_GET['status']) && $_GET['status'] === 'CANCELLED') ? 'selected' : ''; ?>>CANCELLED</option>
+                <option value="CANCELLED BY ADMIN" <?php echo (isset($_GET['status']) && $_GET['status'] === 'CANCELLED BY ADMIN') ? 'selected' : ''; ?>>CANCELLED by ADMIN</option>
             </select>
         
             <!-- Start Date Filter -->
-            <label for="start-date">Start Date:</label>
-            <input type="date" id="start-date" name="start_date" value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
-        
-            <!-- End Date Filter -->
-            <label for="end-date">End Date:</label>
-            <input type="date" id="end-date" name="end_date" value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
-        
+            <label for="start-date">Date:</label>
+            <input type="date" id="start-date" name="date" value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
+      
             <!-- Submit Button -->
-            <button type="submit">Filter</button>
+            <button type="submit" name="filter">Filter</button>
             </form>
         </div>
 
@@ -161,16 +177,17 @@ include 'MVC/user_routes.php';
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($tracked as $done): ?>
                                     <tr>
-                                        <td class="hidd" >1285</td>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                        <td class="hidd">qwerty</td>
-                                        <td class="hidd">Aaron Chapman</td>
-                                        <td class="hidd">1068358649358</td>
-                                        <td class="hidd">10-12-23</td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
-                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#exampleModal">click</button></td>
+                                        <td class="hidd"><?php echo $done['reservation_ID']; ?></td>
+                                        <td class="hidd"><?php echo $done['user_email']; ?></td>
+                                        <td class="hidd"><?php echo $done['user_fullname']; ?></td>
+                                        <td class="hidd"><?php echo $done['reservation_name']; ?></td>
+                                        <td class="hidd"><?php echo $done['reservation_phone']; ?></td>
+                                        <td class="hidd"><?php echo $done['reservation_datetime']; ?></td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
+                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#<?php echo $done['reservation_ID']; ?>">click</button></td>
                                                                 <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="<?php echo $done['reservation_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog moddd" style="max-width: 500px;">
                                                 <div class="modal-content">
                                                 <div class="modal-header">
@@ -185,17 +202,17 @@ include 'MVC/user_routes.php';
                                                         
                                                     </div>
                                                     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        User00101
+                                                        <?php echo $done['user_fullname']; ?>
                                                     </div>
                                                     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        User00101@gmail.com
+                                                        <?php echo $done['user_email']; ?>
                                                     </div>
                                                     <div class="row" style="margin-top: 30px;">
                                                         <div class="col-6" style="font-size: 25px; padding-left: 30px;">
                                                             Account ID
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            556603
+                                                            <?php echo $done['user_ID']; ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -203,7 +220,7 @@ include 'MVC/user_routes.php';
                                                             Name
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            LLOOOOM
+                                                            <?php echo $done['user_fullname']; ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -211,80 +228,20 @@ include 'MVC/user_routes.php';
                                                             Phone Number
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            46468579358
+                                                            <?php echo $done['user_number']; ?>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">              <!-- PASS ID AS GET -->
-                                                    <a href=""><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Reservation</button></a>
+                                                    <a href="admin_manage_appointments_specificuser(tracked).php?id=<?php echo $done['reservation_ID']; ?>"><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Reservation</button></a>
                                                 </div>
                                                 </div>
                                             </div>
                                         </div>
                                                 <!-- END OF FIRST MODAL -->
-
                                     </tr>
-                                    <tr>
-                                        <td class="hidd" >342</td>
-                                        <td class="hidd">ayaya@gmail.com</td>
-                                        <td class="hidd">ayyyayya</td>
-                                        <td class="hidd">Kamisato Ayaya</td>
-                                        <td class="hidd">4947728246</td>
-                                        <td class="hidd">9-18-23</td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
-                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#exampleModal1">click</button></td>
-                                                                <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
-                                        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog moddd" style="max-width: 500px;">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 50%; transform: translate(-50%);">Profile Details</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-                                                        <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
-                                                    </div>
-                                                    <div>
-                                                        
-                                                    </div>
-                                                    <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        Useray45
-                                                    </div>
-                                                    <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        User00101@gmail.com
-                                                    </div>
-                                                    <div class="row" style="margin-top: 30px;">
-                                                        <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Account ID
-                                                        </div>
-                                                        <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            6678
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Name
-                                                        </div>
-                                                        <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            Ayaya
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Phone Number
-                                                        </div>
-                                                        <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            46468579358
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">              <!-- PASS ID AS GET -->
-                                                    <a href=""><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Reservation</button></a>
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                                <!-- END OF SECOND MODAL -->
+                                    <?php endforeach ?>
+                                    
                                     
                                     </tbody>
                                 </table>

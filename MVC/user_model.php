@@ -648,6 +648,38 @@
             }
         }
 
+        public function tracked(){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status != \'PENDING\' AND r.reservation_status != \'ACCEPTED\' ORDER BY r.reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getstatus($statuss){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = :statuss ORDER BY r.reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':statuss', $statuss);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getdate($datee){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_datetime = :datee ORDER BY r.reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':datee', $datee);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
 
     }
 
