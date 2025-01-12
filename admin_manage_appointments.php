@@ -127,8 +127,10 @@ include 'MVC/user_routes.php';
             <div style="width: 40%;">
                 <a href="" style="text-decoration: none;">
                     <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: auto;">
-                        <div style="font-size: 30px; color: #6B4A4A;">View all Appointments</div>
-                        <div style="font-size: 25px; color: #6B4A4A;">Sort Appointments</div>
+                        <a href="admin_manage_appointments_all(tracked).php">
+                            <div style="font-size: 30px; color: #6B4A4A;">View all Appointments</div>
+                            <div style="font-size: 25px; color: #6B4A4A;">Sort Appointments</div>
+                        </a>
                     </div>
                 </a>
             </div>

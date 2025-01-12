@@ -531,6 +531,13 @@
             return $this->alluntracked();
         }
 
+        public function totrackreservation($id, $rs){
+            $check = $this->totrack($id, $rs);
+            if($check === true){
+                header('location: admin_manage_appointments_all(untracked).php?mess=updated');
+            }
+        }
+
 
     }
 

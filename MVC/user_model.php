@@ -636,6 +636,18 @@
             }
         }
 
+        public function totrack($id, $rs){
+            $sql = "UPDATE reservation SET reservation_status = :rs WHERE reservation_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':rs', $rs);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 
     }
 

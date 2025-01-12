@@ -25,8 +25,17 @@ include 'MVC/user_routes.php';
     $allcategory = $categorycontrol->fetchcategory();
     $allservice = $servicecontrol->fetchallservice();
 
+    //fetch the untracked
     $untrackedreservation = $reservationcontrol->getoneuntracked($_GET['id']);
     $reservationservices = $reservationcontrol->fetchresser($_GET['id']);
+
+    if(isset($_POST['ns'])){
+        $reservationcontrol->totrackreservation($_POST['idres'], $_POST['ns']);
+    }
+
+    if(isset($_POST['sc'])){
+        $reservationcontrol->totrackreservation($_POST['idres'], $_POST['sc']);
+    }
 
 ?>
 
@@ -122,10 +131,10 @@ include 'MVC/user_routes.php';
                                                         
     </div>
     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        <?php echo $untrackedreservation['user_fullname']; ?>
+        <?php echo isset($untrackedreservation['user_fullname']) ? $untrackedreservation['user_fullname'] : ""; ?>
     </div>
     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-        <?php echo $untrackedreservation['user_email']; ?>
+        <?php echo isset($untrackedreservation['user_email']) ? $untrackedreservation['user_email']: ""; ?>
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
@@ -135,7 +144,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['user_ID']; ?>
+                <?php echo isset($untrackedreservation['user_ID']) ? $untrackedreservation['user_ID']: ""; ?>
             </div>
         </div>
     </div>
@@ -147,7 +156,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['user_fullname']; ?>
+                <?php echo isset($untrackedreservation['user_fullname']) ? $untrackedreservation['user_fullname']: ""; ?>
             </div>
         </div>
     </div>
@@ -159,7 +168,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['user_number']; ?>
+                <?php echo isset($untrackedreservation['user_number']) ? $untrackedreservation['user_number']: ""; ?>
             </div>
         </div>
     </div>
@@ -174,7 +183,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['reservation_type']; ?>
+                <?php echo isset($untrackedreservation['reservation_type']) ? $untrackedreservation['reservation_type']: ""; ?>
             </div>
         </div>
     </div>
@@ -186,7 +195,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['reservation_name']; ?>
+                <?php echo isset($untrackedreservation['reservation_name']) ? $untrackedreservation['reservation_name']: ""; ?>
             </div>
         </div>
     </div>
@@ -198,7 +207,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['reservation_phone']; ?>
+                <?php echo isset($untrackedreservation['reservation_phone']) ? $untrackedreservation['reservation_phone']: ""; ?>
             </div>
         </div>
     </div>
@@ -210,7 +219,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['reservation_datetime']; ?>
+                <?php echo isset($untrackedreservation['reservation_datetime']) ? $untrackedreservation['reservation_datetime']: ""; ?>
             </div>
         </div>
     </div>
@@ -222,7 +231,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['reservation_address']; ?>
+                <?php echo isset($untrackedreservation['reservation_address']) ? $untrackedreservation['reservation_address']: ""; ?>
             </div>
         </div>
     </div>
@@ -234,7 +243,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $untrackedreservation['reservation_landmark']; ?>
+                <?php echo isset($untrackedreservation['reservation_landmark']) ? $untrackedreservation['reservation_landmark']: ""; ?>
             </div>
         </div>
     </div>
@@ -246,7 +255,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282; font-size: 20px;">
-                <?php echo $untrackedreservation['reservation_remarks']; ?>
+                <?php echo isset($untrackedreservation['reservation_remarks']) ? $untrackedreservation['reservation_remarks']: ""; ?>
             </div>
         </div>
     </div>
@@ -325,7 +334,6 @@ include 'MVC/user_routes.php';
                                 <div class="container">
                                     <div class="row justify-content-center">
                                         <div class="col-12">
-                                            <form action="" method="GET">
                                                 <div class="card">
                                                     <div class="card-body p-0">
                                                         <div class="table-responsive table-scroll" 
@@ -352,9 +360,13 @@ include 'MVC/user_routes.php';
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="submit">Success</button>
-                                                <button type="submit">No-Show</button>
-                                            </form>
+                                                <form action="admin_manage_appointments_specificuser(untracked).php" method="POST">
+                                                    <?php if(isset($untrackedreservation['user_ID'])): ?>
+                                                        <input type="hidden" name="idres" value="<?php echo $untrackedreservation['reservation_ID'] ?>">
+                                                        <button type="submit" name="ns" value="NO-SHOW" >No-Show</button>
+                                                        <button type="submit" name="sc" value="SUCCESS">Success</button>
+                                                    <?php endif; ?>
+                                                </form>
                                         </div>
                                     </div>
                                 </div>
