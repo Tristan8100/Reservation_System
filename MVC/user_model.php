@@ -490,6 +490,7 @@
         }
 
         //for fetchin reservations
+        //based on user_ID
         public function getpendinguser($usid){
             $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status = \'PENDING\' OR reservation_status = \'ACCEPTED\' ORDER BY reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
@@ -511,6 +512,8 @@
                 return false;
             }
         }
+
+        //based on reservation_ID
 
         public function getresser($id){
             $sql = 'SELECT rs.*, r.*, s.*
@@ -669,8 +672,9 @@
             }
         }
 
+        //based on date and status
         public function getdate($datee){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_datetime = :datee ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE DATE (r.reservation_datetime) = :datee ORDER BY r.reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':datee', $datee);
             if($stmt->execute()){
@@ -679,6 +683,31 @@
                 return false;
             }
         }
+
+        public function getdateandstatus($datee, $statuss){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE DATE (r.reservation_datetime) = :datee AND r.reservation_status = :statuss ORDER BY r.reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':datee', $datee);
+            $stmt->bindParam(':statuss', $statuss);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function gettrackedindividual($rid){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status != \'PENDING\' AND r.reservation_status != \'ACCEPTED\' AND r.reservation_ID = :rid';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':rid', $rid);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        //based on therapist
 
 
     }

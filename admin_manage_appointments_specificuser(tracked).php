@@ -1,3 +1,35 @@
+<?php
+
+include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+    if(isset($_GET['id'])){
+        $trackedperuser = $reservationcontrol->fetchtrackedindividual($_GET['id']);
+        $allservice = $reservationcontrol->fetchresser($_GET['id']);
+    }  
+    
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,23 +108,23 @@
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href="admin_manage_account_all.php"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
+                <a onclick="window.history.back()"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->
 
     <div class="modal-body">
         <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-            <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
+            <img src="<?php echo disp($trackedperuser); ?>" class="img-fluid" alt="Responsive image">
     </div>
     <div>
                                                         
     </div>
     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        User00101
+        <?php echo isset($trackedperuser['user_fullname']) ? $trackedperuser['user_fullname'] : ''; ?>
     </div>
     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-        User00101@gmail.com
+        <?php echo isset($trackedperuser['user_email']) ? $trackedperuser['user_email'] : ''; ?>
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
@@ -102,7 +134,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                556603
+                <?php echo isset($trackedperuser['user_ID']) ? $trackedperuser['user_ID'] : ''; ?>
             </div>
         </div>
     </div>
@@ -114,7 +146,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                loomloom
+                <?php echo isset($trackedperuser['user_fullname']) ? $trackedperuser['user_fullname'] : ''; ?>
             </div>
         </div>
     </div>
@@ -126,7 +158,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                092385729246
+                <?php echo isset($trackedperuser['user_number']) ? $trackedperuser['user_number'] : ''; ?>
             </div>
         </div>
     </div>
@@ -141,7 +173,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                Cancelled
+                <?php echo isset($trackedperuser['reservation_status']) ? $trackedperuser['reservation_status'] : ''; ?>
             </div>
         </div>
     </div>
@@ -153,7 +185,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                Walk In
+                <?php echo isset($trackedperuser['reservation_type']) ? $trackedperuser['reservation_type'] : ''; ?>
             </div>
         </div>
     </div>
@@ -165,7 +197,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                Loomiee
+                <?php echo isset($trackedperuser['reservation_name']) ? $trackedperuser['reservation_name'] : ''; ?>
             </div>
         </div>
     </div>
@@ -177,7 +209,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                092385729246
+            <?php echo isset($trackedperuser['reservation_phone']) ? $trackedperuser['reservation_phone'] : ''; ?>
             </div>
         </div>
     </div>
@@ -189,7 +221,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                12/22/24
+                <?php echo isset($trackedperuser['reservation_datetime']) ? $trackedperuser['reservation_datetime'] : ''; ?>
             </div>
         </div>
     </div>
@@ -201,7 +233,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                NULL
+                <?php echo isset($trackedperuser['reservation_address']) ? $trackedperuser['reservation_address'] : ''; ?>
             </div>
         </div>
     </div>
@@ -213,7 +245,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                NULL
+                <?php echo isset($trackedperuser['reservation_landmark']) ? $trackedperuser['reservation_landmark'] : ''; ?>
             </div>
         </div>
     </div>
@@ -225,7 +257,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282; font-size: 20px;">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales urna vitae tincidunt condimentum. Etiam sit amet sodales ex. In lobortis lectus nunc, vel facilisis purus venenatis vitae. Duis mauris metus, aliquet vel quam finibus, feugiat dignissim lacus. In justo justo, facilisis vitae molestie eu, condimentum ut est. Etiam hendrerit id nisi sed varius. Proin interdum id massa vitae commodo. Pellentesque eu ultrices elit, ac maximus arcu. Phasellus eu arcu sed lectus volutpat interdum vehicula vel enim.
+            <?php echo isset($trackedperuser['reservation_remarks']) ? $trackedperuser['reservation_remarks'] : ''; ?>
             </div>
         </div>
     </div>
@@ -264,18 +296,14 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <?php foreach($allservice as $service): ?>
                                                             <tr>
-                                                                <td>1285</td>
-                                                                <td>tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                                                <td>qwerty</td>
-                                                                <td>Aaron Chapman</td>
+                                                                <td><?php echo isset($service['service_ID']) ? $service['service_ID'] : ''; ?></td>
+                                                                <td><?php echo isset($service['service_name']) ? $service['service_name'] : ''; ?></td>
+                                                                <td>₱<?php echo isset($service['service_price']) ? $service['service_price'] : ''; ?></td>
+                                                                <td><?php echo isset($service['service_duration']) ? $service['service_duration'] : ''; ?> minutes</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>342</td>
-                                                                <td>ayaya@gmail.com</td>
-                                                                <td>ayyyayya</td>
-                                                                <td>Kamisato Ayaya</td>
-                                                            </tr>
+                                                            <?php endforeach ?>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -296,7 +324,7 @@
     
 
             <br>
-            <div style="text-align: center; font-size: 30px;">Add Therapist</div>
+            <div style="text-align: center; font-size: 30px;">Booked Therapist</div>
             <br>
 
             <div class="row">
@@ -327,10 +355,10 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>NULL</td>
-                                                                        <td>NULL</td>
-                                                                        <td>NULL</td>
-                                                                        <td>NULL</td>
+                                                                        <td><?php echo $trackedperuser['therapist_IDFK']; ?></td>
+                                                                        <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_fullname']; ?></td>
+                                                                        <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_email']; ?></td>
+                                                                        <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_gender']; ?></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

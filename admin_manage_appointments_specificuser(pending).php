@@ -23,11 +23,12 @@
 
 
     $allcategory = $categorycontrol->fetchcategory();
-    $allservice = $servicecontrol->fetchallservice();
+    
     $alltherapist = $therapistcontrol->selectactivetherapist();
-
+    $allservice = [];
     if(isset($_GET['id'])){
         $reservation = $reservationcontrol->getindividualreservation($_GET['id']);
+        $allservice = $reservationcontrol->fetchresser($_GET['id']);
     }
 
     if(isset($_POST['submitres'])){
@@ -314,10 +315,10 @@
                                                         <tbody>
                                                             <?php foreach($allservice as $service): ?>
                                                             <tr>
-                                                                <td><?php echo $service['service_ID']; ?></td>
-                                                                <td><?php echo $service['service_name']; ?></td>
-                                                                <td>₱<?php echo $service['service_price']; ?></td>
-                                                                <td><?php echo $service['service_duration']; ?> minutes</td>
+                                                                <td><?php echo isset($service['service_ID']) ? $service['service_ID'] : ''; ?></td>
+                                                                <td><?php echo isset($service['service_name']) ? $service['service_name'] : ''; ?></td>
+                                                                <td>₱<?php echo isset($service['service_price']) ? $service['service_price'] : ''; ?></td>
+                                                                <td><?php echo isset($service['service_duration']) ? $service['service_duration'] : ''; ?> minutes</td>
                                                             </tr>
                                                             <?php endforeach ?>
                                                             

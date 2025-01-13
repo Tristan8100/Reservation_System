@@ -550,6 +550,14 @@
             return $this->getdate($datee);
         }
 
+        public function fetchdatestatus($datee, $statuss){
+            return $this->getdateandstatus($datee, $statuss);
+        }
+
+        public function fetchtrackedindividual($rid){
+            return $this->gettrackedindividual($rid);
+        }
+
 
     }
 

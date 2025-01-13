@@ -33,11 +33,12 @@ include 'MVC/user_routes.php';
         }
 
         if($_GET['date'] != "" && $_GET['status'] === "ALL"){
-            //fetch filter by date and don't filter status
+            $tracked = $reservationcontrol->fetchdate($_GET['date']);
         } elseif ($_GET['date'] != "" && $_GET['status'] != "ALL"){
-            //fetch filter by date and fetch filter status
+            $tracked = $reservationcontrol->fetchdatestatus($_GET['date'], $_GET['status']);
         }
     }
+    
     
 
 
