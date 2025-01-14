@@ -37,6 +37,8 @@ include 'MVC/user_routes.php';
         $reservationcontrol->totrackreservation($_POST['idres'], $_POST['sc']);
     }
 
+    //echo date('Y-m-d H:i:s', time());
+
 ?>
 
 
@@ -111,14 +113,21 @@ include 'MVC/user_routes.php';
         <div class="container" style="display: flex; align-items: center;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Appointments (Untracked)
+                    Manage Appointments (<?php 
+if (isset($untrackedreservation['reservation_datetime']) && $untrackedreservation['reservation_datetime'] < date('Y-m-d H:i:s', time())) {
+    echo "Untracked";
+} else {
+    echo "due soon";
+}
+?>
+)
                 </div>
                 <div style="color: #6B4A4A;">
                     Quick access to customer's appointment
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href="admin_manage_account_all.php"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
+                <a onclick="window.history.back()"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->
@@ -362,9 +371,17 @@ include 'MVC/user_routes.php';
                                                 </div>
                                                 <form action="admin_manage_appointments_specificuser(untracked).php" method="POST">
                                                     <?php if(isset($untrackedreservation['user_ID'])): ?>
-                                                        <input type="hidden" name="idres" value="<?php echo $untrackedreservation['reservation_ID'] ?>">
-                                                        <button type="submit" name="ns" value="NO-SHOW" >No-Show</button>
-                                                        <button type="submit" name="sc" value="SUCCESS">Success</button>
+
+                                                        <?php 
+                                                        if ($untrackedreservation['reservation_datetime'] < date('Y-m-d H:i:s', time())): ?>
+                                                            <input type="hidden" name="idres" value="<?php echo $untrackedreservation['reservation_ID']; ?>">
+                                                            <button type="submit" name="ns" value="NO-SHOW">No-Show</button>
+                                                            <button type="submit" name="sc" value="SUCCESS">Success</button>
+                                                        
+                                                        <?php endif; ?>
+
+                                                              
+                                                        
                                                     <?php endif; ?>
                                                 </form>
                                         </div>

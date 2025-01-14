@@ -46,8 +46,11 @@
             $therapistcontrol->deletetherapist($val['therapist_ID']);
         }
     }
+
+    $therapistreservation = $reservationcontrol->fetchdonetherapist($val['therapist_ID']);
     
 
+    $acceptreservation = $reservationcontrol->fetchacceptherapist($val['therapist_ID']);
 
     
 
@@ -227,26 +230,21 @@
                                                             <tr>
                                                                 <th scope="col">Reservation ID</th>
                                                                 <th scope="col">Date</th>
-                                                                <th scope="col">Time</th>
+                                                                <th scope="col">Customer Name</th>
                                                                 <th scope="col">Status</th>
                                                                 <th scope="col">view</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <?php foreach($therapistreservation as $value): ?>
                                                             <tr>
-                                                                <td>1285</td>
-                                                                <td>tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                                                <td>qwerty</td>
-                                                                <td>SUCCESS</td>
-                                                                <td><a href=""><button>view</button></a></td>
+                                                                <td><?php echo $value['reservation_ID']; ?></td>
+                                                                <td><?php echo $value['reservation_datetime']; ?></td>
+                                                                <td><?php echo $value['user_fullname']; ?></td>
+                                                                <td><?php echo $value['reservation_status']; ?></td>
+                                                                <td><a href="admin_manage_appointments_specificuser(tracked).php?id=<?php echo $value['reservation_ID']; ?>"><button>view</button></a></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>342</td>
-                                                                <td>ayaya@gmail.com</td>
-                                                                <td>ayyyayya</td>
-                                                                <td>NO-SHOW</td>
-                                                                <td><a href=""><button>view</button></a></td>
-                                                            </tr>
+                                                            <?php endforeach ?>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -298,13 +296,15 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td>NULL</td>
-                                                                        <td>NULL</td>
-                                                                        <td>NULL</td>
-                                                                        <td>NULL</td>
-                                                                        <td><a href=""><button>view</button></a></td>
-                                                                    </tr>
+                                                                    <?php foreach($acceptreservation as $reservation): ?>
+                                                                        <tr>
+                                                                            <td><?php echo $reservation['reservation_ID']; ?></td>
+                                                                            <td><?php echo $reservation['reservation_datetime']; ?></td>
+                                                                            <td><?php echo $reservation['user_fullname']; ?></td>
+                                                                            <td><?php echo $reservation['reservation_status']; ?></td>
+                                                                            <td><a href="admin_manage_appointments_specificuser(untracked).php?id=<?php echo $reservation['reservation_ID']; ?>"><button>view</button></a></td>
+                                                                        </tr>
+                                                                    <?php endforeach ?>
                                                                 </tbody>
                                                             </table>
                                                         </div>

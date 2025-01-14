@@ -608,7 +608,7 @@
         }
 
         public function oneuntracked($rid){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_datetime < NOW() AND r.reservation_ID = :rid ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_ID = :rid ORDER BY r.reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':rid', $rid);
             if($stmt->execute()){
@@ -716,6 +716,38 @@
             WHERE r.reservation_status = 'ACCEPTED' ORDER BY r.reservation_datetime ASC
             ";
             $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getaccepttherapist($tid){
+            $sql = "SELECT r.*, us.*, t.*
+            FROM reservation r
+            INNER JOIN user us ON us.user_ID = r.user_IDFK
+            INNER JOIN therapist t ON t.therapist_ID = r.therapist_IDFK
+            WHERE r.reservation_status = 'ACCEPTED' AND t.therapist_ID = :tid ORDER BY r.reservation_datetime ASC
+            ";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':tid', $tid);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getdonetherapist($tid){
+            $sql = "SELECT r.*, us.*, t.*
+            FROM reservation r
+            INNER JOIN user us ON us.user_ID = r.user_IDFK
+            INNER JOIN therapist t ON t.therapist_ID = r.therapist_IDFK
+            WHERE r.reservation_status != 'ACCEPTED' AND r.reservation_status != 'PENDING' AND t.therapist_ID = :tid ORDER BY r.reservation_datetime ASC
+            ";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':tid', $tid);
             if($stmt->execute()){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } else {

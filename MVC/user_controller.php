@@ -562,6 +562,14 @@
             return $this->getbookedtherapist();
         }
 
+        public function fetchdonetherapist($tid){
+            return $this->getdonetherapist($tid);
+        }
+
+        public function fetchacceptherapist($tid){
+            return $this->getaccepttherapist($tid);
+        }
+
 
     }
 
