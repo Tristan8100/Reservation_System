@@ -558,6 +558,10 @@
             return $this->gettrackedindividual($rid);
         }
 
+        public function fetchbookedtherapist(){
+            return $this->getbookedtherapist();
+        }
+
 
     }
 

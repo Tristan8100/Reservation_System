@@ -708,6 +708,20 @@
         }
 
         //based on therapist
+        public function getbookedtherapist(){
+            $sql = "SELECT r.*, us.*, t.*
+            FROM reservation r
+            INNER JOIN user us ON us.user_ID = r.user_IDFK
+            INNER JOIN therapist t ON t.therapist_ID = r.therapist_IDFK
+            WHERE r.reservation_status = 'ACCEPTED' ORDER BY r.reservation_datetime ASC
+            ";
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
 
 
     }

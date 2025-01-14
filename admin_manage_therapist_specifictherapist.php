@@ -22,19 +22,34 @@
     }
 
   
-
     //to ensure there's always an ID
-    if(isset($_GET['id'])){
-        $val = $therapistcontrol->fetchonetherapist($_GET['id']);
-    } else {
-        header('location: admin_manage_therapist_all.php');
-    }
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if (isset($_GET['id'])) {
+            try {
+                $val = $therapistcontrol->fetchonetherapist($_GET['id']);
+                if (!$val) {
+                    // Handle case when no therapist is found
+                    throw new Exception('Therapist not found.');
+                }
+            } catch (Exception $e) {
+                header('Location: admin_manage_therapist_all.php');
+                exit; // Important to stop further execution
+            }  
+        } else {
+            header('Location: admin_manage_therapist_all.php');
+            //exit;
+        }
 
-    if(isset($_GET['delete'])){
-        //execute deletion
-        echo "suuc";
-        $therapistcontrol->deletetherapist($val['therapist_ID']);
+        if(isset($_GET['delete'])){
+            //execute deletion
+            echo "suuc";
+            $therapistcontrol->deletetherapist($val['therapist_ID']);
+        }
     }
+    
+
+
+    
 
 ?>
 
@@ -117,7 +132,7 @@
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href="admin_manage_account_all.php"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
+                <a onclick="window.history.back()"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->

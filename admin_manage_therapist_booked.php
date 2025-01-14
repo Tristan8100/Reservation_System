@@ -25,6 +25,8 @@
         
     }
 
+    $bookedtherapist = $reservationcontrol->fetchbookedtherapist();
+
 ?>
 
 <!DOCTYPE html>
@@ -145,33 +147,26 @@
                                     <tr>
                                         <th scope="col">Therapist ID</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Username</th>
                                         <th scope="col">Name</th>
+                                        <th scope="col">Customer Email</th>
                                         <th scope="col">Reservation ID</th>
                                         <th scope="col">Reservation Time</th>
                                         <th scope="col">View</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($bookedtherapist as $booked): ?>
                                     <tr>
-                                        <td class="hidd" >1285</td>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                        <td class="hidd">qwerty</td>
-                                        <td class="hidd">Aaron Chapman</td>
-                                        <td class="hidd">1068358649358</td>
-                                        <td class="hidd">10-12-23</td>
-                                        <td class="hidd"><a href=""><button>click</button></td></a>
-                                        
-
+                                        <td class="hidd" ><?php echo $booked['therapist_ID']; ?></td>
+                                        <td class="hidd"><?php echo $booked['therapist_email']; ?></td>
+                                        <td class="hidd"><?php echo $booked['therapist_fullname']; ?></td>
+                                        <td class="hidd"><?php echo $booked['user_email']; ?></td>
+                                        <td class="hidd"><?php echo $booked['reservation_ID']; ?></td>
+                                        <td class="hidd"><?php echo $booked['reservation_datetime']; ?></td>
+                                        <td class="hidd"><a href="admin_manage_therapist_specifictherapist.php?id=<?php echo $booked['therapist_ID']; ?>"><button>click</button></td></a>
                                     </tr>
-                                    <tr>
-                                        <td class="hidd" >342</td>
-                                        <td class="hidd">ayaya@gmail.com</td>
-                                        <td class="hidd">ayyyayya</td>
-                                        <td class="hidd">Kamisato Ayaya</td>
-                                        <td class="hidd">4947728246</td>
-                                        <td class="hidd">9-18-23</td>
-                                        <td class="hidd"><a href=""><button>click</button></td></a>
+                                    <?php endforeach ?>
+                                    
                                     </tbody>
                                 </table>
                                 </div>
