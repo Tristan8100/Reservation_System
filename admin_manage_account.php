@@ -1,3 +1,32 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+    $count = $control->fetchusercount();
+    $alluser = $control->fetchalluser();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,15 +114,8 @@
         <div class="container" style="margin-top: 30px; display: flex;">
             <div style="width: 50%;">
                 <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
-                    <div style="font-size: 30px; color: #6B4A4A;">203</div>
+                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $count['total']; ?></div>
                     <div style="font-size: 25px; color: #6B4A4A;">Accounts</div>
-                </div>
-            </div>
-
-            <div style="width: 50%;">
-                <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: auto;">
-                    <div style="font-size: 30px; color: #6B4A4A;">4</div>
-                    <div style="font-size: 25px; color: #6B4A4A;">New Accounts</div>
                 </div>
             </div>
         </div>
@@ -112,107 +134,50 @@
 
         <div style="margin-top: 50px;">
             <div class="row">
-                <div class="col-9">
-
                 <!-- The Table -->
                 <section class="intro">
-                <div class="bg-image h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                        <div class="col-12">
-                            <div class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px">
-                                <table class="table table-striped mb-0">
-                                    <thead style="background-color: #002d72;">
-                                    <tr>
-                                        <th scope="col">Account ID</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Phone Number</th>
-                                        <th scope="col">Date Created</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="hidd" >1285</td>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                        <td class="hidd">qwerty</td>
-                                        <td class="hidd">Aaron Chapman</td>
-                                        <td class="hidd">1068358649358</td>
-                                        <td class="hidd">10-12-23</td>
-                                    </tr>
-                                    <tr>
-                                    <td class="hidd" >1285</td>
-                                        <td class="hidd">lumine12356@gmail.com</td>
-                                        <td class="hidd">loomloom</td>
-                                        <td class="hidd">Lumieee</td>
-                                        <td class="hidd">458935734257</td>
-                                        <td class="hidd">11-12-24</td>
-                                    </tr>
-                                    
-                                    </tbody>
-                                </table>
+                    <div class="bg-image h-100">
+                        <div class="mask d-flex align-items-center h-100">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body p-0">
+                                            <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px">
+                                            <table class="table table-striped mb-0">
+                                                <thead style="background-color: #002d72;">
+                                                <tr>
+                                                    <th scope="col">Account ID</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Phone Number</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php foreach($alluser as $user): ?>
+                                                <tr>
+                                                    <td class="hidd"><?php echo $user['user_ID']; ?></td>
+                                                    <td class="hidd"><?php echo $user['user_email']; ?></td>
+                                                    <td class="hidd"><?php echo $user['user_fullname']; ?></td>
+                                                    <td class="hidd"><?php echo $user['user_number']; ?></td>
+                                                </tr>
+                                                <?php endforeach ?>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                            <a href="admin_manage_account_all.php"><button style="width: 100%; height: 40px; border-radius: 10px; background-color: #6B4A4A; color: white;">Show All</button></a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href=""><button style="width: 100%; height: 40px; border-radius: 10px; background-color: #6B4A4A; color: white;">Show All</button></a>
-                            </div>
                             </div>
                         </div>
-                        </div>
                     </div>
-                    </div>
-                </div>
+               
                 
                 </section>
                 <!-- The Table -->
-                
-
-
-                </div>
-                <div class="col-3 border-success">
-
-                <section class="intro">
-                <div class="bg-image h-100">
-                    <div class="mask d-flex align-items-center h-100">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                        <div class="col-12">
-                            <div class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px">
-                                <table class="table table-striped mb-0">
-                                    <thead style="background-color: #002d72;">
-                                    <tr>
-                                        <th scope="col" style="text-align: center;">New Accounts</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="hidd">lumine12356@gmail.com</td>
-                                    </tr>
-                                    
-                                    </tbody>
-                                </table>
-                                </div>
-                                <a href=""><button style="width: 100%; height: 40px; border-radius: 10px; background-color: #6B4A4A; color: white;">Show All</button></a>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </section>
-
-                </div>
             </div>
-        </div>
-
+                
     </div>
     
 

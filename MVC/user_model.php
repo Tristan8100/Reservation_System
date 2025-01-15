@@ -138,6 +138,16 @@
             }
         }
 
+        public function alluser(){
+            $sql = "SELECT * FROM user";
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
     }
 
     class therapistmodel extends DB{
@@ -516,12 +526,15 @@
         //based on reservation_ID
 
         public function getresser($id){
-            $sql = 'SELECT rs.*, r.*, s.*
-            FROM reservation_services rs
-            INNER JOIN reservation r ON r.reservation_ID = rs.reservation_IDFK
-            INNER JOIN service s ON s.service_ID = rs.service_IDFK
-            WHERE r.reservation_ID = :id;
-            ';
+            $sql = 'SELECT 
+            rs.reservation_duration AS rs_reservation_duration, 
+            r.reservation_duration AS r_reservation_duration, 
+            rs.*, r.*, s.* 
+        FROM reservation_services rs
+        INNER JOIN reservation r ON r.reservation_ID = rs.reservation_IDFK
+        INNER JOIN service s ON s.service_ID = rs.service_IDFK
+        WHERE r.reservation_ID = :id';
+
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':id', $id);
             if($stmt->execute()){
@@ -716,6 +729,22 @@
             WHERE r.reservation_status = 'ACCEPTED' ORDER BY r.reservation_datetime ASC
             ";
             $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getbookedtherapistbydate($dt){
+            $sql = "SELECT r.*, us.*, t.*
+            FROM reservation r
+            INNER JOIN user us ON us.user_ID = r.user_IDFK
+            INNER JOIN therapist t ON t.therapist_ID = r.therapist_IDFK
+            WHERE r.reservation_status = 'ACCEPTED' AND DATE(r.reservation_datetime) = :dt ORDER BY r.reservation_datetime ASC
+            ";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':dt', $dt);
             if($stmt->execute()){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } else {

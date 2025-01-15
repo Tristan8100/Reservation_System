@@ -21,11 +21,16 @@
         }
     }
 
-    if(isset($_GET['date'])){
+    if($_SERVER['REQUEST_METHOD'] == "GET"){
+        if(isset($_GET['subdate']) && isset($_GET['datee']) && !empty($_GET['datee'])){
+            $bookedtherapist = $reservationcontrol->fetchbookedtherapistbydate($_GET['datee']);
+        } else {
+            $bookedtherapist = $reservationcontrol->fetchbookedtherapist();
+        }
+    
         
     }
-
-    $bookedtherapist = $reservationcontrol->fetchbookedtherapist();
+    
 
 ?>
 
@@ -116,12 +121,12 @@
 
         
         <div class="container">
-            <form method="GET" action="">
+            <form method="GET" action="admin_manage_therapist_booked.php">
 
             <label for="start-date">Date:</label>
-            <input type="date" id="start-date" name="date" value="<?php echo isset($_GET['datee']) ? $_GET['datee'] : ''; ?>">
+            <input type="date" id="start-date" name="datee" value="<?php echo isset($_GET['datee']) ? $_GET['datee'] : ''; ?>">
 
-            <button type="submit">Filter</button>
+            <button type="submit" name="subdate">Filter</button>
             </form>
         </div>
 

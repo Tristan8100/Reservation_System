@@ -29,6 +29,8 @@ include 'MVC/user_routes.php';
     $untrackedreservation = $reservationcontrol->getoneuntracked($_GET['id']);
     $reservationservices = $reservationcontrol->fetchresser($_GET['id']);
 
+   
+
     if(isset($_POST['ns'])){
         $reservationcontrol->totrackreservation($_POST['idres'], $_POST['ns']);
     }
@@ -187,6 +189,18 @@ if (isset($untrackedreservation['reservation_datetime']) && $untrackedreservatio
     <div class="row">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-left: auto; text-align:right;">
+                Reservation ID
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                <?php echo isset($untrackedreservation['reservation_ID']) ? $untrackedreservation['reservation_ID']: ""; ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
                 Reservation Type
             </div>
         </div>
@@ -308,7 +322,7 @@ if (isset($untrackedreservation['reservation_datetime']) && $untrackedreservatio
                                                                 <td><?php echo $availed['service_IDFK']; ?></td>
                                                                 <td><?php echo $availed['service_name']; ?></td>
                                                                 <td><?php echo $availed['reservation_price']; ?></td>
-                                                                <td><?php echo $availed['reservation_duration']; ?></td>
+                                                                <td><?php echo $availed['rs_reservation_duration']; ?></td>
                                                             </tr>
                                                             <?php endforeach ?>
                                                         </tbody>

@@ -318,7 +318,7 @@
                                                                 <td><?php echo isset($service['service_ID']) ? $service['service_ID'] : ''; ?></td>
                                                                 <td><?php echo isset($service['service_name']) ? $service['service_name'] : ''; ?></td>
                                                                 <td>₱<?php echo isset($service['service_price']) ? $service['service_price'] : ''; ?></td>
-                                                                <td><?php echo isset($service['service_duration']) ? $service['service_duration'] : ''; ?> minutes</td>
+                                                                <td><?php echo isset($service['rs_reservation_duration']) ? $service['rs_reservation_duration'] : ''; ?> minutes</td>
                                                             </tr>
                                                             <?php endforeach ?>
                                                             
@@ -398,7 +398,7 @@
                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">Cancel</button>
                                                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Ask customer to reschedule</button>
                                             </form>
-                                            <a href=""><button>View Therapist Schedule on date()</button></a>
+                                            <a href="admin_manage_therapist_booked.php?datee=<?php echo date('Y-m-d', strtotime($reservation['reservation_datetime'])); ?>&subdate="><button>View Therapist Schedule on date()</button></a>
                                         </div>
                                     </div>
                                 </div>

@@ -1,3 +1,37 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+    
+
+    if($_SERVER['REQUEST_METHOD'] == "GET"){
+        $trackeduser = $reservationcontrol->notpendingreservationperuser($_GET['id']);
+    }
+    
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,30 +111,30 @@
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href="admin_manage_account_all.php"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
+                <a onclick="window.history.back()"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->
 
     <div class="modal-body">
         <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-            <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
+            <img src="<?php echo disp($user); ?>" class="img-fluid" alt="Responsive image">
     </div>
     <div>
                                                         
     </div>
     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        User00101
+        <?php echo $user['user_ID']; ?>
     </div>
     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-        User00101@gmail.com
+        <?php echo $user['user_email']; ?>
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
             Account ID
         </div>
         <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            556603
+            <?php echo $user['user_ID']; ?>
         </div>
     </div>
     <div class="row">
@@ -108,7 +142,7 @@
             Name
         </div>
         <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            LLOOOOM
+            <?php echo $user['user_fullname']; ?>
         </div>
     </div>
     <div class="row">
@@ -116,7 +150,7 @@
             Phone Number
         </div>
         <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            46468579358
+            <?php echo $user['user_number']; ?>
         </div>
     </div>
     </div>
@@ -143,24 +177,23 @@
                                 <table class="table table-striped mb-0" style="table-layout: fixed; width: 100%;">
                                     <thead style="background-color: #002d72;">
                                     <tr>
+                                        <th scope="col">Transaction ID</th>
                                         <th scope="col">Full Name</th>
                                         <th scope="col">Date</th>
-                                        <th scope="col">Address</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">View</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($trackeduser as $track): ?>
                                     <tr>
-                                        <td class="hidd" >1285</td>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                        <td class="hidd">qwerty</td>
-                                        <td class="hidd">Aaron Chapman</td>
+                                        <td class="hidd"><?php echo $track['reservation_ID']; ?></td>
+                                        <td class="hidd"><?php echo $track['reservation_name']; ?></td>
+                                        <td class="hidd"><?php echo $track['reservation_datetime']; ?></td>
+                                        <td class="hidd"><?php echo $track['reservation_status']; ?></td>
+                                        <td class="hidd"><a href="admin_manage_appointments_specificuser(tracked).php?id=<?php echo $track['reservation_ID']; ?>"><button>View</button></a></td>
                                     </tr>
-                                    <tr>
-                                        <td class="hidd" >342</td>
-                                        <td class="hidd">ayaya@gmail.com</td>
-                                        <td class="hidd">ayyyayya</td>
-                                        <td class="hidd">Kamisato Ayaya</td>
+                                    <?php endforeach ?>
                                     </tbody>
                                 </table>
                                 </div>

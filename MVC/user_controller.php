@@ -237,6 +237,10 @@
             return $this->usercount();
         }
 
+        public function fetchalluser(){
+            return $this->alluser();
+        }
+
 
     }
 
@@ -568,6 +572,10 @@
 
         public function fetchacceptherapist($tid){
             return $this->getaccepttherapist($tid);
+        }
+
+        public function fetchbookedtherapistbydate($dt){
+            return $this->getbookedtherapistbydate($dt);
         }
 
 

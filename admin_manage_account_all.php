@@ -1,3 +1,31 @@
+<?php
+
+    include 'MVC/user_routes.php';
+
+    if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
+        header('location: login_form.php');
+        exit;
+    } else {
+        $userID = $_SESSION['user_id'];
+    }
+
+
+    $user = $control->selectoneuser($userID);
+
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
+    $alluser = $control->fetchalluser();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +105,7 @@
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href=""><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
+                <a onclick="window.history.back()"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->
@@ -104,24 +132,21 @@
                                     <tr>
                                         <th scope="col">Account ID</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Username</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Phone Number</th>
-                                        <th scope="col">Date Created</th>
                                         <th scope="col">View</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($alluser as $user): ?>
                                     <tr>
-                                        <td class="hidd" >1285</td>
-                                        <td class="hidd">tryasdgnsfjdksrhetwrhjeyksfjtsrhfhfkutlfkdfxjdykydxfhaerjtkfldgfyedfkgluguykdda@gmail.com</td>
-                                        <td class="hidd">qwerty</td>
-                                        <td class="hidd">Aaron Chapman</td>
-                                        <td class="hidd">1068358649358</td>
-                                        <td class="hidd">10-12-23</td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
-                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#exampleModal">click</button></td>
+                                        <td class="hidd" ><?php echo $user['user_ID']; ?></td>
+                                        <td class="hidd"><?php echo $user['user_email']; ?></td>
+                                        <td class="hidd"><?php echo $user['user_fullname']; ?></td>
+                                        <td class="hidd"><?php echo $user['user_number']; ?></td>               <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
+                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#<?php echo $user['user_ID']; ?>">click</button></td>
                                                                 <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="<?php echo $user['user_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog moddd" style="max-width: 500px;">
                                                 <div class="modal-content">
                                                 <div class="modal-header">
@@ -130,23 +155,23 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-                                                        <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
+                                                        <img src="<?php echo disp($user); ?>" class="img-fluid" alt="Responsive image">
                                                     </div>
                                                     <div>
                                                         
                                                     </div>
                                                     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        User00101
+                                                        <?php echo $user['user_ID']; ?>
                                                     </div>
                                                     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        User00101@gmail.com
+                                                        <?php echo $user['user_email']; ?>
                                                     </div>
                                                     <div class="row" style="margin-top: 30px;">
                                                         <div class="col-6" style="font-size: 25px; padding-left: 30px;">
                                                             Account ID
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            556603
+                                                            <?php echo $user['user_ID']; ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -154,7 +179,7 @@
                                                             Name
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            LLOOOOM
+                                                            <?php echo $user['user_fullname']; ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -162,80 +187,19 @@
                                                             Phone Number
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            46468579358
+                                                            <?php echo $user['user_number']; ?>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">              <!-- PASS ID AS GET -->
-                                                    <a href=""><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Transaction</button></a>
+                                                    <a href="admin_manage_account_specificuser.php?id=<?php echo $user['user_ID']; ?>"><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Transaction</button></a>
                                                 </div>
                                                 </div>
                                             </div>
                                         </div>
                                                 <!-- END OF FIRST MODAL -->
-
                                     </tr>
-                                    <tr>
-                                        <td class="hidd" >342</td>
-                                        <td class="hidd">ayaya@gmail.com</td>
-                                        <td class="hidd">ayyyayya</td>
-                                        <td class="hidd">Kamisato Ayaya</td>
-                                        <td class="hidd">4947728246</td>
-                                        <td class="hidd">9-18-23</td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
-                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#exampleModal1">click</button></td>
-                                                                <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
-                                        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog moddd" style="max-width: 500px;">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 50%; transform: translate(-50%);">Profile Details</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-                                                        <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
-                                                    </div>
-                                                    <div>
-                                                        
-                                                    </div>
-                                                    <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        Useray45
-                                                    </div>
-                                                    <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        User00101@gmail.com
-                                                    </div>
-                                                    <div class="row" style="margin-top: 30px;">
-                                                        <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Account ID
-                                                        </div>
-                                                        <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            6678
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Name
-                                                        </div>
-                                                        <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            Ayaya
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-6" style="font-size: 25px; padding-left: 30px;">
-                                                            Phone Number
-                                                        </div>
-                                                        <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            46468579358
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">              <!-- PASS ID AS GET -->
-                                                    <a href=""><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Transaction</button></a>
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                                <!-- END OF SECOND MODAL -->
+                                    <?php endforeach ?>
                                     
                                     </tbody>
                                 </table>

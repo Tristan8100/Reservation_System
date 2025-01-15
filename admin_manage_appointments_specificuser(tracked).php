@@ -355,10 +355,12 @@ include 'MVC/user_routes.php';
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr>
+                                                                        <?php if(isset($trackedperuser['therapist_IDFK'])): ?>
                                                                         <td><?php echo $trackedperuser['therapist_IDFK']; ?></td>
                                                                         <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_fullname']; ?></td>
                                                                         <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_email']; ?></td>
                                                                         <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_gender']; ?></td>
+                                                                        <?php endif ?>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
