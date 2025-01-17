@@ -21,6 +21,14 @@ include 'MVC/user_routes.php';
         }
     }
 
+    function displayimg($use){
+        if (!empty($use)) {
+            return 'data:image/jpeg;base64,' . base64_encode($use);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
     $service = $servicecontrol->fetchallservice();
 
 ?>
@@ -78,7 +86,7 @@ include 'MVC/user_routes.php';
             </div>
 
             <div style="display: flex; justify-content: flex-end; margin-top: -40px;">
-                <a href="">
+                <a onclick="window.history.back()">
                     <button style="width: 124px; background-color: #6B4A4A66; border: none; color:rgba(61, 45, 45, 0.97); height: 33px; top: 214px; left: 1209px; gap: 0px; border-radius: 10px; opacity: 0px;"><- Back</button>
                 </a>
             </div>
@@ -91,18 +99,20 @@ include 'MVC/user_routes.php';
     <div class="container border border-primary" style="margin-top: 50px;  display: grid;
   grid-template-columns: auto auto auto;">
         <?php foreach($service as $serve): ?>
-        <div class="grid-item" style="border: 1px solid; display: flex; justify-content: center;">
+            <div class="grid-item" style="border: 1px solid; display: flex; justify-content: center;">
             <div class="card tog" id="1234" style="width: 18rem;">
-                <img class="card-img-top" src="images/bg1.png" alt="Card image cap">
+                <div style="height: 200px; overflow: hidden;">
+                    <img class="card-img-top" src="<?php echo displayimg($serve['service_image']); ?>" alt="Card image cap" style="height: 100%; width: auto; object-fit: cover;">
+                </div>
                 <div class="card-body">
                     <p class="card-text"><?php echo $serve['service_name']; ?></p>
-                    <p class="card-text">(Dry)</p>
+                    <p class="card-text"><?php echo $serve['service_price']; ?></p>
+                    <p class="card-text"><?php echo $serve['service_duration']; ?></p>
                 </div>
             </div>
-                <div class="mod" id="1234">
-
-                </div>
+            <div class="mod" id="1234"></div>
         </div>
+
         <?php endforeach ?>
         <div class="grid-item" style="border: 1px solid; display: flex; justify-content: center;">Item 2</div>
         <div class="grid-item" style="border: 1px solid; display: flex; justify-content: center;">Item 3</div>
