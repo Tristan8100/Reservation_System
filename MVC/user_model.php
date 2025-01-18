@@ -410,6 +410,16 @@
             }
         }
 
+        public function servicecount(){
+            $sql = "SELECT COUNT(*) AS total_rows FROM `service` WHERE service_status = 'ACTIVE'";
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
 
     }
 
@@ -602,6 +612,16 @@
 
         public function countuntracked(){
             $sql = 'SELECT COUNT(*) AS total FROM reservation WHERE reservation_status = \'ACCEPTED\' AND reservation_datetime < NOW() ';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function counttoday(){
+            $sql = 'SELECT COUNT(*) AS total FROM reservation WHERE reservation_status = \'ACCEPTED\' AND DATE(reservation_datetime) = CURDATE()';
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
                 return $stmt->fetch(PDO::FETCH_ASSOC);

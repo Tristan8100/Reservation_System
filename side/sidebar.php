@@ -1,7 +1,7 @@
 <div class="sidebar">
             <div class="upper">
                 <div class="upper1">
-                    <img class="upperpic" src="images/iconn.png">
+                    <img class="upperpic" src="<?php echo disp($user); ?>">
                     <div class="uppertext_container">
                         <div class="uppertext">
                             <?php echo $variable = isset($user['user_fullname']) ? $user['user_fullname'] : "no info"; ?>

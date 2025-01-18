@@ -197,7 +197,7 @@ include 'MVC/user_routes.php';
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-                                                        <img src="images/user (3).png" class="img-fluid" alt="Responsive image">
+                                                        <img src="<?php echo disp($done); ?>" class="img-fluid" alt="Responsive image">
                                                     </div>
                                                     <div>
                                                         

@@ -372,6 +372,10 @@
             return $this->editservicenoimage($sn, $cidfk, $sdesc, $sp, $sdur, $id);
         }
 
+        public function fetchservicecount(){
+            return $this->servicecount();
+        }
+
 
     }
 
@@ -576,6 +580,10 @@
 
         public function fetchbookedtherapistbydate($dt){
             return $this->getbookedtherapistbydate($dt);
+        }
+
+        public function fetchcounttoday(){
+            return $this->counttoday();
         }
 
 

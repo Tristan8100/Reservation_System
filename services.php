@@ -43,23 +43,28 @@ include 'MVC/user_routes.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         .mod {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
+            z-index: 9999;
             transform: translate(-50%, -50%);
             width: 600px;
-            height: 500px; 
+            height: 600px; 
             background-color: #FFFFFF;
             border-radius: 10px;
-            border: 1px solid;
             display: none;
         }
 
+        .no-scroll {
+            overflow: hidden; /* Disables scrolling on the body */
+        }
+
+
     </style>
 </head>
-<body>
+<body style="background-color: #FFF0F0;">
     <div class="container-fluid" style="height: 200px; background-color: #131313;">
-        <div class="" style="width: 100%; height: 100%;">
+        <div style="width: 100%; height: 100%;">
             <div style="margin-left: 100px;">
                 <div style="color: #FF0000; font-size: 100px; font-weight: 100; line-height: 121.18px; letter-spacing: 0.06em; text-align: left; text-underline-position: from-font; text-decoration-skip-ink: none;">
                     D&E
@@ -69,7 +74,7 @@ include 'MVC/user_routes.php';
                 </div>
             </div>
             
-            <div class="" style="margin-left: auto; margin-top: -160px; width: 300px;">
+            <div style="margin-left: auto; margin-top: -160px; width: 300px;">
                 <img src="images/logo.png" style="width: 170px; height: 170px; top: 6px; left: 1170px; gap: 0px; opacity: 0px;">
             </div>
         </div>
@@ -93,29 +98,35 @@ include 'MVC/user_routes.php';
         </div>
     </div>
 
-    <div class="container border border-danger" style="margin-top: 30px;"></div>
+    <div class="container" style="margin-top: 30px;"></div>
 
     
-    <div class="container border border-primary" style="margin-top: 50px;  display: grid;
+    <div class="container" style="margin-top: 50px;  display: grid;
   grid-template-columns: auto auto auto;">
         <?php foreach($service as $serve): ?>
-            <div class="grid-item" style="border: 1px solid; display: flex; justify-content: center;">
-            <div class="card tog" id="1234" style="width: 18rem;">
+            <div class="grid-item" style="display: flex; justify-content: center; margin-top: 20px;">
+            <div class="card tog" id="<?php echo $serve['service_ID']; ?>" style="width: 18rem;">
                 <div style="height: 200px; overflow: hidden;">
                     <img class="card-img-top" src="<?php echo displayimg($serve['service_image']); ?>" alt="Card image cap" style="height: 100%; width: auto; object-fit: cover;">
                 </div>
                 <div class="card-body">
-                    <p class="card-text"><?php echo $serve['service_name']; ?></p>
-                    <p class="card-text"><?php echo $serve['service_price']; ?></p>
-                    <p class="card-text"><?php echo $serve['service_duration']; ?></p>
+                    <p class="d-flex justify-content-center" style="font-size: 25px; font-weight: 500;"><?php echo $serve['service_name']; ?></p>
+                    <p class="d-flex justify-content-center" style="font-size: 20px; font-weight: 400;">₱<?php echo $serve['service_price']; ?></p>
+                    <p class="d-flex justify-content-center" style="font-size: 20px; font-weight: 400;"><?php echo $serve['service_duration']; ?> minutes</p>
                 </div>
             </div>
-            <div class="mod" id="1234"></div>
+            <div class="mod shadow" id="<?php echo $serve['service_ID']; ?>">
+                <img src="<?php echo displayimg($serve['service_image']); ?>" style="width: 500px; margin-top: 30px; height: 300px;" class="img-thumbnail rounded mx-auto d-block">
+                <div class="d-flex justify-content-center" style="font-size: 30px; font-weight: 500;"><?php echo $serve['service_name']; ?></div>
+                <div class="d-flex justify-content-center" style="font-size: 25px;"><?php echo $serve['service_price']; ?></div>
+                <div class="d-flex justify-content-center" style="font-size: 25px;"><?php echo $serve['service_duration']; ?></div>
+                <div style="padding: 10px; height: 150px; overflow: auto;" class="border">
+                    <div class="d-flex justify-content-center" style="font-size: 20px; text-align: center;"><?php echo $serve['service_description']; ?></div>
+                </div>
+            </div>
         </div>
 
         <?php endforeach ?>
-        <div class="grid-item" style="border: 1px solid; display: flex; justify-content: center;">Item 2</div>
-        <div class="grid-item" style="border: 1px solid; display: flex; justify-content: center;">Item 3</div>
     </div>
 
     
@@ -134,6 +145,7 @@ include 'MVC/user_routes.php';
             modal.addEventListener('click', (event)=>{
                 event.stopPropagation();
                 closeall();
+                document.body.classList.add('no-scroll');
                 if(event.target.closest('.tog')){
                     console.log('catched');
                     modd.forEach((mods) =>{
@@ -156,17 +168,8 @@ include 'MVC/user_routes.php';
             event.stopPropagation();
             if(event.target.closest('.mod')){
                     console.log('succes mod');
-            } else if(event.target.closest('.tog')){
-                modd.forEach((mods) =>{
-                    if(event.target.closest('.tog').id === mods.id){
-                            if(mods.display === "none"){
-                                console.log('okkk');
-                            } else if(mods.display === "block") {
-                                closeall();
-                            }
-                        }
-                    })
             } else {
+                document.body.classList.remove('no-scroll');
                 closeall();
             }
         })
