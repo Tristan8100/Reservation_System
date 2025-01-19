@@ -586,6 +586,10 @@
             return $this->counttoday();
         }
 
+        public function fetchnotpendingjoin($usid){
+            return $this->getnotpendinguserjoins($usid);
+        }
+
 
     }
 

@@ -9,6 +9,15 @@
         $userID = $_SESSION['user_id'];
     }
 
+
+    function disp($use){
+        if (!empty($use['user_image'])) {
+            return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+        } else {
+            return "images/adduser.png"; // Default image
+        }
+    }
+
     
     $user = $control->selectoneuser($userID);
     //var_dump($user);

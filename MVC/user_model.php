@@ -522,6 +522,28 @@
             }
         }
 
+        public function getnotpendinguserjoins($usid){
+            $sql = 'SELECT 
+            rs.reservation_duration AS rs_reservation_duration, 
+            r.reservation_duration AS r_reservation_duration, 
+            rs.*, r.*, s.*, us.*, tr.*
+            FROM reservation r
+            INNER JOIN reservation_services rs ON rs.reservation_IDFK = r.reservation_ID
+            INNER JOIN `service` s ON s.service_ID = rs.service_IDFK
+            INNER JOIN therapist tr ON tr.therapist_ID = r.therapist_IDFK
+            INNER JOIN user us ON us.user_ID = r.user_IDFK
+            WHERE us.user_ID = :usid AND 
+            r.reservation_status != \'PENDING\' AND r.reservation_status != \'ACCEPTED\' ORDER BY r.reservation_datetime ASC';
+            //$sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' AND reservation_status != \'ACCEPTED\' ORDER BY reservation_datetime ASC';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':usid', $usid);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
         public function getnotpendinguser($usid){
             $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' AND reservation_status != \'ACCEPTED\' ORDER BY reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
