@@ -148,15 +148,8 @@ include 'MVC/user_routes.php';
                                     <div class="row">
                                         <h5 class="col card-title">Services</h5>
                                     </div>
-                                        <?php $val = $reservationcontrol->fetchresser($reserve['reservation_ID']); foreach($val as $value): $get = $servicecontrol->fetchoneservice($value['service_IDFK'])?>
-                                        <div class="row">
-                                            <h5 class="col card-title text-muted"><?php echo $value['service_IDFK']; ?></h5>
-                                            <h5 class="col card-title text-muted"><?php echo $get['service_name']; ?></h5>
-                                            <h5 class="col card-title text-muted"><?php echo $get['service_price']; ?></h5>
-                                            <h5 class="col card-title text-muted"><?php echo $get['service_duration']; ?></h5>
-                                        </div>
-                                        
-                                        <?php endforeach ?>
+                                        <a href="user_appointment_status(untracked).php?id=<?php echo $reserve['reservation_ID']; ?>">View All</a>
+                                       
                                     <br>
                                     <h5 class="col card-title">Remarks</h5>
                                     <p class="card-text"><?php echo $reserve['reservation_remarks']; ?></p>

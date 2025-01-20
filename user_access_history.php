@@ -28,6 +28,7 @@ $allservice = $servicecontrol->fetchallservice();
 $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
 
 
+
 ?>
 
 
@@ -47,7 +48,6 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
             width: 50px;
         }
         .main_content1{
-            border: 1px solid;
             padding: 10px;
             width: 90%;
             margin-left: 8%;
@@ -80,7 +80,7 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
     </style>
 </head>
 <body>
-    <div class="container-fluid heaad" style="border: 1px solid; z-index: 0; padding: 10px; height: 50px; position: absolute; top: 0%; width: 70%; margin-left: 120px;">
+    <div class="container-fluid heaad" style="z-index: 0; padding: 10px; height: 50px; position: absolute; top: 0%; width: 70%; margin-left: 120px;">
         <div style="font-size: 30px;">User Access History</div>
     </div>
 
@@ -90,11 +90,11 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
     
     <div class="main_content1">
 
-        <div style="border: 1px solid; padding: 10px; display:flex; justify-content:space-between; align-items: center;">
-            <a style="background-color: #6B4A4A; color: white;" class="btn"  href="" >Add New</a>
+        <div style="padding: 10px; display:flex; justify-content: end; align-items: center;">
+            <a style="background-color: #6B4A4A; color: white;" class="btn"  onclick="window.history.back()" >Back</a>
         </div>
 
-        <table class="table">
+        <table class="table border">
             <thead style="color: #FFF0F0;">
                 <tr>
                 <th scope="col">Name</th>
@@ -161,15 +161,7 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                                     <div class="row">
                                         <h5 class="col card-title">Services</h5>
                                     </div>
-                                        <?php $val = $reservationcontrol->fetchresser($reservation['reservation_ID']); foreach($val as $value): $get = $servicecontrol->fetchoneservice($value['service_IDFK'])?>
-                                        <div class="row">
-                                            <h5 class="col card-title text-muted"><?php echo $value['service_IDFK']; ?></h5>
-                                            <h5 class="col card-title text-muted"><?php echo $get['service_name']; ?></h5>
-                                            <h5 class="col card-title text-muted"><?php echo $get['service_price']; ?></h5>
-                                            <h5 class="col card-title text-muted"><?php echo $get['service_duration']; ?></h5>
-                                        </div>
-                                        
-                                        <?php endforeach ?>
+                                        <a href="user_access_history(tracked).php?id=<?php echo $reservation['reservation_ID']; ?>">View All</a>
                                     <br>
                                     <h5 class="col card-title">Remarks</h5>
                                     <p class="card-text"><?php echo $reservation['reservation_remarks']; ?></p>
@@ -181,16 +173,6 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
 
 
 
-                <!-- try area -->
-                <tr>
-                <td>Tim Henson</td>
-                <td>09273859272</td>
-                <td>12-23-24 9:25am</td>
-                <td>Complete</td> <!-- put id based on user id as well as getpop -->
-                <td><button class="btn tochh" id="12" style="background-color: #A1A1A1; color: white;">view</button></td>
-                </tr>
-
-                <div class="contr" id="12" style="border: 1px solid; padding: 10px; width: 650px; height: 400px; position: fixed; background-color: aliceblue;">12121aesdfg</div>
 
             </tbody>
         </table>

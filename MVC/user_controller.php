@@ -443,6 +443,10 @@
             return $this->getpendingall();
         }
 
+        function dis($id){
+            return $this->fetchresser($id);
+        }
+
         public function getindividualreservation($rid){
             return $this->getpendinguserindividual($rid);
         }
