@@ -524,16 +524,23 @@
 
         public function getnotpendinguserjoins($usid){
             $sql = 'SELECT 
-            rs.reservation_duration AS rs_reservation_duration, 
-            r.reservation_duration AS r_reservation_duration, 
-            rs.*, r.*, s.*, us.*, tr.*
+            r.*, 
+            rs.*, 
+            s.*, 
+            tr.*, 
+            us.*, 
+            GROUP_CONCAT(DISTINCT CONCAT(s.service_name, " (", s.service_ID, ")") SEPARATOR ", ") AS services,
+            GROUP_CONCAT(DISTINCT s.service_image SEPARATOR ", ") AS service_images
             FROM reservation r
-            INNER JOIN reservation_services rs ON rs.reservation_IDFK = r.reservation_ID
-            INNER JOIN `service` s ON s.service_ID = rs.service_IDFK
-            INNER JOIN therapist tr ON tr.therapist_ID = r.therapist_IDFK
-            INNER JOIN user us ON us.user_ID = r.user_IDFK
+            LEFT JOIN reservation_services rs ON rs.reservation_IDFK = r.reservation_ID
+            LEFT JOIN `service` s ON s.service_ID = rs.service_IDFK
+            LEFT JOIN therapist tr ON tr.therapist_ID = r.therapist_IDFK
+            LEFT JOIN user us ON us.user_ID = r.user_IDFK
             WHERE us.user_ID = :usid AND 
-            r.reservation_status != \'PENDING\' AND r.reservation_status != \'ACCEPTED\' ORDER BY r.reservation_datetime ASC';
+                r.reservation_status != \'PENDING\' AND r.reservation_status != \'ACCEPTED\' 
+            GROUP BY r.reservation_ID
+            ORDER BY r.reservation_datetime ASC';
+
             //$sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' AND reservation_status != \'ACCEPTED\' ORDER BY reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':usid', $usid);
