@@ -30,10 +30,6 @@
                     <img class="img11" src="images/transact.png">
                     History
                 </a>
-                <a class="options" href="" style="font-size: 20px;">
-                    <img class="img11" src="images/terms.png">
-                    Terms And Conditions
-                </a>
                 <div class="options" href="">
                     <img class="img11 popi" src="images/appoint.png">
                     Appointment

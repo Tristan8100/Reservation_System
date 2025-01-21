@@ -1,3 +1,29 @@
+<?php
+
+include 'MVC/user_routes.php';
+
+if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'USER'){
+    header('location: login_form.php');
+    exit;
+} else {
+    $userID = $_SESSION['user_id'];
+}
+
+
+function disp($use){
+    if (!empty($use['user_image'])) {
+        return 'data:image/jpeg;base64,' . base64_encode($use['user_image']);
+    } else {
+        return "images/adduser.png"; // Default image
+    }
+}
+
+
+$user = $control->selectoneuser($userID);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +32,7 @@
     <title>Contacts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color: #FFF0F0;" >
     <div class="container-fluid" style="height: 200px; background-color: #131313;">
         <div class="" style="width: 100%; height: 100%;">
             <div style="margin-left: 100px;">
@@ -18,7 +44,7 @@
                 </div>
             </div>
             
-            <div class="" style="margin-left: auto; margin-top: -160px; width: 300px;">
+            <div style="margin-left: auto; margin-top: -160px; width: 300px;">
                 <img src="images/logo.png" style="width: 170px; height: 170px; top: 6px; left: 1170px; gap: 0px; opacity: 0px;">
             </div>
         </div>
@@ -35,7 +61,7 @@
             </div>
 
             <div style="display: flex; justify-content: flex-end; margin-top: -40px;">
-                <a href="">
+                <a onclick="window.history.back()">
                     <button style="width: 124px; background-color: #6B4A4A66; border: none; color:rgba(61, 45, 45, 0.97); height: 33px; top: 214px; left: 1209px; gap: 0px; border-radius: 10px; opacity: 0px;"><- Back</button>
                 </a>
             </div>
@@ -68,7 +94,7 @@
         </div>
         <div style="display: flex; justify-content: end;">
             <div style="margin-top: -70px;">
-                <div style="font-size: 20px; width: 300px;"><a href="">D&E Home and Hotel Massage Service - San rafael, Baliwag & Pulilan Branch</a></div>
+                <div style="font-size: 20px; width: 300px;"><a href="https://www.facebook.com/p/DE-Home-and-Hotel-Massage-Service-San-rafael-Baliwag-Pulilan-Branch-100085156867042/">D&E Home and Hotel Massage Service - San rafael, Baliwag & Pulilan Branch</a></div>
             </div>
         </div>
         

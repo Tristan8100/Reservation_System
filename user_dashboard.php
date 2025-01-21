@@ -22,7 +22,7 @@
     $user = $control->selectoneuser($userID);
     //var_dump($user);
     
-    echo $_SESSION['user_role'];
+    //echo $_SESSION['user_role'];
 
 ?>
 
@@ -49,13 +49,13 @@
     <!---->
 
         <?php include 'side/sidebar.php' ?>
-        <?php echo "hi user ".$user['user_fullname']."" ?>
+        <?php //echo "hi user ".$user['user_fullname']."" ?>
         <div class="navbar">
             <img class="pic0" src="images/menu.png">
             <div class="option">
-                <a class="a" href="">Services</a>
-                <a class="a" href="">About Us</a>
-                <a class="a" href="">Contact</a>
+                <a class="a" href="services.php">Services</a>
+                <a class="a" href="about_us.php">About Us</a>
+                <a class="a" href="contacts.php">Contact</a>
             </div>
         </div>
 

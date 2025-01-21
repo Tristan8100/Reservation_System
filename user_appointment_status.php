@@ -53,7 +53,6 @@ include 'MVC/user_routes.php';
             width: 50px;
         }
         .main_content1{
-            border: 1px solid;
             padding: 10px;
             width: 90%;
             margin-left: 8%;
@@ -70,11 +69,11 @@ include 'MVC/user_routes.php';
 
     <div class="main_content1">
 
-        <div style="border: 1px solid; padding: 10px; display:flex; justify-content:space-between; align-items: center;">
+        <div style="padding: 10px; display:flex; justify-content:space-between; align-items: center;">
             <div>
                 Add New
             </div>
-            <a style="background-color: #6B4A4A; color: white;" class="btn"  href="" >Add New</a>
+            <a style="background-color: #6B4A4A; color: white;" class="btn" onclick="window.history.back()">Back</a>
         </div>
 
         <table class="table">
@@ -100,14 +99,14 @@ include 'MVC/user_routes.php';
                 </tr>
 
                                   <!-- HERE -->
-                <div style="border: 1px solid; display: flex; justify-content:center;">
+                <div style="display: flex; justify-content:center;">
                 <div id="<?php echo $reserve['reservation_ID']; ?>" class="card cont2 shadow p-3 getpop" style="margin-top: -80px; display: none;">
                         <form class="forr">
                             <div class="textabove" style="font-size: 30px; font-weight: 500; text-align: center;">
                                 Your Appointment
                             </div>
                             <br>
-                            <div class="container border border-danger">
+                            <div class="container">
                                 <div class="card-body">
                                     <div class="row">
                                         <h5 class="col card-title">Reservation ID</h5>

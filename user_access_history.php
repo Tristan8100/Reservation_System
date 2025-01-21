@@ -120,7 +120,7 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                                 Your Appointment
                             </div>
                             <br>
-                            <div class="container border border-danger">
+                            <div class="container">
                                 <div class="card-body">
                                     <div class="row">
                                         <h5 class="col card-title">Reservation ID</h5>
