@@ -91,7 +91,7 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
     <div class="main_content1">
 
         <div style="padding: 10px; display:flex; justify-content: end; align-items: center;">
-            <a style="background-color: #6B4A4A; color: white;" class="btn"  onclick="window.history.back()" >Back</a>
+            <a style="background-color: #6B4A4A; color: white;" class="btn"  href="user_dashboard.php" >Back</a>
         </div>
 
         <table class="table border">

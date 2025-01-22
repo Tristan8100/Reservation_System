@@ -11,7 +11,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="" class="logout">
+                <a href="MVC/user_routes.php?logout=1" class="logout">
                         Log out
                 </a>
             </div>

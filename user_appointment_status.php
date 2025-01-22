@@ -73,7 +73,7 @@ include 'MVC/user_routes.php';
             <div>
                 Add New
             </div>
-            <a style="background-color: #6B4A4A; color: white;" class="btn" onclick="window.history.back()">Back</a>
+            <a style="background-color: #6B4A4A; color: white;" class="btn" href="user_dashboard.php" >Back</a>
         </div>
 
         <table class="table">

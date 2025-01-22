@@ -55,7 +55,6 @@
             width: 50px;
         }
         .main_content1{
-            border: 1px solid;
             padding: 10px;
             width: 90%;
             margin-left: 8%;
@@ -247,7 +246,7 @@
 
 
         <!-- TEMPLATE -->
-        <div class="container" style="display: flex; align-items: center;">
+        <div class="container" style="display: flex; align-items: center; margin-top: 30px;">
             <div>
                 <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
                     Manage Category
@@ -256,9 +255,7 @@
                     Quick access to manage categories
                 </div>
             </div>
-            <div style="margin-left: auto;">
-                <a href=""><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
-            </div>
+        
         </div>
     <!-- TEMPLATE -->
 

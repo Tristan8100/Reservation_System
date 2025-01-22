@@ -114,12 +114,12 @@
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href="admin_manage_therapist.php"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
+                <a onclick="window.history.back()"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->
 
-    <div class="container border border-danger d-flex justify-content-center" style="margin-top: 30px;">
+    <div class="container d-flex justify-content-center" style="margin-top: 30px;">
         <div class="shadow" style="background-color: #FFFFFF; padding: 20px; width: 500px; height: 530px; border-radius: 10px;">
             <form action="admin_manage_therapist_add(edit).php" method="POST" style="display: flex; flex-direction: column;">
                 <div style="color: #6B4A4A; text-align: center; font-weight: 600; font-size: 30px; margin-top: 30px;">Add New Therapist</div>

@@ -50,7 +50,6 @@
             width: 50px;
         }
         .main_content1{
-            border: 1px solid;
             padding: 10px;
             width: 90%;
             margin-left: 8%;

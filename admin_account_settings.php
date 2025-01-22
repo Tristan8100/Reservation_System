@@ -69,7 +69,6 @@
             width: 50px;
         }
         .main_content1 {
-            border: 1px solid;
             padding: 10px;
             width: 90%;
             margin-left: 8%;
@@ -195,7 +194,7 @@
                     </div>
                 </div>
                 <div class="titlecont2" style="margin-left: auto;">
-                    <a href="" class="btn logoutt" >Log-out</a>
+                    <a href="MVC/user_routes.php?logout=1" class="btn logoutt" >Log-out</a>
                 </div>
             </div>
             <div class="inf">
@@ -221,7 +220,7 @@
             </div>
 
             <div class="forforms" style="color: #6B4A4A; display: flex;">
-                <form action="admin_account_settings.php" method="POST" class="ov4" style="width: 50%; border: 1px solid;">
+                <form action="admin_account_settings.php" method="POST" class="ov4" style="width: 50%;">
                     <div style="padding: 10px;">
                         <label for="pass">Current Password:</label> <br>
                         <input type="text" id="pass" name="currpassword" required> <br>
@@ -236,7 +235,7 @@
                     </div>
 
                 </form>
-                <form action="admin_account_settings.php" method="POST" style="width: 50%; border: 1px solid;">
+                <form action="admin_account_settings.php" method="POST" style="width: 50%;">
                     <div style="padding:10px;">
                         <label for="username">Username:</label> <br>
                         <input type="text" id="username" name="fn" value="<?php echo $user['user_fullname'] ?>" required> <br>

@@ -109,7 +109,7 @@ include 'MVC/user_routes.php';
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href=""><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Log Out</button></a>
+                <a href="MVC/user_routes.php?logout=1"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Log Out</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->

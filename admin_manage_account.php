@@ -43,7 +43,6 @@
             width: 50px;
         }
         .main_content1{
-            border: 1px solid;
             padding: 10px;
             width: 90%;
             margin-left: 8%;
@@ -104,7 +103,7 @@
                 </div>
             </div>
             <div style="margin-left: auto;">
-                <a href=""><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Log Out</button></a>
+                <a href="MVC/user_routes.php?logout=1"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Log Out</button></a>
             </div>
         </div>
     <!-- TEMPLATE -->
