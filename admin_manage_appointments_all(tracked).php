@@ -137,6 +137,7 @@ include 'MVC/user_routes.php';
                 <option value="SUCCESS" <?php echo (isset($_GET['status']) && $_GET['status'] === 'SUCCESS') ? 'selected' : ''; ?>>SUCCESS</option>
                 <option value="NO-SHOW" <?php echo (isset($_GET['status']) && $_GET['status'] === 'NO-SHOW') ? 'selected' : ''; ?>>NO-SHOW</option>
                 <option value="CANCELLED" <?php echo (isset($_GET['status']) && $_GET['status'] === 'CANCELLED') ? 'selected' : ''; ?>>CANCELLED</option>
+                <option value="RESCHEDULE" <?php echo (isset($_GET['status']) && $_GET['status'] === 'RESCHEDULE') ? 'selected' : ''; ?>>RESCHEDULE</option>
                 <option value="CANCELLED BY ADMIN" <?php echo (isset($_GET['status']) && $_GET['status'] === 'CANCELLED BY ADMIN') ? 'selected' : ''; ?>>CANCELLED by ADMIN</option>
             </select>
         
@@ -184,7 +185,7 @@ include 'MVC/user_routes.php';
                                         <td class="hidd"><?php echo $done['user_fullname']; ?></td>
                                         <td class="hidd"><?php echo $done['reservation_name']; ?></td>
                                         <td class="hidd"><?php echo $done['reservation_phone']; ?></td>
-                                        <td class="hidd"><?php echo $done['reservation_datetime']; ?></td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
+                                        <td class="hidd"><?php echo date('F j, Y, g:i A', strtotime($done['reservation_datetime']))?></td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
                                         <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#<?php echo $done['reservation_ID']; ?>">click</button></td>
                                                                 <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
                                         <div class="modal fade" id="<?php echo $done['reservation_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

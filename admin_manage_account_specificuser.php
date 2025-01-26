@@ -188,7 +188,7 @@
                                     <tr>
                                         <td class="hidd"><?php echo $track['reservation_ID']; ?></td>
                                         <td class="hidd"><?php echo $track['reservation_name']; ?></td>
-                                        <td class="hidd"><?php echo $track['reservation_datetime']; ?></td>
+                                        <td class="hidd"><?php echo date('F j, Y, g:i A', strtotime($track['reservation_datetime'])); ?></td>
                                         <td class="hidd"><?php echo $track['reservation_status']; ?></td>
                                         <td class="hidd"><a href="admin_manage_appointments_specificuser(tracked).php?id=<?php echo $track['reservation_ID']; ?>"><button>View</button></a></td>
                                     </tr>

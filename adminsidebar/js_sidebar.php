@@ -14,11 +14,11 @@
                     if(sidebar.style.display === 'block'){
                     maincc.style.width = '75%';
                     maincc.style.marginLeft = '23%';
-                    maincc.style.color = 'red';
+                    //maincc.style.color = 'red';
                     } else {
                     maincc.style.width = '90%';
                     maincc.style.marginLeft = '8%';
-                    maincc.style.color = 'blue';
+                    //maincc.style.color = 'blue';
                     }
                 
                 } catch {

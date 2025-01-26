@@ -221,7 +221,7 @@ include 'MVC/user_routes.php';
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['reservation_datetime']) ? $trackedperuser['reservation_datetime'] : ''; ?>
+                <?php echo isset($trackedperuser['reservation_datetime']) ? date('F j, Y, g:i A', strtotime($trackedperuser['reservation_datetime'])) : ''; ?>
             </div>
         </div>
     </div>

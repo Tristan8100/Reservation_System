@@ -238,7 +238,7 @@
         </div>
         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($reservation['reservation_datetime']) ? $reservation['reservation_datetime'] : ''; ?>
+                <?php echo isset($reservation['reservation_datetime']) ? date('F j, Y, g:i A', strtotime($reservation['reservation_datetime'])): ''; ?>
             </div>
         </div>
     </div>

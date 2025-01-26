@@ -77,6 +77,12 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
         from {top:-300px; opacity:0}
         to {top:0; opacity:1}
         }
+
+        @media (max-width: 700px) { /* Adjust 600px to your desired breakpoint */
+        .hidde {
+            display: none;
+        }
+        }
     </style>
 </head>
 <body>
@@ -98,9 +104,9 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
             <thead style="color: #FFF0F0;">
                 <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Phone Number</th>
+                <th scope="col" class="hidde">Phone Number</th>
                 <th scope="col">Date</th>
-                <th scope="col">Status</th>
+                <th scope="col" class="hidde">Status</th>
                 <th scope="col">View</th>
                 </tr>
             </thead>
@@ -108,9 +114,9 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                 <?php foreach($allreservation as $reservation): ?>
                 <tr>
                 <td><?php echo $reservation['reservation_name']; ?></td>
-                <td><?php echo $reservation['reservation_phone']; ?></td>
-                <td><?php echo $reservation['reservation_datetime']; ?></td>
-                <td><?php echo $reservation['reservation_status']; ?></td> <!-- put id based on user id as well as getpop -->
+                <td class="hidde"><?php echo $reservation['reservation_phone']; ?></td>
+                <td><?php echo date('F j, Y, g:i A', strtotime($reservation['reservation_datetime'])); ?></td>
+                <td class="hidde"><?php echo $reservation['reservation_status']; ?></td> <!-- put id based on user id as well as getpop -->
                 <td><button class="btn tochh" id="<?php echo $reservation['reservation_ID']; ?>" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
 
@@ -129,6 +135,10 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                                     <div class="row">
                                         <h5 class="col card-title">Reservation type</h5>
                                         <h5 class="col card-title text-muted"><?php echo $reservation['reservation_type']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Reservation Date/Time</h5>
+                                        <h5 class="col card-title text-muted"><?php echo date('F j, Y, g:i A', strtotime($reservation['reservation_datetime'])); ?></h5>
                                     </div>
                                     <div class="row">
                                         <h5 class="col card-title">Phone number</h5>

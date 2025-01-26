@@ -61,6 +61,11 @@ include 'MVC/user_routes.php';
             width: 600px;
             position: fixed;
         }
+        @media (max-width: 700px) { /* Adjust 600px to your desired breakpoint */
+        .hidde {
+            display: none;
+        }
+        }
     </style>
 </head>
 <body>
@@ -71,7 +76,6 @@ include 'MVC/user_routes.php';
 
         <div style="padding: 10px; display:flex; justify-content:space-between; align-items: center;">
             <div>
-                Add New
             </div>
             <a style="background-color: #6B4A4A; color: white;" class="btn" href="user_dashboard.php" >Back</a>
         </div>
@@ -80,9 +84,9 @@ include 'MVC/user_routes.php';
             <thead style="color: #FFF0F0;">
                 <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Phone Number</th>
+                <th scope="col" class="hidde">Phone Number</th>
                 <th scope="col">Date</th>
-                <th scope="col">Reservation Type</th>
+                <th scope="col" class="hidde">Reservation Type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Date</th>
                 </tr>
@@ -91,9 +95,9 @@ include 'MVC/user_routes.php';
                 <?php foreach ($allreservation as $reserve): ?>
                 <tr>
                 <td><?php echo $reserve['reservation_name']; ?></td>
-                <td><?php echo $reserve['reservation_phone']; ?></td>
-                <td><?php echo $reserve['reservation_datetime']; ?></td>
-                <td><?php echo $reserve['reservation_type']; ?></td> <!-- put id based on user id as well as getpop -->
+                <td class="hidde"><?php echo $reserve['reservation_phone']; ?></td>
+                <td><?php echo date('F j, Y, g:i A', strtotime($reserve['reservation_datetime'])); ?></td>
+                <td class="hidde"><?php echo $reserve['reservation_type']; ?></td> <!-- put id based on user id as well as getpop -->
                 <td><?php echo $reserve['reservation_status']; ?></td>
                 <td><button class="btn toch" id="<?php echo $reserve['reservation_ID']; ?>" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
@@ -115,6 +119,10 @@ include 'MVC/user_routes.php';
                                     <div class="row">
                                         <h5 class="col card-title">Reservation type</h5>
                                         <h5 class="col card-title text-muted"><?php echo $reserve['reservation_type']; ?></h5>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Reservation Date/Time</h5>
+                                        <h5 class="col card-title text-muted"><?php echo date('F j, Y, g:i A', strtotime($reserve['reservation_datetime'])); ?></h5>
                                     </div>
                                     <div class="row">
                                         <h5 class="col card-title">Phone number</h5>

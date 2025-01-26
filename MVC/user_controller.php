@@ -382,21 +382,33 @@
     class reservationcontrol extends reservationmodel {
         
         public function addnewreservation($prefix, $uidfk, $rdt, $rp, $ra, $rl, $rg, $rr, $rname){
-            do {
-                $randomNumber = rand(100000, 999999);
-                
-                $newid = $prefix . $randomNumber;
-                $check = $this->getallone($newid);
-            } while (!empty($check));
-            if($prefix === "HS"){
-                $type = "HOME SERVICE";
-            } else if($prefix === "WI"){
-                $type = "WALK IN";
+            $now = new DateTime();
+            $reservation = new DateTime($rdt);
+            $gap = new DateInterval('P1D'); // 'P1D' is a 1-day interval (change to 'PT4H' for 4 hours)
+            $now_plus_gap = clone $now;
+            $now_plus_gap->add($gap);
+
+            // Check if the reservation datetime is valid
+            if ($reservation > $now && $reservation >= $now_plus_gap) {
+                do {
+                    $randomNumber = rand(100000, 999999);
+                    
+                    $newid = $prefix . $randomNumber;
+                    $check = $this->getallone($newid);
+                } while (!empty($check));
+                if($prefix === "HS"){
+                    $type = "HOME SERVICE";
+                } else if($prefix === "WI"){
+                    $type = "WALK IN";
+                }
+                $val = $this->addreservation($newid, $uidfk, $rdt, $type, $rp, $ra, $rl, $rg, $rr, $rname);
+                if($val){
+                    header('location: user_addservice.php?resID='.$newid.'');
+                }
+            } else {
+                header('location: user_dashboard.php?mess=Invalid Time');
             }
-            $val = $this->addreservation($newid, $uidfk, $rdt, $type, $rp, $ra, $rl, $rg, $rr, $rname);
-            if($val){
-                header('location: user_addservice.php?resID='.$newid.'');
-            }
+           
         }
 
         public function getreservation($usid, $rid){

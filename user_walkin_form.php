@@ -88,28 +88,28 @@ include 'MVC/user_routes.php';
                 </div>
                 <br>
                 <div class="nme">
-                    <input type="hidden" class="fil" name="reservation_typepref" value="WI" style="border: 1px solid; width: 100%; ">
+                    <input type="hidden" class="fil" name="reservation_typepref" value="WI" style="border: 1px solid; width: 100%;" required>
                     <label>Full Name</label>
                     <br>
-                    <input type="text" class="fil" name="fullname" style="border: 1px solid; width: 100%; ">
+                    <input type="text" class="fil" name="fullname" style="border: 1px solid; width: 100%;" required>
                     <br><br>
                     <label>Contact Number</label>
                     <br>
-                    <input type="number" class="fil" name="phonenum" style="border: 1px solid; width: 100%; ">
+                    <input type="number" class="fil" name="phonenum" style="border: 1px solid; width: 100%;" required>
                     <br><br>
 
                     <label for="datetime">Select Date and Time:</label>
                     <br>
-                    <input style="width: 100%;" name="datetime" class="fil" type="datetime-local" id="datetime" name="datetime">
+                    <input style="width: 100%;" name="datetime" class="fil" type="datetime-local" id="datetime" name="datetime" required>
                     <br><br>
                     <input type="hidden" class="fil" name="address" value=""  style="border: 1px solid; width: 100%; ">
                     <input type="hidden" class="fil" name="landmark" value="" style="border: 1px solid; width: 100%; ">
                     <br>
                     <div>Choose Therapist:</div>
-                    <input type="radio" name="gender" value="Male">
+                    <input type="radio" name="gender" value="Male" required>
                     <label>Male</label><br>
 
-                    <input type="radio" name="gender" value="Female">
+                    <input type="radio" name="gender" value="Female" required>
                     <label>Female</label><br><br>
 
                     <label>Remarks</label>

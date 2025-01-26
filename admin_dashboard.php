@@ -178,7 +178,7 @@
                                         <td class="hidd"><?php echo $reserve['user_fullname']; ?></td>
                                         <td class="hidd"><?php echo $reserve['reservation_name']; ?></td>
                                         <td class="hidd"><?php echo $reserve['reservation_phone']; ?></td>
-                                        <td class="hidd"><?php echo $reserve['reservation_datetime']; ?></td>
+                                        <td class="hidd"><?php echo date('F j, Y, g:i A', strtotime($reserve['reservation_datetime'])); ?></td>
                                     </tr>
                                     <?php endforeach ?>
                                     </tbody>

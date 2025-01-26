@@ -149,7 +149,7 @@ include 'MVC/user_routes.php';
                                         <td class="hidd"><?php echo $untracked['user_fullname']; ?></td>
                                         <td class="hidd"><?php echo $untracked['reservation_name']; ?></td>
                                         <td class="hidd"><?php echo $untracked['reservation_phone']; ?></td>
-                                        <td class="hidd"><?php echo $untracked['reservation_datetime']; ?></td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
+                                        <td class="hidd"><?php echo date('F j, Y, g:i A', strtotime($untracked['reservation_datetime']));?></td>                  <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
                                         <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#<?php echo $untracked['reservation_ID']; ?>">click</button></td>
                                                                 <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
                                         <div class="modal fade" id="<?php echo $untracked['reservation_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
