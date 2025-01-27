@@ -25,6 +25,7 @@
 
     if($_SERVER['REQUEST_METHOD'] == "GET"){
         $trackeduser = $reservationcontrol->notpendingreservationperuser($_GET['id']);
+        $customer = $control->selectoneuser($_GET['id']);
     }
     
 
@@ -117,23 +118,23 @@
 
     <div class="modal-body">
         <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-            <img src="<?php echo disp($user); ?>" class="img-fluid" alt="Responsive image">
+            <img src="<?php echo disp($customer); ?>" class="img-fluid" alt="Responsive image">
     </div>
     <div>
                                                         
     </div>
     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        <?php echo $user['user_ID']; ?>
+        <?php echo $customer['user_ID']; ?>
     </div>
     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-        <?php echo $user['user_email']; ?>
+        <?php echo $customer['user_email']; ?>
     </div>
     <div class="row" style="margin-top: 30px;">
         <div class="col-6" style="font-size: 25px; padding-left: 30px; text-align: center; color: black;">
             Account ID
         </div>
         <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            <?php echo $user['user_ID']; ?>
+            <?php echo $customer['user_ID']; ?>
         </div>
     </div>
     <div class="row">
@@ -141,7 +142,7 @@
             Name
         </div>
         <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            <?php echo $user['user_fullname']; ?>
+            <?php echo $customer['user_fullname']; ?>
         </div>
     </div>
     <div class="row">
@@ -149,7 +150,7 @@
             Phone Number
         </div>
         <div class="col-6" style="font-size: 25px; color: #828282; text-align: center;">
-            <?php echo $user['user_number']; ?>
+            <?php echo $customer['user_number']; ?>
         </div>
     </div>
     </div>

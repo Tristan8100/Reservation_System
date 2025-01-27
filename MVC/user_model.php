@@ -552,7 +552,9 @@
         }
 
         public function getnotpendinguser($usid){
-            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' AND reservation_status != \'ACCEPTED\' ORDER BY reservation_datetime ASC';
+            $sql = 'SELECT * FROM reservation
+            WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' AND 
+            reservation_status != \'ACCEPTED\' ORDER BY reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':usid', $usid);
             if($stmt->execute()){

@@ -137,15 +137,15 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <?php foreach($alluser as $user): ?>
+                                    <?php foreach($alluser as $oneuser): ?>
                                     <tr>
-                                        <td class="hidd" ><?php echo $user['user_ID']; ?></td>
-                                        <td class="hidd"><?php echo $user['user_email']; ?></td>
-                                        <td class="hidd"><?php echo $user['user_fullname']; ?></td>
-                                        <td class="hidd"><?php echo $user['user_number']; ?></td>               <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
-                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#<?php echo $user['user_ID']; ?>">click</button></td>
+                                        <td class="hidd" ><?php echo $oneuser['user_ID']; ?></td>
+                                        <td class="hidd"><?php echo $oneuser['user_email']; ?></td>
+                                        <td class="hidd"><?php echo $oneuser['user_fullname']; ?></td>
+                                        <td class="hidd"><?php echo $oneuser['user_number']; ?></td>               <!-- OVERRIDE WITH DATABASE VALUES data-bs-target -->
+                                        <td class="hidd"><button data-bs-toggle="modal" data-bs-target="#<?php echo $oneuser['user_ID']; ?>">click</button></td>
                                                                 <!-- OVERRIDE WITH DATABASE VALUES ID SAME WITH data-bs-target -->
-                                        <div class="modal fade" id="<?php echo $user['user_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="<?php echo $oneuser['user_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog moddd" style="max-width: 500px;">
                                                 <div class="modal-content">
                                                 <div class="modal-header">
@@ -154,23 +154,23 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-                                                        <img src="<?php echo disp($user); ?>" class="img-fluid" alt="Responsive image">
+                                                        <img src="<?php echo disp($oneuser); ?>" class="img-fluid" alt="Responsive image">
                                                     </div>
                                                     <div>
                                                         
                                                     </div>
                                                     <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        <?php echo $user['user_ID']; ?>
+                                                        <?php echo $oneuser['user_ID']; ?>
                                                     </div>
                                                     <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-                                                        <?php echo $user['user_email']; ?>
+                                                        <?php echo $oneuser['user_email']; ?>
                                                     </div>
                                                     <div class="row" style="margin-top: 30px;">
                                                         <div class="col-6" style="font-size: 25px; padding-left: 30px;">
                                                             Account ID
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            <?php echo $user['user_ID']; ?>
+                                                            <?php echo $oneuser['user_ID']; ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -178,7 +178,7 @@
                                                             Name
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            <?php echo $user['user_fullname']; ?>
+                                                            <?php echo $oneuser['user_fullname']; ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -186,12 +186,12 @@
                                                             Phone Number
                                                         </div>
                                                         <div class="col-6" style="font-size: 25px; color: #828282;">
-                                                            <?php echo $user['user_number']; ?>
+                                                            <?php echo $oneuser['user_number']; ?>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">              <!-- PASS ID AS GET -->
-                                                    <a href="admin_manage_account_specificuser.php?id=<?php echo $user['user_ID']; ?>"><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Transaction</button></a>
+                                                    <a href="admin_manage_account_specificuser.php?id=<?php echo $oneuser['user_ID']; ?>"><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">View Transaction</button></a>
                                                 </div>
                                                 </div>
                                             </div>
