@@ -156,8 +156,13 @@ include 'MVC/user_routes.php';
                                         <h5 class="col card-title">Services</h5>
                                     </div>
                                         <a href="user_appointment_status(untracked).php?id=<?php echo $reserve['reservation_ID']; ?>">View All</a>
-                                       
                                     <br>
+                                    <?php if(isset($reserve['therapist_fullname'])): ?>
+                                    <div class="row">
+                                    <h5 class="col card-title">Assigned Therapist</h5>
+                                    <h5 class="col card-title text-muted"><?php echo $reserve['therapist_fullname']; ?></h5>
+                                    </div>
+                                    <?php endif ?>
                                     <h5 class="col card-title">Remarks</h5>
                                     <p class="card-text"><?php echo $reserve['reservation_remarks']; ?></p>
                                     <?php if($reserve['reservation_status'] === "ACCEPTED"){

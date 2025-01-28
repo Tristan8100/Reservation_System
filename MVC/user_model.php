@@ -512,7 +512,10 @@
         //for fetchin reservations
         //based on user_ID
         public function getpendinguser($usid){
-            $sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status = \'PENDING\' OR reservation_status = \'ACCEPTED\' ORDER BY reservation_datetime ASC';
+            $sql = 'SELECT * FROM reservation r
+            LEFT JOIN therapist tr ON tr.therapist_ID = r.therapist_IDFK
+             WHERE r.user_IDFK = :usid AND r.reservation_status = \'PENDING\' OR
+              r.reservation_status = \'ACCEPTED\' ORDER BY r.reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':usid', $usid);
             if($stmt->execute()){
