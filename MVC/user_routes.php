@@ -11,7 +11,10 @@
         }
     }
     
+    
     include 'user_controller.php';
+
+    //include './middleware/message.php';
 
     $control = new usercontrol;
 
