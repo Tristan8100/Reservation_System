@@ -188,7 +188,7 @@
         }
 
         public function therapistcount(){
-            $sql = "SELECT COUNT(*) AS total_rows FROM therapist";
+            $sql = "SELECT COUNT(*) AS total_rows FROM therapist WHERE therapist_status = 'ACTIVE'";
             $stmt = $this->connect()->prepare($sql);
             if ($stmt->execute()) {
                 return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -261,6 +261,17 @@
             }
         }
 
+        public function categoryinactive($id){
+            $sql = 'UPDATE category SET category_status = "INACTIVE" WHERE category_ID = :id';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if($stmt->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         public function checkcategory($cp){
             $sql = 'SELECT * FROM category WHERE category_prefix = :cp';
             $stmt = $this->connect()->prepare($sql);
@@ -285,7 +296,7 @@
         }
 
         public function categorycount(){
-            $sql = "SELECT COUNT(*) AS total_rows FROM category";
+            $sql = "SELECT COUNT(*) AS total_rows FROM category WHERE category_status = 'ACTIVE'";
             $stmt = $this->connect()->prepare($sql);
             if ($stmt->execute()) {
                 return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -340,10 +351,21 @@
 
 
         public function getallservice(){
-            $sql = 'SELECT * FROM `service`';
+            $sql = 'SELECT * FROM `service` WHERE service_status = "ACTIVE"';
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function putinactiveservice($id){
+            $sql = 'UPDATE `service` SET service_status = "INACTIVE" WHERE service_ID = :id';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if($stmt->execute()){
+                return true;
             } else {
                 return false;
             }

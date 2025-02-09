@@ -36,6 +36,16 @@
         }
     }
 
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        if(isset($_GET['delete'])){
+            $servicecontrol->markinactive($_GET['delete']);
+        }
+
+        if(isset($_GET['delcategory'])){
+            $categorycontrol->markinactivecategory($_GET['delcategory']);
+        }
+    }
+
 ?>
 
 
@@ -215,7 +225,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">              <!-- PASS ID AS GET -->
+                                                <div class="modal-footer"> 
+                                                <a href="admin_manage_services_allservices.php?delete=<?php echo $row['service_ID']; ?>"><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">Delete</button></a>
+                                                                 <!-- PASS ID AS GET -->
                                                     <a href="admin_manage_services_addservices(edit).php?edit=<?php echo $row['service_ID']; ?>"><button type="button"  data-bs-toggle="modal" data-bs-dismiss="modal" class="btn">Edit</button></a>
                                                 </div>
                                                 </div>
@@ -283,6 +295,7 @@
                                         <th scope="col">name</th>
                                         <th scope="col">prefix</th>
                                         <th scope="col">View</th>
+                                        <th scope="col">Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -291,7 +304,8 @@
                                         <td class="hidd"><?php echo $row['category_ID'] ?></td>
                                         <td class="hidd"><?php echo $row['category_name'] ?></td>
                                         <td class="hidd"><?php echo $row['category_prefix'] ?></td>       
-                                        <td class="hidd"><a href="admin_manage_services_addcategory(edit).php?edit=<?php echo $row['category_ID'] ?>"><button data-bs-toggle="modal" data-bs-target="#exampleModal22">click</button></a></td>   
+                                        <td class="hidd"><a href="admin_manage_services_addcategory(edit).php?edit=<?php echo $row['category_ID'] ?>"><button data-bs-toggle="modal" data-bs-target="#exampleModal22">click</button></a></td>
+                                        <td class="hidd"><a href="admin_manage_services_allservices.php?delcategory=<?php echo $row['category_ID'] ?>"><button data-bs-toggle="modal" data-bs-target="#exampleModal22">click</button></a></td>   
                                     </tr>
                                     <?php endforeach; ?>
                             

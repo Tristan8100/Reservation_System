@@ -24,6 +24,7 @@ if(isset($_GET['mess'])){
             flex-direction: column;
             align-items: center;
             box-shadow: 1px 1px 10px;
+            z-index: 100;
         }
 
         @keyframes fadeIn {

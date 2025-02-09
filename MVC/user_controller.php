@@ -313,6 +313,13 @@
             return $this->categorycount();
         }
 
+        public function markinactivecategory($id){
+            $val = $this->categoryinactive($id);
+            if($val){
+                header('location: admin_manage_services.php?mess=Deleted Successfully');
+            }
+        }
+
         public function fetchcategory(){
             return $this->getallcategory();
         }
@@ -355,6 +362,13 @@
 
         public function fetchallservice(){
             return $this->getallservice();
+        }
+
+        public function markinactive($id){
+            $val = $this->putinactiveservice($id);
+            if($val){
+                header('location: admin_manage_services_allservices.php?mess=Deleted Successfully');
+            }
         }
 
         public function fetchoneservice($id){
