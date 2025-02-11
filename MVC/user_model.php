@@ -699,7 +699,7 @@
         }
 
         public function oneuntracked($rid){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_ID = :rid ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_ID = :rid AND r.reservation_datetime < NOW()';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':rid', $rid);
             if($stmt->execute()){
@@ -765,7 +765,7 @@
 
         //based on date and status
         public function getdate($datee){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE DATE (r.reservation_datetime) = :datee ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE DATE (r.reservation_datetime) = :datee AND r.reservation_status != "ACCEPTED" AND r.reservation_status != "PENDING" ORDER BY r.reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':datee', $datee);
             if($stmt->execute()){

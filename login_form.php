@@ -1,6 +1,7 @@
 <?php
 
     include 'MVC/user_routes.php';
+    include './middleware/message.php';
 
     if(isset($_POST['submitlog'])){
         $control->processlogin($_POST['emaillog'], $_POST['passwordlog']);

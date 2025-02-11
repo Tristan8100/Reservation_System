@@ -96,7 +96,7 @@
                         </div>
                         <button type="submit" name="submitsign" class="btn btn-primary" style="background-color: #AC1515; color: #FFE141; margin-left: 50%; transform: translate(-50%);">Sign-up</button>
                     </form>
-                    <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Already have an Account? <a href="" style="color: #FFE141;">login</a> here</div>
+                    <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Already have an Account? <a href="login_form.php" style="color: #FFE141;">login</a> here</div>
 
                 </div>
             </div>

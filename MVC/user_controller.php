@@ -88,7 +88,7 @@
         public function processlogin($em, $pass){
             $compare = $this->loginselect($em);
             if($compare === 'NO USER'){
-                echo "NO USER FOUND";
+                header('location: login_form.php?mess=No User Found');
             } else if ($compare) {
                 if(password_verify($pass, $compare['user_password'])){
                     if($compare['user_status'] === "REGISTERED"){
@@ -113,7 +113,7 @@
                     }
                     
                 } else {
-                    echo "WRONG CREDENTIALS";
+                    header('location: login_form.php?mess=Wrong Credentials');
                 }
             }
         }
@@ -562,7 +562,12 @@
         }
 
         public function getoneuntracked($rid){
-            return $this->oneuntracked($rid);
+            $val = $this->oneuntracked($rid);
+            if(empty($val)){
+                header('location: admin_manage_appointments.php');
+            } else {
+                return $this->oneuntracked($rid);
+            }
         }
 
         public function getalluntrackedreservation(){
