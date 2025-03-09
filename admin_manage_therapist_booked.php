@@ -167,7 +167,7 @@
                                         <td class="hidd"><?php echo $booked['user_email']; ?></td>
                                         <td class="hidd"><?php echo $booked['reservation_ID']; ?></td>
                                         <td class="hidd"><?php echo $booked['reservation_datetime']; ?></td>
-                                        <td class="hidd"><a href="admin_manage_therapist_specifictherapist.php?id=<?php echo $booked['therapist_ID']; ?>"><button>click</button></td></a>
+                                        <td class="hidd"><a href="admin_manage_appointments_specificuser(untracked).php?id=<?php echo $booked['reservation_ID']; ?>"><button>click</button></td></a>
                                     </tr>
                                     <?php endforeach ?>
                                     

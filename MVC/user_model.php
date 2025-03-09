@@ -538,7 +538,7 @@
         LEFT JOIN therapist tr ON tr.therapist_ID = r.therapist_IDFK
         WHERE r.user_IDFK = :usid AND 
               (r.reservation_status = \'PENDING\' OR r.reservation_status = \'ACCEPTED\')
-        ORDER BY r.reservation_datetime ASC';
+        ORDER BY r.reservation_datetime DESC';
 
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':usid', $usid);
@@ -566,7 +566,7 @@
             WHERE us.user_ID = :usid AND 
                 r.reservation_status != \'PENDING\' AND r.reservation_status != \'ACCEPTED\' 
             GROUP BY r.reservation_ID
-            ORDER BY r.reservation_datetime ASC';
+            ORDER BY r.reservation_datetime DESC';
 
             //$sql = 'SELECT * FROM reservation WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' AND reservation_status != \'ACCEPTED\' ORDER BY reservation_datetime ASC';
             $stmt = $this->connect()->prepare($sql);
@@ -579,9 +579,26 @@
         }
 
         public function getnotpendinguser($usid){
-            $sql = 'SELECT * FROM reservation
-            WHERE user_IDFK = :usid AND reservation_status != \'PENDING\' AND 
-            reservation_status != \'ACCEPTED\' ORDER BY reservation_datetime ASC';
+            $sql = 'SELECT 
+            r.*,  
+            COALESCE((
+                SELECT CONCAT("[", GROUP_CONCAT(
+                    JSON_OBJECT(
+                        "id", rs.reservation_services_ID, 
+                        "service_id", rs.service_IDFK,
+                        "price", rs.reservation_price,
+                        "duration", rs.reservation_duration
+                    )
+                ), "]")
+                FROM reservation_services rs 
+                WHERE rs.reservation_IDFK = r.reservation_ID
+            ), "[]") AS services
+        FROM reservation r
+        WHERE r.user_IDFK = :usid 
+        AND r.reservation_status NOT IN ("PENDING", "ACCEPTED") 
+        ORDER BY r.reservation_datetime DESC';
+        
+
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':usid', $usid);
             if($stmt->execute()){
@@ -689,7 +706,7 @@
         }
 
         public function alluntracked(){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_datetime < NOW() ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_datetime < NOW() ORDER BY r.reservation_datetime DESC';
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
                 return $stmt->fetchALL(PDO::FETCH_ASSOC);
@@ -710,7 +727,7 @@
         }
 
         public function getpendingall(){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE reservation_status = \'PENDING\' ORDER BY reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE reservation_status = \'PENDING\' ORDER BY reservation_datetime DESC';
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -743,7 +760,7 @@
         }
 
         public function tracked(){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status != \'PENDING\' AND r.reservation_status != \'ACCEPTED\' ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status != \'PENDING\' AND r.reservation_status != \'ACCEPTED\' ORDER BY r.reservation_datetime DESC';
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -753,7 +770,7 @@
         }
 
         public function getstatus($statuss){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = :statuss ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = :statuss ORDER BY r.reservation_datetime DESC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':statuss', $statuss);
             if($stmt->execute()){
@@ -765,7 +782,7 @@
 
         //based on date and status
         public function getdate($datee){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE DATE (r.reservation_datetime) = :datee AND r.reservation_status != "ACCEPTED" AND r.reservation_status != "PENDING" ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE DATE (r.reservation_datetime) = :datee AND r.reservation_status != "ACCEPTED" AND r.reservation_status != "PENDING" ORDER BY r.reservation_datetime DESC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':datee', $datee);
             if($stmt->execute()){
@@ -776,7 +793,7 @@
         }
 
         public function getdateandstatus($datee, $statuss){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE DATE (r.reservation_datetime) = :datee AND r.reservation_status = :statuss ORDER BY r.reservation_datetime ASC';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE DATE (r.reservation_datetime) = :datee AND r.reservation_status = :statuss ORDER BY r.reservation_datetime DESC';
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':datee', $datee);
             $stmt->bindParam(':statuss', $statuss);
@@ -804,7 +821,7 @@
             FROM reservation r
             INNER JOIN user us ON us.user_ID = r.user_IDFK
             INNER JOIN therapist t ON t.therapist_ID = r.therapist_IDFK
-            WHERE r.reservation_status = 'ACCEPTED' ORDER BY r.reservation_datetime ASC
+            WHERE r.reservation_status = 'ACCEPTED' ORDER BY r.reservation_datetime DESC
             ";
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
@@ -819,7 +836,7 @@
             FROM reservation r
             INNER JOIN user us ON us.user_ID = r.user_IDFK
             INNER JOIN therapist t ON t.therapist_ID = r.therapist_IDFK
-            WHERE r.reservation_status = 'ACCEPTED' AND DATE(r.reservation_datetime) = :dt ORDER BY r.reservation_datetime ASC
+            WHERE r.reservation_status = 'ACCEPTED' AND DATE(r.reservation_datetime) = :dt ORDER BY r.reservation_datetime DESC
             ";
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':dt', $dt);
@@ -835,7 +852,7 @@
             FROM reservation r
             INNER JOIN user us ON us.user_ID = r.user_IDFK
             INNER JOIN therapist t ON t.therapist_ID = r.therapist_IDFK
-            WHERE r.reservation_status = 'ACCEPTED' AND t.therapist_ID = :tid ORDER BY r.reservation_datetime ASC
+            WHERE r.reservation_status = 'ACCEPTED' AND t.therapist_ID = :tid ORDER BY r.reservation_datetime DESC
             ";
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':tid', $tid);
@@ -851,7 +868,7 @@
             FROM reservation r
             INNER JOIN user us ON us.user_ID = r.user_IDFK
             INNER JOIN therapist t ON t.therapist_ID = r.therapist_IDFK
-            WHERE r.reservation_status != 'ACCEPTED' AND r.reservation_status != 'PENDING' AND t.therapist_ID = :tid ORDER BY r.reservation_datetime ASC
+            WHERE r.reservation_status != 'ACCEPTED' AND r.reservation_status != 'PENDING' AND t.therapist_ID = :tid ORDER BY r.reservation_datetime DESC
             ";
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':tid', $tid);
