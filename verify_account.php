@@ -39,10 +39,10 @@
 </head>
 <body style="background-color: #FFF0F0; display: flex; justify-content: center; margin-top: 100px;">
 
-    <div style="border: 1px solid; position: absolute; top: 0%; width: 100%; height: 400px; z-index: -1;">
+    <div style="position: absolute; top: 0%; width: 100%; height: 450px; z-index: -1;">
         <img src="images/spa.jpg" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
-    <div class="shadow" style="background-color: #F5F5F5; border-radius: 10px; padding: 20px; height: 480px; width: 900px;">
+    <div class="shadow" style="background-color: #F5F5F5; border-radius: 10px; padding: 20px; height: 480px; width: 900px; margin-top:100px;">
         <div class="row">
             <div class="col-6">
             <div class="carousel-container" style="width: 400px; height: 450px;">
@@ -80,12 +80,12 @@
                     <div style="margin-top: -10px; margin-bottom: 20px; text-align: center; font-size: 15px; color: #797979;">Enter verification code or click the link directly.</div>
                     <form action="verify_account.php" method="post" style="margin-top: 70px;">
                         <div class="mb-3">
-                            <label for="number" class="form-label">Email</label>
+                            <label for="number" class="form-label">Veification Code</label>
                             <input type="number" id="number" name="verifyacc" class="form-control" placeholder="Enter verification code" required>
                         </div>
                         <button type="submit" name="codes2" class="btn btn-primary" style="background-color: #AC1515; color: #FFE141; margin-left: 50%; transform: translate(-50%);">Submit</button>
                     </form>
-                    <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Already have an Account? <a href="" style="color: #FFE141;">login</a> here</div>
+                    <div style="margin-top: 40px; width: 300px; margin-left: 50%; transform: translate(-50%);">Already have an Account? <a href="login_form.php" style="color: #FFE141;">login</a> here</div>
 
                 </div>
             </div>

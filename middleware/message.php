@@ -14,7 +14,7 @@ if(isset($_GET['mess'])){
             background-color: #6b3702;
             border-radius: 10px;
             width: 400px;
-            height: 300px;
+            height: 250px;
             position: absolute;
             left: 50%;
             transform: translate(-50%, 20%);

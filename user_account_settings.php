@@ -92,7 +92,7 @@
         }
         .somemodal{
             padding: 10px;
-            width: 400px;
+            width: 500px;
             background-color: white;
             position: fixed;
         }

@@ -199,7 +199,7 @@
         public function uploadimg($im, $id){
             $im = $this->updatepic($im, $id);
             if($im === true){
-                
+                header('location: user_account_settings.php?mess=Success');
             } else if($im === false){
                 echo "falll";
             }
@@ -252,7 +252,7 @@
         public function createtherapist($tf, $te, $tg, $tn){
             $val = $this->addtherapist($tf, $te, $tg, $tn);
             if($val){
-                header('location: admin_manage_therapist_add.php?mess="success"');
+                header('location: admin_manage_therapist_add.php?mess=Success');
             }
         }
 
