@@ -716,7 +716,7 @@
         }
 
         public function oneuntracked($rid){
-            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_ID = :rid AND r.reservation_datetime < NOW()';
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_ID = :rid'; //CHANGED
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':rid', $rid);
             if($stmt->execute()){
