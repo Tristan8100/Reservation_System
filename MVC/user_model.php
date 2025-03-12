@@ -879,6 +879,19 @@
             }
         }
 
+        //for payment
+        public function paid($payment, $id){
+            $sql = "UPDATE reservation SET reservation_payment = :pay WHERE reservation_ID = :id";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':pay', $payment);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 
     }
 

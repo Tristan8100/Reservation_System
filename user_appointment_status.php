@@ -140,9 +140,8 @@ include 'MVC/user_routes.php';
                                         <h5 class="col card-title">Total</h5>
                                         <h5 class="col card-title text-muted">₱<?php echo $reserve['reservation_total']; ?></h5>
                                     </div>
-                                    <br>
-                                    <h5>For Home Service</h5>
-                                    <br>
+                                    <div style="border: 1px solid; color:#6B4A4A;"></div>
+                                    <h5>For Home Service:</h5>
                                     <div class="row">
                                         <h5 class="col card-title">location</h5>
                                         <h5 class="col card-title text-muted"><?php echo $reserve['reservation_address']; ?></h5>
@@ -151,12 +150,15 @@ include 'MVC/user_routes.php';
                                         <h5 class="col card-title">landmark</h5>
                                         <h5 class="col card-title text-muted"><?php echo $reserve['reservation_landmark']; ?></h5>
                                     </div>
-                                    <br>
                                     <div class="row">
                                         <h5 class="col card-title">Services</h5>
-                                    </div>
                                         <a href="user_appointment_status(untracked).php?id=<?php echo $reserve['reservation_ID']; ?>">View All</a>
-                                    <br>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="col card-title">Payment</h5>
+                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_payment']; ?></h5>
+                                    </div>
+                                        
                                     <?php if(isset($reserve['therapist_fullname'])): ?>
                                     <div class="row">
                                     <h5 class="col card-title">Assigned Therapist</h5>

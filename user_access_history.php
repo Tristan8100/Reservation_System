@@ -121,7 +121,7 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                 </tr>
 
                 <div class="contr shadow" id="<?php echo $reservation['reservation_ID']; ?>" style="padding: 10px; width: 650px; border-radius: 10px; height: 600px; position: fixed; color: black; background-color: aliceblue;">
-                <form class="forr">
+                    <form class="forr">
                             <div class="textabove" style="font-size: 30px; font-weight: 500; text-align: center;">
                                 Your Appointment
                             </div>
@@ -156,9 +156,8 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                                         <h5 class="col card-title">Total</h5>
                                         <h5 class="col card-title text-muted">₱<?php echo $reservation['reservation_total']; ?></h5>
                                     </div>
-                                    <br>
-                                    <h5>For Home Service</h5>
-                                    <br>
+                                    <div style="border: 1px solid; color:#6B4A4A;"></div>
+                                    <h5 >For Home Service:</h5>
                                     <div class="row">
                                         <h5 class="col card-title">location</h5>
                                         <h5 class="col card-title text-muted"><?php echo $reservation['reservation_address']; ?></h5>
@@ -167,12 +166,10 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                                         <h5 class="col card-title">landmark</h5>
                                         <h5 class="col card-title text-muted"><?php echo $reservation['reservation_landmark']; ?></h5>
                                     </div>
-                                    <br>
                                     <div class="row">
                                         <h5 class="col card-title">Services</h5>
-                                    </div>
                                         <a href="user_access_history(tracked).php?id=<?php echo $reservation['reservation_ID']; ?>">View All</a>
-                                    <br>
+                                    </div>
                                     <h5 class="col card-title">Remarks</h5>
                                     <p class="card-text"><?php echo $reservation['reservation_remarks']; ?></p>
                                 </div>

@@ -44,7 +44,7 @@ include 'MVC/user_routes.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin_manage_appointment_specific_user(tracked)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <?php include "adminsidebar/css_dashboard.php"; ?>
+    <?php include "side/css_dashboard.php"; ?>
     <style>
         body{
             background-color: #FFF0F0;
@@ -101,7 +101,7 @@ include 'MVC/user_routes.php';
 </head>
 <body>
     <img class="pic0" src="images/menu.png" style="margin-top: 10px;" >
-    <?php include "adminsidebar/sidebar.php"; ?>
+    <?php include "side/sidebar.php"; ?>
 
     <div class="main_content1">
     <!-- TEMPLATE -->
@@ -391,7 +391,7 @@ include 'MVC/user_routes.php';
 
 
 
-    <?php include "adminsidebar/js_sidebar.php"; ?>
+    <?php include "side/js_sidebar.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
 </body>

@@ -441,7 +441,8 @@
                 $this->addreservationservice($ridfk, $sidfk[$i], $uidfk, $duration[$i], $price[$i]);
             }
             $this->updatedurprice($totalprice, $totalduration, $ridfk);
-            header('location: user_dashboard.php?mess=added');
+            $_SESSION['resid'] = $ridfk;
+            header('location: user_payment_choice.php');
             
         }
 
@@ -578,6 +579,15 @@
             $check = $this->totrack($id, $rs);
             if($check === true){
                 header('location: admin_manage_appointments_all(untracked).php?mess=updated');
+            }
+        }
+
+        public function paydownpayment($payment, $id){
+            $val = $this->paid($payment, $id);
+            if($val){
+                unset($_SESSION['payment']);
+                unset($_SESSION['resid']);
+                header('location: user_dashboard.php?mess=SUCCESSFULLY PAID');
             }
         }
 

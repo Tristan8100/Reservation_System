@@ -267,6 +267,18 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-left: auto; text-align:right;">
+                Payment
+            </div>
+        </div>
+        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
+            <div style="width: 50%; margin-right: auto; color: #828282;">
+                <?php echo isset($reservation['reservation_payment']) ? $reservation['reservation_payment'] : 'No Payment'; ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
     <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
             <div style="width: 50%; margin-left: auto; text-align:right;">
                 Remarks
