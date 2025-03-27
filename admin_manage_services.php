@@ -26,6 +26,8 @@
     $categorycount = $categorycontrol->getcategorycount();
 
     $servicecount = $servicecontrol->fetchservicecount();
+
+    $bedcount = $bedscontrol->getbedcount();
 ?>
 
 
@@ -34,157 +36,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_services</title>
+    <title>Admin Manage Services</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
-        body{
+        body {
             background-color: #FFF0F0;
         }
-        .pic0{
+
+        .pic0 {
             width: 50px;
+            margin-top: 10px;
         }
-        .main_content1{
+
+        .main_content1 {
             padding: 10px;
             width: 90%;
             margin-left: 8%;
         }
 
-        .intro {
-        height: 100%;
+        .dashboard-header {
+            color: #6B4A4A;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 36px;
         }
 
-        table td,
-        table th {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
+        .dashboard-subtext {
+            color: #6B4A4A;
         }
 
-        thead th {
-        color: #fff;
+        .logout-button {
+            background-color: #6B4A4A;
+            width: 120px;
+            color: white;
+            border-radius: 10px;
         }
 
-        .card {
-        border-radius: .5rem;
+        .status-container {
+            color: #6B4A4A;
+            margin-top: 30px;
+            font-size: 25px;
         }
 
-        .table-scroll {
-        border-radius: .5rem;
+        .status-box {
+            padding: 10px;
+            width: 350px;
+            border-radius: 10px;
+            background-color: #FFFFFF;
+            text-align: center;
         }
 
-        .table-scroll table thead th {
-        font-size: 1.25rem;
-        }
-        thead {
-        top: 0;
-        position: sticky;
+        .management-container {
+            margin-top: 50px;
+            margin-bottom: 50px;
         }
 
-        .hidd {
-            max-width: 200px; /* Adjust the width as needed */
-            white-space: nowrap; /* Prevent wrapping to the next line */
-            overflow: hidden; /* Hide overflowed content */
-            text-overflow: ellipsis; /* Add '...' at the end */
+        .management-box {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            background-color: #FFFFFF;
+            text-align: center;
+            padding-top: 50px;
+            margin: 0 10px;
+        }
+
+        .management-box h2 {
+            color: #6B4A4A;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .management-box p {
+            color: #6B4A4A;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .management-box button {
+            background-color: #6B4A4A;
+            font-size: 25px;
+            color: #FFFFFF;
+            border-radius: 10px;
+            width: 175px;
+            height: 42px;
+            margin-top: 80px;
+        }
+
+        .add-service-box {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            background-color: #FFFFFF;
+            text-align: center;
+            padding-top: 50px;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .add-service-box h2 {
+            color: #6B4A4A;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .add-service-box img {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .add-service-box button {
+            background-color: #6B4A4A;
+            font-size: 25px;
+            color: #FFFFFF;
+            border-radius: 10px;
+            width: 175px;
+            height: 42px;
+            margin-top: 30px;
+        }
+
+        .management-box, .add-service-box {
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main_content1 {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .status-box {
+                width: 80%;
+                margin-bottom: 30px;
+            }
+
+            .status-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dashboard-header {
+                font-size: 24px;
+            }
+
+            .logout-button {
+                display: none;
+            }
+
+            .management-container .row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .management-box, .add-service-box {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 1250px) {
+            .option-parent {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .option-parent div {
+                margin-bottom: 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <img class="pic0" src="images/menu.png" style="margin-top: 10px;" >
+    <img class="pic0" src="images/menu.png">
     <?php include "adminsidebar/sidebar.php"; ?>
 
     <div class="main_content1">
-    <!-- TEMPLATE -->
-        <div class="container" style="display: flex; align-items: center;">
+        <!-- Header Section -->
+        <div class="container d-flex align-items-center justify-content-between">
             <div>
-                <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Services
-                </div>
-                <div style="color: #6B4A4A;">
-                    Quick access to Services
-                </div>
+                <div class="dashboard-header">Manage Services</div>
+                <div class="dashboard-subtext">Quick access to Services</div>
             </div>
-            <div style="margin-left: auto;">
-                <a href="MVC/user_routes.php?logout=1"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Log Out</button></a>
-            </div>
-        </div>
-    <!-- TEMPLATE -->
-
-        <div class="container" style="color: #6B4A4A; margin-top: 30px; font-size: 25px;">Status</div>
-
-        <div class="container" style="margin-top: 30px; display: flex;">
-            <div style="width: 50%;">
-                <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
-                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $servicecount['total_rows']; ?></div>
-                    <div style="font-size: 25px; color: #6B4A4A;">Services</div>
-                </div>
-            </div>
-            
-
-            <div style="width: 50%;">
-                <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF; margin-left: auto;">
-                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $categorycount['total_rows'] ?></div>
-                    <div style="font-size: 25px; color: #6B4A4A;">Categories</div>
-                </div>
+            <div>
+                <a href="MVC/user_routes.php?logout=1"><button class="logout-button">Log Out</button></a>
             </div>
         </div>
 
+        <!-- Status Section -->
+        <div class="container status-container">Status</div>
 
-        <div class="container" style="display: flex; align-items: center; margin-top: 50px;">
-            <div>
-                <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Service Management Overview
-                </div>
-                <div style="color: #6B4A4A;">
-                    Here’s a quick access to manage services
-                </div>
+        <div class="container d-flex justify-content-between status-content">
+            <div class="status-box border">
+                <div style="font-size: 30px; color: #6B4A4A;"><?php echo $servicecount['total_rows']; ?></div>
+                <div style="font-size: 25px; color: #6B4A4A;">Services</div>
             </div>
+            <div class="status-box border">
+                <div style="font-size: 30px; color: #6B4A4A;"><?php echo $bedcount['total_rows']; ?></div>
+                <div style="font-size: 25px; color: #6B4A4A;">beds</div>
+            </div>
+            <div class="status-box border">
+                <div style="font-size: 30px; color: #6B4A4A;"><?php echo $categorycount['total_rows']; ?></div>
+                <div style="font-size: 25px; color: #6B4A4A;">Categories</div>
+            </div>
+        </div>
+
+        <!-- Service Management Overview -->
+        <div class="container management-container">
+            <div class="dashboard-header">Service Management Overview</div>
+            <div class="dashboard-subtext">Here’s a quick access to manage services</div>
         </div>
 
         <div class="container">
-            <div style="margin-top: 50px;">
-                <div class="row">
-                    <div class="col-4 d-flex justify-content-center">
-                        <a href="admin_manage_services_allservices.php" style="text-decoration: none;">
-                            <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
-                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;"><?php echo $servicecount['total_rows']; ?></div>
-                                <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">All Services</div>
-                                <button style="margin-left: 50%; transform: translate(-50%); margin-top: 80px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4 d-flex justify-content-center">
-                        <a href="admin_manage_services_addcategory.php" style="text-decoration: none;">
-                            <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
-                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Add</div>
-                                <div style="color: #6B4A4A; text-align: center; font-size: 25px; font-weight: 700;">Category</div>
-                                <button style="margin-left: 50%; transform: translate(-50%); margin-top: 80px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4 d-flex justify-content-center">
-                        <a href="admin_manage_services_addservices.php" style="text-decoration: none;">
-                            <div class="shadow" style="width: 300px; height: 300px; border-radius: 10px; background-color: #FFFFFF;">
-                                <div style="color: #6B4A4A; text-align: center; padding-top: 50px; font-weight: 700; font-size: 30px;">Add Service</div>
-                                <div style="width: 100px; height: 100px; margin-left: 50%; transform: translate(-50%);"><img src="images/message.png" alt="..." class="img-thumbnail"></div>
-                                <button style="margin-left: 50%; transform: translate(-50%); margin-top: 20px; background-color: #6B4A4A; font-size: 25px; color: #FFFFFF; border-radius: 10px; width: 175px; height: 42px;">View</button>
-                            </div>
-                        </a>
-                    </div>
+            <div class="row justify-content-center option-parent">
+                <div class="col-4 d-flex justify-content-center">
+                    <a href="admin_manage_services_addcategory.php" style="text-decoration: none;">
+                        <div class="management-box shadow">
+                            <h2>Add</h2>
+                            <p>Category</p>
+                            <button>View</button>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-4 d-flex justify-content-center">
+                    <a href="admin_manage_services_addbeds.php" style="text-decoration: none;">
+                        <div class="management-box shadow">
+                            <h2>Add</h2>
+                            <p>Beds</p>
+                            <button>View</button>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-4 d-flex justify-content-center">
+                    <a href="admin_manage_services_addservices.php" style="text-decoration: none;">
+                        <div class="add-service-box shadow">
+                            <h2>Add Service</h2>
+                            <img src="images/message.png" alt="Add Service" class="img-thumbnail">
+                            <button>View</button>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-4 d-flex justify-content-center">
+                    <a href="admin_manage_services_allservices.php" style="text-decoration: none;">
+                        <div class="management-box shadow">
+                            <h2><?php echo $servicecount['total_rows']; ?></h2>
+                            <p>All Services</p>
+                            <button>View</button>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
-        
-
     </div>
-    
-
-
 
     <?php include "adminsidebar/js_sidebar.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-    
-    </script>
 </body>
 </html>

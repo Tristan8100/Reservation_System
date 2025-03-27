@@ -62,272 +62,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_therapist_specifictherapist</title>
+    <title>Admin Manage Therapist - Specific Therapist</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
-        body{
+        body {
             background-color: #FFF0F0;
+            font-family: 'Arial', sans-serif;
         }
-        .pic0{
+
+        .pic0 {
             width: 50px;
+            margin-top: 10px;
+            cursor: pointer;
         }
-        .main_content1{
-            padding: 10px;
-            width: 90%;
+
+        .main_content1 {
+            padding: 20px;
             margin-left: 8%;
+            max-width: 100%;
         }
 
-        .intro {
-        height: 100%;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        table td,
-        table th {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
+        .header h1 {
+            color: #6B4A4A;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
         }
 
-        thead th {
-        color: #fff;
+        .header p {
+            color: #6B4A4A;
+            font-size: 1.1rem;
+            margin: 5px 0 0;
         }
 
-        .card {
-        border-radius: .5rem;
+        .back-button {
+            background-color: #6B4A4A;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .back-button:hover {
+            background-color: #5a3a3a;
+        }
+
+        .therapist-profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .therapist-profile h2 {
+            color: #6B4A4A;
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+
+        .therapist-profile p {
+            color: #828282;
+            font-size: 1rem;
+        }
+
+        .info-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .info-section h3 {
+            color: #6B4A4A;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .info-label {
+            color: #6B4A4A;
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: #828282;
+        }
+
+        .table-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .table-section h3 {
+            color: #6B4A4A;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
 
         .table-scroll {
-        border-radius: .5rem;
+            max-height: 500px;
+            overflow-y: auto;
+            border-radius: 10px;
         }
 
-        .table-scroll table thead th {
-        font-size: 1.25rem;
-        }
-        thead {
-        top: 0;
-        position: sticky;
-        }
-
-        .hidd {
-            max-width: 200px; /* Adjust the width as needed */
-            white-space: nowrap; /* Prevent wrapping to the next line */
-            overflow: hidden; /* Hide overflowed content */
-            text-overflow: ellipsis; /* Add '...' at the end */
+        .table thead th {
+            background-color: #6B4A4A;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
-       
+        .table tbody td {
+            color: #828282;
+        }
+
+        @media (max-width: 768px) {
+            .main_content1 {
+                margin-left: 0;
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .therapist-profile h2 {
+                font-size: 1.5rem;
+            }
+
+            .info-section h3,
+            .table-section h3 {
+                font-size: 1.3rem;
+            }
+
+            .info-row {
+                font-size: 1rem;
+            }
+
+            .table thead th {
+                font-size: 1rem;
+            }
+
+            .table tbody td {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <img class="pic0" src="images/menu.png" style="margin-top: 10px;" >
+    <img class="pic0" src="images/menu.png" alt="Menu">
     <?php include "adminsidebar/sidebar.php"; ?>
 
-<div class="main_content1">
-    <!-- TEMPLATE -->
-        <div class="container" style="display: flex; align-items: center;">
+    <div class="main_content1">
+        <!-- Header -->
+        <div class="header">
             <div>
-                <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Appointments
-                </div>
-                <div style="color: #6B4A4A;">
-                    Quick access to customer's appointment
-                </div>
+                <h1>Manage Appointments</h1>
+                <p>Quick access to customer's appointment</p>
             </div>
-            <div style="margin-left: auto;">
-                <a onclick="window.history.back()"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
+            <button class="back-button" onclick="window.history.back()">Back</button>
+        </div>
+
+        <!-- Therapist Profile -->
+        <div class="therapist-profile">
+            <h2><?php echo $val['therapist_fullname']; ?></h2>
+            <p>Therapist ID: <?php echo $val['therapist_ID']; ?></p>
+        </div>
+
+        <!-- Therapist Information -->
+        <div class="info-section">
+            <h3>Therapist Details</h3>
+            <div class="info-row">
+                <span class="info-label">Therapist ID:</span>
+                <span class="info-value"><?php echo $val['therapist_ID']; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Email:</span>
+                <span class="info-value"><?php echo $val['therapist_email']; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Name:</span>
+                <span class="info-value"><?php echo $val['therapist_fullname']; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Status:</span>
+                <span class="info-value"><?php echo $val['therapist_status']; ?></span>
             </div>
         </div>
-    <!-- TEMPLATE -->
 
+        <!-- Done Appointments (Tracked) -->
+        <div class="table-section">
+            <h3>Done Appointments (Tracked)</h3>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Reservation ID</th>
+                            <th>Date</th>
+                            <th>Customer Name</th>
+                            <th>Status</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($therapistreservation as $value): ?>
+                        <tr>
+                            <td><?php echo $value['reservation_ID']; ?></td>
+                            <td><?php echo $value['reservation_datetime']; ?></td>
+                            <td><?php echo $value['user_fullname']; ?></td>
+                            <td><?php echo $value['reservation_status']; ?></td>
+                            <td><a href="admin_manage_appointments_specificuser(tracked).php?id=<?php echo $value['reservation_ID']; ?>"><button class="back-button">View</button></a></td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                                                        
-    
-    <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        <?php echo $val['therapist_fullname']; ?>
+        <!-- Accepted Appointments (Untracked) -->
+        <div class="table-section">
+            <h3>Accepted Appointments (Untracked)</h3>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Reservation ID</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($acceptreservation as $reservation): ?>
+                        <tr>
+                            <td><?php echo $reservation['reservation_ID']; ?></td>
+                            <td><?php echo $reservation['reservation_datetime']; ?></td>
+                            <td><?php echo $reservation['user_fullname']; ?></td>
+                            <td><?php echo $reservation['reservation_status']; ?></td>
+                            <td><a href="admin_manage_appointments_specificuser(untracked).php?id=<?php echo $reservation['reservation_ID']; ?>"><button class="back-button">View</button></a></td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="row" style="margin-top: 30px;">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Therapist ID
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $val['therapist_ID']; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Email
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $val['therapist_email']; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Name
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $val['therapist_fullname']; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Status
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo $val['therapist_status']; ?>
-            </div>
-        </div>
-    </div>
-
-    <br>
-    <div class="border"></div>
-    <br>
-
-    <button><a href="admin_manage_therapist_specifictherapist.php?id=<?php echo $val['therapist_ID']; ?>&delete=true">Mark as Inactive</a></button>
-
-
-    
-
-
-        <div style="margin-top: 50px;">
-            <div style="text-align: center; font-size: 30px;">Done Appointments (Tracked)</div>
-            <br>
-            
-            
-            <div class="row">
-            <div class="col-12">
-                <!-- The Table -->
-                <section class="intro">
-                    <div class="bg-image h-100">
-                        <div class="mask d-flex align-items-center h-100">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-body p-0">
-                                                <div class="table-responsive table-scroll" 
-                                                    data-mdb-perfect-scrollbar="true" 
-                                                    style="position: relative; height: 600px;">
-                                                    <table class="table table-striped mb-0" 
-                                                        style="table-layout: fixed; width: 100%;">
-                                                        <thead style="background-color: #002d72;">
-                                                            <tr>
-                                                                <th scope="col">Reservation ID</th>
-                                                                <th scope="col">Date</th>
-                                                                <th scope="col">Customer Name</th>
-                                                                <th scope="col">Status</th>
-                                                                <th scope="col">view</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php foreach($therapistreservation as $value): ?>
-                                                            <tr>
-                                                                <td><?php echo $value['reservation_ID']; ?></td>
-                                                                <td><?php echo $value['reservation_datetime']; ?></td>
-                                                                <td><?php echo $value['user_fullname']; ?></td>
-                                                                <td><?php echo $value['reservation_status']; ?></td>
-                                                                <td><a href="admin_manage_appointments_specificuser(tracked).php?id=<?php echo $value['reservation_ID']; ?>"><button>view</button></a></td>
-                                                            </tr>
-                                                            <?php endforeach ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-
-
-
-    
-
-            <br>
-            <div style="text-align: center; font-size: 30px;">Accepted Appointments (Untracked)</div>
-            <br>
-
-            <div class="row">
-                <div class="col-12">
-                    <!-- The Table -->
-                    <section class="intro">
-                        <div class="bg-image h-100">
-                            <div class="mask d-flex align-items-center h-100">
-                                <div class="container">
-                                    <div class="row justify-content-center">
-                                        <div class="col-12">
-
-                                                <div class="card">
-                                                    <div class="card-body p-0">
-                                                        <div class="table-responsive table-scroll" 
-                                                            data-mdb-perfect-scrollbar="true" 
-                                                            style="position: relative; height: 600px;">
-                                                            
-                                                            <table class="table table-striped mb-0" 
-                                                                style="table-layout: fixed; width: 100%;">
-                                                                <thead style="background-color: #002d72;">
-                                                                    <tr>
-                                                                    <th scope="col">Reservation ID</th>
-                                                                    <th scope="col">Date</th>
-                                                                    <th scope="col">Time</th>
-                                                                    <th scope="col">Status</th>
-                                                                    <th scope="col">view</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php foreach($acceptreservation as $reservation): ?>
-                                                                        <tr>
-                                                                            <td><?php echo $reservation['reservation_ID']; ?></td>
-                                                                            <td><?php echo $reservation['reservation_datetime']; ?></td>
-                                                                            <td><?php echo $reservation['user_fullname']; ?></td>
-                                                                            <td><?php echo $reservation['reservation_status']; ?></td>
-                                                                            <td><a href="admin_manage_appointments_specificuser(untracked).php?id=<?php echo $reservation['reservation_ID']; ?>"><button>view</button></a></td>
-                                                                        </tr>
-                                                                    <?php endforeach ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-
-        </div>
-</div>
-    
-
-
 
     <?php include "adminsidebar/js_sidebar.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
 </body>
 </html>

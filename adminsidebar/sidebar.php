@@ -26,7 +26,7 @@
                     <img class="img11" src="images/settings.png">
                     Admin Settings
                 </a>
-                <a class="options" href="admin_manage_account.php" style="font-size: 20px;">
+                <a class="options" href="admin_manage_account.php">
                     <img class="img11" src="images/manageacc.png">
                     Manage Accounts
                 </a>

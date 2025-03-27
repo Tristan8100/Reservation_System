@@ -21,71 +21,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create_Account</title>
+    <title>Create Account</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             background-color: #FFF0F0;
             display: flex;
             justify-content: center;
-            margin-top: 100px;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-
         .background-img-container {
             position: absolute;
-            top: 0%;
+            top: 0;
             width: 100%;
             height: 450px;
             z-index: -1;
         }
-
         .form-container {
             background-color: #F5F5F5;
             border-radius: 10px;
             padding: 20px;
-            height: 480px;
-            width: 900px;
+            width: 90%;
             margin-top: 100px;
+            max-width: 900px;
         }
-
         .carousel-container {
-            width: 400px;
-            height: 450px;
+            display: none;
         }
-
-        .carousel-inner {
-            height: 450px;
-        }
-
-        .carousel-inner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .form-title {
-            margin-top: -10px;
-            margin-bottom: 20px;
             text-align: center;
             font-size: 20px;
+            margin-bottom: 20px;
         }
-
         .submit-btn {
             background-color: #AC1515;
             color: #FFE141;
             margin-left: 50%;
-            transform: translate(-50%);
+            transform: translateX(-50%);
         }
-
         .login-link {
-            margin-top: 40px;
-            width: 300px;
-            margin-left: 50%;
-            transform: translate(-50%);
+            margin-top: 20px;
+            text-align: center;
         }
-
         .login-link a {
             color: #FFE141;
+        }
+        @media (min-width: 768px) {
+            .carousel-container {
+                display: block;
+                width: 100%;
+                max-width: 400px;
+                height: 450px;
+            }
+            .carousel-inner {
+                height: 100%;
+            }
+            .carousel-inner img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
         }
     </style>
 </head>
@@ -94,8 +91,8 @@
         <img src="images/spa.jpg" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
     <div class="shadow form-container">
-        <div class="row">
-            <div class="col-6">
+        <div class="row g-0">
+            <div class="col-md-6 d-none d-md-block">
                 <div class="carousel-container">
                     <div id="carouselExampleIndicators" class="carousel slide">
                         <div class="carousel-indicators">
@@ -125,8 +122,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
-                <div style="height: 100%; padding: 10px;">
+            <div class="col-md-6">
+                <div class="p-3">
                     <div class="form-title">Create Account</div>
                     <form action="create_account.php" method="POST">
                         <input type="hidden" id="rol" name="rol" class="form-control" value="USER" required>

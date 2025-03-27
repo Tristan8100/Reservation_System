@@ -1,6 +1,7 @@
 <?php
 
     include 'MVC/user_routes.php';
+    include 'middleware/getpayment.php';
 
     if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'USER'){
         header('location: login_form.php');
@@ -18,13 +19,16 @@
         }
     }
 
+    //if no id for reservation
     if(!isset($_SESSION['resid'])){
         header('location: user_dashboard.php');
     }
 
-    if(isset($_SESSION['payment'] )){
-        //function in controller to change payment
-        $reservationcontrol->paydownpayment($_SESSION['payment'], $_SESSION['resid']);
+    if (isset($_SESSION['payment'])) {
+        // Fetch the latest payment status from getpayment.php
+        $value = getpaymentid($_SESSION['payment']); //helper function to access paymongo, it needs the session checkout id
+
+        $reservationcontrol->paydownpayment($value, $_SESSION['resid']); //put the payment id
     }
 
     if(isset($_GET['proceed'])){

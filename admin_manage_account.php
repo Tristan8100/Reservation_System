@@ -36,98 +36,151 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
-        body{
+        body {
             background-color: #FFF0F0;
         }
-        .pic0{
+        .pic0 {
             width: 50px;
+            margin-top: 10px;
         }
-        .main_content1{
+        .main_content1 {
             padding: 10px;
             width: 90%;
             margin-left: 8%;
         }
-
         .intro {
-        height: 100%;
+            height: 100%;
         }
-
         table td,
         table th {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
-
         thead th {
-        color: #fff;
+            color: #fff;
         }
-
         .card {
-        border-radius: .5rem;
+            border-radius: .5rem;
         }
-
         .table-scroll {
-        border-radius: .5rem;
+            border-radius: .5rem;
         }
-
         .table-scroll table thead th {
-        font-size: 1.25rem;
+            font-size: 1.25rem;
         }
         thead {
-        top: 0;
-        position: sticky;
+            top: 0;
+            position: sticky;
         }
-
         .hidd {
-            max-width: 200px; /* Adjust the width as needed */
-            white-space: nowrap; /* Prevent wrapping to the next line */
-            overflow: hidden; /* Hide overflowed content */
-            text-overflow: ellipsis; /* Add '...' at the end */
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .container-flex {
+            display: flex;
+            align-items: center;
+        }
+        .container-flex .title {
+            color: #6B4A4A;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 36px;
+            text-align: center;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+        }
+        .container-flex .subtitle {
+            color: #6B4A4A;
+        }
+        .container-flex .logout-button {
+            background-color: #6B4A4A;
+            width: 120px;
+            color: white;
+            border-radius: 10px;
+        }
+        .container-flex .total-accounts {
+            color: #6B4A4A;
+            margin-top: 30px;
+            font-size: 25px;
+        }
+        .container-flex .account-box {
+            padding: 10px;
+            width: 370px;
+            border-radius: 10px;
+            background-color: #FFFFFF;
+        }
+        .container-flex .account-box .count {
+            font-size: 30px;
+            color: #6B4A4A;
+        }
+        .container-flex .account-box .label {
+            font-size: 25px;
+            color: #6B4A4A;
+        }
+        .container-flex .list-title {
+            color: #6B4A4A;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 36px;
+            text-align: center;
+            text-underline-position: from-font;
+            text-decoration-skip-ink: none;
+        }
+        .container-flex .list-subtitle {
+            color: #6B4A4A;
+        }
+        .table-scroll button {
+            width: 100%;
+            height: 40px;
+            border-radius: 10px;
+            background-color: #6B4A4A;
+            color: white;
+        }
+        .show-all{
+            width: 100%;
+            height: 40px; 
+            border-radius: 10px; 
+            background-color: #6B4A4A; 
+            color: white;
+
         }
     </style>
 </head>
 <body>
-    <img class="pic0" src="images/menu.png" style="margin-top: 10px;" >
+    <img class="pic0" src="images/menu.png">
     <?php include "adminsidebar/sidebar.php"; ?>
 
     <div class="main_content1">
-    <!-- TEMPLATE -->
-        <div class="container" style="display: flex; align-items: center;">
+        <!-- TEMPLATE -->
+        <div class="container container-flex">
             <div>
-                <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Accounts
-                </div>
-                <div style="color: #6B4A4A;">
-                    Quick access to customer accounts
-                </div>
+                <div class="title">Manage Accounts</div>
+                <div class="subtitle">Quick access to customer accounts</div>
             </div>
             <div style="margin-left: auto;">
-                <a href="MVC/user_routes.php?logout=1"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Log Out</button></a>
+                <a href="MVC/user_routes.php?logout=1"><button class="logout-button">Log Out</button></a>
             </div>
         </div>
-    <!-- TEMPLATE -->
+        <!-- TEMPLATE -->
 
-        <div class="container" style="color: #6B4A4A; margin-top: 30px; font-size: 25px;">Total</div>
+        <div class="container total-accounts">Total</div>
 
-        <div class="container" style="margin-top: 30px; display: flex;">
+        <div class="container container-flex" style="margin-top: 30px;">
             <div style="width: 50%;">
-                <div class="border" style="padding: 10px; width: 370px; border-radius: 10px; background-color: #FFFFFF;">
-                    <div style="font-size: 30px; color: #6B4A4A;"><?php echo $count['total']; ?></div>
-                    <div style="font-size: 25px; color: #6B4A4A;">Accounts</div>
+                <div class="border account-box">
+                    <div class="count"><?php echo $count['total']; ?></div>
+                    <div class="label">Accounts</div>
                 </div>
             </div>
         </div>
 
-
-        <div class="container" style="display: flex; align-items: center; margin-top: 50px;">
+        <div class="container container-flex" style="margin-top: 50px;">
             <div>
-                <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    List of Accounts
-                </div>
-                <div style="color: #6B4A4A;">
-                    Here’s a lists of accounts
-                </div>
+                <div class="list-title">List of Accounts</div>
+                <div class="list-subtitle">Here’s a lists of accounts</div>
             </div>
         </div>
 
@@ -139,49 +192,45 @@
                         <div class="mask d-flex align-items-center h-100">
                             <div class="container">
                                 <div class="row justify-content-center">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body p-0">
-                                            <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px">
-                                            <table class="table table-striped mb-0">
-                                                <thead style="background-color: #002d72;">
-                                                <tr>
-                                                    <th scope="col">Account ID</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Phone Number</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <?php foreach($alluser as $user): ?>
-                                                <tr>
-                                                    <td class="hidd"><?php echo $user['user_ID']; ?></td>
-                                                    <td class="hidd"><?php echo $user['user_email']; ?></td>
-                                                    <td class="hidd"><?php echo $user['user_fullname']; ?></td>
-                                                    <td class="hidd"><?php echo $user['user_number']; ?></td>
-                                                </tr>
-                                                <?php endforeach ?>
-                                                </tbody>
-                                            </table>
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body p-0">
+                                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 500px">
+                                                    <table class="table table-striped mb-0">
+                                                        <thead style="background-color: #002d72;">
+                                                            <tr>
+                                                                <th scope="col">Account ID</th>
+                                                                <th scope="col">Email</th>
+                                                                <th scope="col">Name</th>
+                                                                <th scope="col">Phone Number</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php foreach($alluser as $user): ?>
+                                                            <tr>
+                                                                <td class="hidd"><?php echo $user['user_ID']; ?></td>
+                                                                <td class="hidd"><?php echo $user['user_email']; ?></td>
+                                                                <td class="hidd"><?php echo $user['user_fullname']; ?></td>
+                                                                <td class="hidd"><?php echo $user['user_number']; ?></td>
+                                                            </tr>
+                                                            <?php endforeach ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <a href="admin_manage_account_all.php"><button class="show-all">Show All</button></a>
                                             </div>
-                                            <a href="admin_manage_account_all.php"><button style="width: 100%; height: 40px; border-radius: 10px; background-color: #6B4A4A; color: white;">Show All</button></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-               
-                
                 </section>
                 <!-- The Table -->
             </div>
-                
+        </div>
     </div>
     
-
-
-
     <?php include "adminsidebar/js_sidebar.php"; ?>
     <script>
     

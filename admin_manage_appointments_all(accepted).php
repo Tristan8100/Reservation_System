@@ -1,6 +1,5 @@
 <?php
 
-
 include 'MVC/user_routes.php';
 
     if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN'){
@@ -25,18 +24,17 @@ include 'MVC/user_routes.php';
         //category
     $allcategory = $categorycontrol->fetchcategory();
     $allservice = $servicecontrol->fetchallservice();
-    //$onecategory = $categorycontrol->fetchonecategory($cid);
-    $allreservation = $reservationcontrol->getallpendingreservation();
 
-
+    $fetchuntracked = $reservationcontrol->getduesoon();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_appointments_all(pending)</title>
+    <title>admin_manage_appointments_all(accepted)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
@@ -165,7 +163,7 @@ include 'MVC/user_routes.php';
         <!-- TEMPLATE -->
         <div class="container container-flex">
             <div>
-                <div class="title">Manage Appointments (Pending)</div>
+                <div class="title">Manage Appointments (Accepted)</div>
                 <div class="subtitle">Quick access to customers appointment</div>
             </div>
             <div style="margin-left: auto;">
@@ -200,17 +198,17 @@ include 'MVC/user_routes.php';
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <?php foreach($allreservation as $reserve): ?>
+                                                                <?php foreach($fetchuntracked as $untracked): ?>
                                                                 <tr>
-                                                                    <td class="hidd"><?php echo $reserve['reservation_ID']; ?></td>
-                                                                    <td class="hidd"><?php echo $reserve['user_email']; ?></td>
-                                                                    <td class="hidd"><?php echo $reserve['user_fullname']; ?></td>
-                                                                    <td class="hidd"><?php echo $reserve['reservation_name']; ?></td>
-                                                                    <td class="hidd"><?php echo $reserve['reservation_phone']; ?></td>
-                                                                    <td class="hidd"><?php echo date('F j, Y, g:i A', strtotime($reserve['reservation_datetime'])); if($reserve['reservation_datetime'] < date('Y-m-d H:i:s')) { echo " LATE"; }?></td>
-                                                                    <td class="hidd"><button class="click-button" data-bs-toggle="modal" data-bs-target="#<?php echo $reserve['reservation_ID']; ?>">View</button></td>
+                                                                    <td class="hidd"><?php echo $untracked['reservation_ID']; ?></td>
+                                                                    <td class="hidd"><?php echo $untracked['user_email']; ?></td>
+                                                                    <td class="hidd"><?php echo $untracked['user_fullname']; ?></td>
+                                                                    <td class="hidd"><?php echo $untracked['reservation_name']; ?></td>
+                                                                    <td class="hidd"><?php echo $untracked['reservation_phone']; ?></td>
+                                                                    <td class="hidd"><?php echo date('F j, Y, g:i A', strtotime($untracked['reservation_datetime'])); ?></td>
+                                                                    <td class="hidd"><button class="click-button" data-bs-toggle="modal" data-bs-target="#<?php echo $untracked['reservation_ID']; ?>">View</button></td>
                                                                     <!-- Modal -->
-                                                                    <div class="modal fade" id="<?php echo $reserve['reservation_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal fade" id="<?php echo $untracked['reservation_ID']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog moddd">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
@@ -219,29 +217,29 @@ include 'MVC/user_routes.php';
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <div class="image-container">
-                                                                                        <img src="<?php echo disp($reserve); ?>" class="img-fluid" alt="Profile Picture">
+                                                                                        <img src="<?php echo disp($untracked); ?>" class="img-fluid" alt="Profile Picture">
                                                                                     </div>
                                                                                     <div class="center-text" style="font-size: 25px;">
-                                                                                        <?php echo $reserve['reservation_name']; ?>
+                                                                                        <?php echo $untracked['reservation_name']; ?>
                                                                                     </div>
                                                                                     <div class="center-text" style="font-size: 15px; color: #828282;">
-                                                                                        <?php echo $reserve['user_ID']; ?>
+                                                                                        <?php echo $untracked['user_ID']; ?>
                                                                                     </div>
                                                                                     <div class="row-style row">
                                                                                         <div class="col-6">Account ID</div>
-                                                                                        <div class="col-6 gray"><?php echo $reserve['user_ID']; ?></div>
+                                                                                        <div class="col-6 gray"><?php echo $untracked['user_ID']; ?></div>
                                                                                     </div>
                                                                                     <div class="row-style row">
                                                                                         <div class="col-6">Name</div>
-                                                                                        <div class="col-6 gray"><?php echo $reserve['user_fullname']; ?></div>
+                                                                                        <div class="col-6 gray"><?php echo $untracked['user_fullname']; ?></div>
                                                                                     </div>
                                                                                     <div class="row-style row">
                                                                                         <div class="col-6">Phone Number</div>
-                                                                                        <div class="col-6 gray"><?php echo $reserve['user_number']; ?></div>
+                                                                                        <div class="col-6 gray"><?php echo $untracked['user_number']; ?></div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="modal-footer">
-                                                                                    <a href="admin_manage_appointments_specificuser(pending).php?id=<?php echo $reserve['reservation_ID']; ?>"><button type="button" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-view-reservation">View Reservation</button></a>
+                                                                                    <a href="admin_manage_appointments_specificuser(untracked).php?id=<?php echo $untracked['reservation_ID']; ?>"><button type="button" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-view-reservation">View Reservation</button></a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

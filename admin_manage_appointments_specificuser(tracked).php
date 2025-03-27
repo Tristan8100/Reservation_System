@@ -35,357 +35,284 @@ include 'MVC/user_routes.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_appointment_specific_user(tracked)</title>
+    <title>Admin Manage Appointment</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
-        body{
+        body {
             background-color: #FFF0F0;
+            font-family: 'Arial', sans-serif;
         }
-        .pic0{
+        .pic0 {
             width: 50px;
+            margin-top: 10px;
+            cursor: pointer;
         }
-        .main_content1{
-            padding: 10px;
-            width: 90%;
+        .main_content1 {
+            padding: 20px;
             margin-left: 8%;
+            max-width: 100%;
         }
-
-        .intro {
-        height: 100%;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
-
-        table td,
-        table th {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
+        .header h1 {
+            color: #6B4A4A;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
         }
-
-        thead th {
-        color: #fff;
+        .header p {
+            color: #6B4A4A;
+            font-size: 1.1rem;
+            margin: 5px 0 0;
         }
-
-        .card {
-        border-radius: .5rem;
+        .back-button {
+            background-color: #6B4A4A;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
         }
-
+        .back-button:hover {
+            background-color: #5a3a3a;
+        }
+        .user-profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .user-profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #6B4A4A;
+            margin-bottom: 15px;
+        }
+        .user-profile h2 {
+            color: #6B4A4A;
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+        .user-profile p {
+            color: #828282;
+            font-size: 1rem;
+        }
+        .info-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .info-section h3 {
+            color: #6B4A4A;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .info-label {
+            color: #6B4A4A;
+            font-weight: 600;
+        }
+        .info-value {
+            color: #828282;
+        }
+        .table-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .table-section h3 {
+            color: #6B4A4A;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
         .table-scroll {
-        border-radius: .5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            border-radius: 10px;
         }
-
-        .table-scroll table thead th {
-        font-size: 1.25rem;
+        .table thead th {
+            background-color: #6B4A4A;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
-        thead {
-        top: 0;
-        position: sticky;
+        .table tbody td {
+            color: #828282;
         }
-
-        .hidd {
-            max-width: 200px; /* Adjust the width as needed */
-            white-space: nowrap; /* Prevent wrapping to the next line */
-            overflow: hidden; /* Hide overflowed content */
-            text-overflow: ellipsis; /* Add '...' at the end */
+        .table {
+            table-layout: fixed;
+            width: 100%;
         }
-
-       
     </style>
 </head>
 <body>
-    <img class="pic0" src="images/menu.png" style="margin-top: 10px;" >
+    <img class="pic0" src="images/menu.png" alt="Menu">
     <?php include "adminsidebar/sidebar.php"; ?>
 
     <div class="main_content1">
-    <!-- TEMPLATE -->
-        <div class="container" style="display: flex; align-items: center;">
+        <!-- Header -->
+        <div class="header">
             <div>
-                <div style="color: #6B4A4A; font-size: 30px; font-weight: 700; line-height: 36px; text-align: center; text-underline-position: from-font; text-decoration-skip-ink: none;">
-                    Manage Appointments
-                </div>
-                <div style="color: #6B4A4A;">
-                    Quick access to customer's appointment
-                </div>
+                <h1>Manage Appointments</h1>
+                <p>Quick access to customer's appointment</p>
             </div>
-            <div style="margin-left: auto;">
-                <a onclick="window.history.back()"><button style="background-color: #6B4A4A; width: 120px; color: white; border-radius: 10px;">Back</button></a>
-            </div>
+            <button class="back-button" onclick="window.history.back()">Back</button>
         </div>
-    <!-- TEMPLATE -->
 
-    <div class="modal-body">
-        <div class="container" style="width: 250px; height: 250px; border: 1px solid #ccc;">
-            <img src="<?php echo disp($trackedperuser); ?>" class="img-fluid" alt="Responsive image">
-    </div>
-    <div>
-                                                        
-    </div>
-    <div style="font-size: 25px; margin-left: 50%; transform: translate(-50%); text-align: center; color: black;">
-        <?php echo isset($trackedperuser['user_fullname']) ? $trackedperuser['user_fullname'] : ''; ?>
-    </div>
-    <div style="font-size: 15px; color: #828282; margin-left: 50%; transform: translate(-50%); text-align: center;">
-        <?php echo isset($trackedperuser['user_email']) ? $trackedperuser['user_email'] : ''; ?>
-    </div>
-    <div class="row" style="margin-top: 30px;">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Account ID
+        <!-- User Profile -->
+        <div class="user-profile">
+            <img src="<?php echo disp($trackedperuser); ?>" alt="User Image">
+            <h2><?php echo isset($trackedperuser['user_fullname']) ? $trackedperuser['user_fullname'] : ''; ?></h2>
+            <p><?php echo isset($trackedperuser['user_email']) ? $trackedperuser['user_email'] : ''; ?></p>
+        </div>
+
+        <!-- User Information -->
+        <div class="info-section">
+            <h3>User Details</h3>
+            <div class="info-row">
+                <span class="info-label">Account ID:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['user_ID']) ? $trackedperuser['user_ID'] : ''; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Name:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['user_fullname']) ? $trackedperuser['user_fullname'] : ''; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Phone Number:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['user_number']) ? $trackedperuser['user_number'] : ''; ?></span>
             </div>
         </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['user_ID']) ? $trackedperuser['user_ID'] : ''; ?>
+
+        <!-- Appointment Information -->
+        <div class="info-section">
+            <h3>Appointment Details</h3>
+            <div class="info-row">
+                <span class="info-label">Reservation ID:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['reservation_status']) ? $trackedperuser['reservation_ID'] : ''; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Status:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['reservation_status']) ? $trackedperuser['reservation_status'] : ''; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Reservation Type:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['reservation_type']) ? $trackedperuser['reservation_type'] : ''; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Date/Time:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['reservation_datetime']) ? date('F j, Y, g:i A', strtotime($trackedperuser['reservation_datetime'])) : ''; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Address:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['reservation_address']) ? $trackedperuser['reservation_address'] : ''; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Landmark:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['reservation_landmark']) ? $trackedperuser['reservation_landmark'] : ''; ?></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Remarks:</span>
+                <span class="info-value"><?php echo isset($trackedperuser['reservation_remarks']) ? $trackedperuser['reservation_remarks'] : ''; ?></span>
             </div>
         </div>
-    </div>
-    <div class="row">
-         <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Name
+
+        <!-- Services Availed -->
+        <div class="table-section">
+            <h3>Avail Services</h3>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Service ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($allservice as $service): ?>
+                        <tr>
+                            <td><?php echo isset($service['service_ID']) ? $service['service_ID'] : ''; ?></td>
+                            <td><?php echo isset($service['service_name']) ? $service['service_name'] : ''; ?></td>
+                            <td>₱<?php echo isset($service['service_price']) ? $service['service_price'] : ''; ?></td>
+                            <td><?php echo isset($service['service_duration']) ? $service['service_duration'] : ''; ?> minutes</td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['user_fullname']) ? $trackedperuser['user_fullname'] : ''; ?>
+
+        <!-- Booked Therapist -->
+        <div class="table-section">
+            <h3>Booked Therapist</h3>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Therapist ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Gender</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if(isset($trackedperuser['therapist_IDFK'])): ?>
+                        <tr>
+                            <td><?php echo $trackedperuser['therapist_IDFK']; ?></td>
+                            <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_fullname']; ?></td>
+                            <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_email']; ?></td>
+                            <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_gender']; ?></td>
+                        </tr>
+                        <?php endif ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Phone Number
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['user_number']) ? $trackedperuser['user_number'] : ''; ?>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="border"></div>
-    <br>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Status
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['reservation_status']) ? $trackedperuser['reservation_status'] : ''; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Reservation Type
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['reservation_type']) ? $trackedperuser['reservation_type'] : ''; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Full Name
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['reservation_name']) ? $trackedperuser['reservation_name'] : ''; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Phone Number
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-            <?php echo isset($trackedperuser['reservation_phone']) ? $trackedperuser['reservation_phone'] : ''; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Date/Time
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['reservation_datetime']) ? date('F j, Y, g:i A', strtotime($trackedperuser['reservation_datetime'])) : ''; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Address
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['reservation_address']) ? $trackedperuser['reservation_address'] : ''; ?>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Landmark
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282;">
-                <?php echo isset($trackedperuser['reservation_landmark']) ? $trackedperuser['reservation_landmark'] : ''; ?>
+
+        <!-- Booked Bed -->
+        <div class="table-section">
+            <h3>Booked Bed</h3>
+            <div class="table-scroll">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Bed ID</th>
+                            <th>Name</th>
+                            <th>Room</th>
+                            <th>Access</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if(isset($trackedperuser['reservation_bedIDFK'])): ?>
+                        <tr>
+                            <td><?php echo $trackedperuser['reservation_bedIDFK']; ?></td>
+                            <td><?php echo $bedscontrol->fetchonebed($trackedperuser['reservation_bedIDFK'])['bed_name']; ?></td>
+                            <td><?php echo $bedscontrol->fetchonebed($trackedperuser['reservation_bedIDFK'])['bed_name']; ?></td>
+                            <td><?php echo $bedscontrol->fetchonebed($trackedperuser['reservation_bedIDFK'])['bed_name']; ?></td>
+                        </tr>
+                        <?php endif ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <div class="row">
-    <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-left: auto; text-align:right;">
-                Remarks
-            </div>
-        </div>
-        <div class="col-6" style="font-size: 25px; padding-left: 30px; color: black;">
-            <div style="width: 50%; margin-right: auto; color: #828282; font-size: 20px;">
-            <?php echo isset($trackedperuser['reservation_remarks']) ? $trackedperuser['reservation_remarks'] : ''; ?>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    
-
-
-        <div style="margin-top: 50px;">
-            <div style="text-align: center; font-size: 30px;">Avail Services</div>
-            <br>
-            
-            
-            <div class="row">
-            <div class="col-12">
-                <!-- The Table -->
-                <section class="intro">
-                    <div class="bg-image h-100">
-                        <div class="mask d-flex align-items-center h-100">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-body p-0">
-                                                <div class="table-responsive table-scroll" 
-                                                    data-mdb-perfect-scrollbar="true" 
-                                                    style="position: relative; height: 300px;">
-                                                    <table class="table table-striped mb-0" 
-                                                        style="table-layout: fixed; width: 100%;">
-                                                        <thead style="background-color: #002d72;">
-                                                            <tr>
-                                                                <th scope="col">Service ID</th>
-                                                                <th scope="col">Name</th>
-                                                                <th scope="col">Price</th>
-                                                                <th scope="col">Duration</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php foreach($allservice as $service): ?>
-                                                            <tr>
-                                                                <td><?php echo isset($service['service_ID']) ? $service['service_ID'] : ''; ?></td>
-                                                                <td><?php echo isset($service['service_name']) ? $service['service_name'] : ''; ?></td>
-                                                                <td>₱<?php echo isset($service['service_price']) ? $service['service_price'] : ''; ?></td>
-                                                                <td><?php echo isset($service['service_duration']) ? $service['service_duration'] : ''; ?> minutes</td>
-                                                            </tr>
-                                                            <?php endforeach ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-
-
-
-
-    
-
-            <br>
-            <div style="text-align: center; font-size: 30px;">Booked Therapist</div>
-            <br>
-
-            <div class="row">
-                <div class="col-12">
-                    <!-- The Table -->
-                    <section class="intro">
-                        <div class="bg-image h-100">
-                            <div class="mask d-flex align-items-center h-100">
-                                <div class="container">
-                                    <div class="row justify-content-center">
-                                        <div class="col-12">
-
-                                                <div class="card">
-                                                    <div class="card-body p-0">
-                                                        <div class="table-responsive table-scroll" 
-                                                            data-mdb-perfect-scrollbar="true" 
-                                                            style="position: relative; height: 300px;">
-                                                            
-                                                            <table class="table table-striped mb-0" 
-                                                                style="table-layout: fixed; width: 100%;">
-                                                                <thead style="background-color: #002d72;">
-                                                                    <tr>
-                                                                        <th scope="col">Therapist ID</th>
-                                                                        <th scope="col">Name</th>
-                                                                        <th scope="col">Email</th>
-                                                                        <th scope="col">Gender</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <?php if(isset($trackedperuser['therapist_IDFK'])): ?>
-                                                                        <td><?php echo $trackedperuser['therapist_IDFK']; ?></td>
-                                                                        <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_fullname']; ?></td>
-                                                                        <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_email']; ?></td>
-                                                                        <td><?php echo $therapistcontrol->fetchonetherapist($trackedperuser['therapist_IDFK'])['therapist_gender']; ?></td>
-                                                                        <?php endif ?>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-
-        </div>
-
-
-    
-
-
 
     <?php include "adminsidebar/js_sidebar.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
 </body>
 </html>

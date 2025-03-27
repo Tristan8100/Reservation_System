@@ -23,11 +23,9 @@
 
 
 
-    //category
-    if(isset($_POST['categorysub'])){
-        $_POST['categoryname'];
-        $_POST['categoryprefix'];
-        $categorycontrol->createcategory($_POST['categoryname'], $_POST['categoryprefix']);
+    if(isset($_POST['bedsub'])){
+        //$bn, $br, $ba
+        $bedscontrol->createbed($_POST['bedname'], $_POST['bedroom'], $_POST['access']);
     }
 
 ?>
@@ -37,7 +35,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin_manage_services_addcategory</title>
+    <title>admin_manage_services_addbeds</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <?php include "adminsidebar/css_dashboard.php"; ?>
     <style>
@@ -108,7 +106,7 @@
             background-color: #FFFFFF;
             padding: 20px;
             width: 500px;
-            height: 400px;
+            height: 450px;
             border-radius: 10px;
         }
         .form-title {
@@ -136,7 +134,7 @@
         <div class="container container-flex">
             <div>
                 <div class="header-text">
-                    Add Services
+                    Add Beds
                 </div>
             </div>
             <div style="margin-left: auto;">
@@ -147,21 +145,30 @@
 
         <div class="container d-flex justify-content-center">
             <div class="shadow form-container">
-                <form action="admin_manage_services_addcategory.php" method="POST" style="display: flex; flex-direction: column;">
-                    <div class="form-title">Add New Category</div>
-                    <div class="mb-3 row">
+                <form action="admin_manage_services_addbeds.php" method="POST" style="display: flex; flex-direction: column;">
+                    <div class="form-title">Add New Beds</div>
+                    <div class="row">
                         <div class="col form-label">
-                            <label for="sname" class="form-label">Category Name</label>
-                            <input type="text" class="form-control" id="sname" name="categoryname" required>
+                            <label for="bedname" class="form-label">Bed Name</label>
+                            <input type="text" class="form-control" id="bedname" name="bedname" required>
                         </div>
                         <div class="col form-label">
-                            <label for="text" class="form-label">prefix</label>
-                            <input type="text" class="form-control" id="text" name="categoryprefix" maxlength="2" pattern="[A-Za-z]{2}" required>
+                            <label for="bedroom" class="form-label">Bed Room</label>
+                            <input type="text" class="form-control" id="bedroom" name="bedroom" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col form-label">
+                            <label for="access" class="form-label">Access</label>
+                            <select id="access" name="access">
+                                <option value="SOLO">SOLO</option>
+                                <option value="SHARED">SHARED</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="mb-3" style="margin-top: 30px;"></div>
-                    <button type="submit" name="categorysub" class="btn btn-primary submit-button">Add</button>
+                    <button type="submit" name="bedsub" class="btn btn-primary submit-button">Add</button>
                 </form>
             </div>
         </div>

@@ -26,4 +26,6 @@
 
     $reservationcontrol = new reservationcontrol;
 
+    $bedscontrol = new bedcontrol;
+
 ?>

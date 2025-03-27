@@ -651,12 +651,13 @@
             }
         }
 
-        public function accept($id, $tid, $re){
-            $sql = "UPDATE reservation SET reservation_status = 'ACCEPTED', therapist_IDFK = :tid, reservation_ends = :re WHERE reservation_ID = :id";
+        public function accept($id, $tid, $re, $bed){
+            $sql = "UPDATE reservation SET reservation_status = 'ACCEPTED', therapist_IDFK = :tid, reservation_ends = :re, reservation_bedIDFK = :rb WHERE reservation_ID = :id";
             $stmt = $this->connect()->prepare($sql);
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':tid', $tid);
             $stmt->bindParam(':re', $re);
+            $stmt->bindParam(':rb', $bed);
             if ($stmt->execute()) {
                 return true;
             } else {
@@ -707,6 +708,16 @@
 
         public function alluntracked(){
             $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_datetime < NOW() ORDER BY r.reservation_datetime DESC';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchALL(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function duesoon(){
+            $sql = 'SELECT r.*, us.* FROM reservation r INNER JOIN user us ON us.user_ID = r.user_IDFK WHERE r.reservation_status = \'ACCEPTED\' AND r.reservation_datetime > NOW() ORDER BY r.reservation_datetime DESC';
             $stmt = $this->connect()->prepare($sql);
             if($stmt->execute()){
                 return $stmt->fetchALL(PDO::FETCH_ASSOC);
@@ -892,6 +903,100 @@
             }
         }
 
+    }
+
+    class bedmodel extends DB {
+
+        public function getallbed(){
+            $sql = 'SELECT * FROM beds';
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getactivebed(){
+            $sql = "SELECT * FROM beds WHERE bed_status = 'ACTIVE'";
+            $stmt = $this->connect()->prepare($sql);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getonebed($id){
+            $sql = 'SELECT * FROM beds WHERE bed_ID = :id';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function insertbed($bn, $br, $ba, $bs){
+            $sql = "INSERT INTO beds (bed_name, bed_room, bed_access, bed_status) VALUES (:bn, :br, :ba, :bs)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':bn', $bn);
+            $stmt->bindParam(':br', $br);
+            $stmt->bindParam(':ba', $ba);
+            $stmt->bindParam(':bs', $bs);
+            if($stmt->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function bedscount(){
+            $sql = "SELECT COUNT(*) AS total_rows FROM beds WHERE bed_status = 'ACTIVE'";
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+        //
+
+        public function checkbed($bn){
+            $sql = 'SELECT * FROM beds WHERE bed_name = :bn';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':bn', $bn);
+            if($stmt->execute()){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function fetchonebed($id){
+            $sql = 'SELECT * FROM beds WHERE bed_ID = :bi';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':bi', $id);
+            if($stmt->execute()){
+                return $stmt->fetch(PDO::FETCH_ASSOC); //use foreach if fetchAll
+            } else {
+                return false;
+            }
+        }
+
+        public function addbed($bn, $br, $ba){
+            $sql = "INSERT INTO beds (bed_name, bed_room, bed_access) VALUES (:bn, :br, :ba)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':bn', $bn);
+            $stmt->bindParam(':br', $br);
+            $stmt->bindParam(':ba', $ba);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
     }
 

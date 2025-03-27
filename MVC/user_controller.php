@@ -470,6 +470,10 @@
             return $this->getpendingall();
         }
 
+        public function getduesoon(){
+            return $this->duesoon();
+        }
+
         function dis($id){
             return $this->fetchresser($id);
         }
@@ -515,7 +519,7 @@
 
         }
 
-        public function acceptreservation($id, $tid, $name, $date, $sub, $email, $minutes){
+        public function acceptreservation($id, $tid, $name, $date, $sub, $email, $minutes, $bed){
             $newdatetime = new DateTime($date);
 
             $newdatetime->add(new DateInterval('PT' . $minutes . 'M'));
@@ -523,7 +527,8 @@
             $message = "Hi " . $name . "your reservation with an ID of " . $id . " on " . $date . "was accepted, the expected time ends: " . $newdatetime->format('Y-m-d H:i:s');
             $check = $this->sendstatus($email, $sub, $message);
             if($check === true){
-                $check2 = $this->accept($id, $tid, $formattedDate);
+                //send on database
+                $check2 = $this->accept($id, $tid, $formattedDate, $bed);
                 if($check2 === true){
                     header('location: admin_manage_appointments.php?mess=accepted');
                 }
@@ -636,6 +641,32 @@
         }
 
 
+    }
+
+    class bedcontrol extends bedmodel {
+        public function getbedcount(){
+            return $this->bedscount();
+        }
+
+        public function fetchactivebed(){
+            return $this->getactivebed();
+        }
+
+        public function getonebed($id){
+            return $this->fetchonebed($id);
+        }
+
+        public function createbed($bn, $br, $ba){
+            $check = $this->checkbed($bn);
+            if(!empty($check)){
+                header('location: admin_manage_services_addbeds.php?warning=No-Duplication');
+            } else if(empty($check)){
+                $val = $this->addbed($bn, $br, $ba);
+                if($val){
+                    header('location: admin_manage_services_addbeds.php?mess=Success');
+                }
+            }
+        }
     }
 
     
