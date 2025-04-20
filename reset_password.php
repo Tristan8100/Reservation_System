@@ -1,15 +1,20 @@
 <?php
 
     include 'MVC/user_routes.php';
+    require_once __DIR__ . '/middleware/encrypt_decrypt.php';
+    require_once __DIR__ . '/middleware/message.php';
+
 
     if (isset($_GET['getcode'])) {
         $_SESSION['codee'] = $_GET['getcode'];
-        $vall = $_SESSION['codee'];
-        
-    } elseif (!isset($_SESSION['codee'])) {
+    }
+    
+    // Step 2: last resort
+    if (!isset($_SESSION['codee'])) {
         header('location: forgot_password.php');
         exit;
     }
+    
 
 
     if(isset($_POST['submitreset'])){
@@ -96,6 +101,10 @@
         
         .login-link a {
             color: #FFE141;
+        }
+
+        .form-container {
+            margin-top: 50px;
         }
     </style>
 </head>

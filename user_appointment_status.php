@@ -2,6 +2,7 @@
 
 include 'MVC/user_routes.php';
 
+
     if(!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'USER'){
         header('location: login_form.php');
         exit;
@@ -60,11 +61,53 @@ include 'MVC/user_routes.php';
         .cont2{
             width: 600px;
             position: fixed;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: none;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            color: #333;
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
         }
-        @media (max-width: 700px) { /* Adjust 600px to your desired breakpoint */
-        .hidde {
+        
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {top:-300px; opacity:0} 
+            to {top:5%; opacity:1}
+        }
+
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:5%; opacity:1}
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
             display: none;
         }
+        
+        
+        @media (max-width: 700px) {
+            .hidde {
+                display: none;
+            }
+            .cont2 {
+                width: 90%;
+            }
         }
     </style>
 </head>
@@ -73,14 +116,13 @@ include 'MVC/user_routes.php';
     <?php include "side/sidebar.php"; ?>
 
     <div class="main_content1">
-
         <div style="padding: 10px; display:flex; justify-content:space-between; align-items: center;">
             <div>
             </div>
             <a style="background-color: #6B4A4A; color: white;" class="btn" href="user_dashboard.php" >Back</a>
         </div>
 
-        <table class="table">
+        <table class="table border">
             <thead style="color: #FFF0F0;">
                 <tr>
                 <th scope="col">Name</th>
@@ -88,7 +130,7 @@ include 'MVC/user_routes.php';
                 <th scope="col">Date</th>
                 <th scope="col" class="hidde">Reservation Type</th>
                 <th scope="col">Status</th>
-                <th scope="col">Date</th>
+                <th scope="col">View</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -97,92 +139,148 @@ include 'MVC/user_routes.php';
                 <td><?php echo $reserve['reservation_name']; ?></td>
                 <td class="hidde"><?php echo $reserve['reservation_phone']; ?></td>
                 <td><?php echo date('F j, Y, g:i A', strtotime($reserve['reservation_datetime'])); ?></td>
-                <td class="hidde"><?php echo $reserve['reservation_type']; ?></td> <!-- put id based on user id as well as getpop -->
+                <td class="hidde"><?php echo $reserve['reservation_type']; ?></td>
                 <td><?php echo $reserve['reservation_status']; ?></td>
                 <td><button class="btn toch" id="<?php echo $reserve['reservation_ID']; ?>" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
 
-                                  <!-- HERE -->
-                <div style="display: flex; justify-content:center;">
-                <div id="<?php echo $reserve['reservation_ID']; ?>" class="card cont2 shadow p-3 getpop" style="margin-top: -80px; display: none;">
-                        <form class="forr">
-                            <div class="textabove" style="font-size: 30px; font-weight: 500; text-align: center;">
-                                Your Appointment
-                            </div>
-                            <br>
-                            <div class="container">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <h5 class="col card-title">Reservation ID</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_ID']; ?></h5>
+                <div class="modal-overlay" id="overlay-<?php echo $reserve['reservation_ID']; ?>"></div>
+                <div id="<?php echo $reserve['reservation_ID']; ?>" class="card cont2 shadow getpop">
+                    <form class="forr">
+                        <div class="text-center mb-4">
+                            <h3 style="font-weight: 600; color: #6B4A4A;">Your Appointment</h3>
+                        </div>
+                        <div class="container">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Reservation ID:</strong>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Reservation type</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_type']; ?></h5>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['reservation_ID']; ?>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Reservation Date/Time</h5>
-                                        <h5 class="col card-title text-muted"><?php echo date('F j, Y, g:i A', strtotime($reserve['reservation_datetime'])); ?></h5>
-                                    </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Phone number</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_phone']; ?></h5>
-                                    </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Preffered therapist</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_gender']; ?></h5>
-                                    </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Duration</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_duration']; ?> minutes</h5>
-                                    </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Total</h5>
-                                        <h5 class="col card-title text-muted">₱<?php echo $reserve['reservation_total']; ?></h5>
-                                    </div>
-                                    <div style="border: 1px solid; color:#6B4A4A;"></div>
-                                    <h5>For Home Service:</h5>
-                                    <div class="row">
-                                        <h5 class="col card-title">location</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_address']; ?></h5>
-                                    </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">landmark</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_landmark']; ?></h5>
-                                    </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Services</h5>
-                                        <a href="user_appointment_status(untracked).php?id=<?php echo $reserve['reservation_ID']; ?>">View All</a>
-                                    </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Payment</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reserve['reservation_payment']; ?></h5>
-                                    </div>
-                                        
-                                    <?php if(isset($reserve['therapist_fullname'])): ?>
-                                    <div class="row">
-                                    <h5 class="col card-title">Assigned Therapist</h5>
-                                    <h5 class="col card-title text-muted"><?php echo $reserve['therapist_fullname']; ?></h5>
-                                    </div>
-                                    <?php endif ?>
-                                    <h5 class="col card-title">Remarks</h5>
-                                    <p class="card-text"><?php echo $reserve['reservation_remarks']; ?></p>
-                                    <?php if($reserve['reservation_status'] === "ACCEPTED"){
-                                        echo "";
-                                    } elseif($reserve['reservation_status'] === "PENDING") {
-                                        echo '<a href="user_appointment_status.php?cancel=' . $reserve['reservation_ID'] . '" class="card-link">Cancel</a>';
-                                    } ?>
-                                    
                                 </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Reservation Type:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['reservation_type']; ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Reservation Date/Time:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo date('F j, Y, g:i A', strtotime($reserve['reservation_datetime'])); ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Phone Number:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['reservation_phone']; ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Preferred Therapist:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['reservation_gender']; ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Duration:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['reservation_duration']; ?> minutes
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Total:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        ₱<?php echo $reserve['reservation_total']; ?>
+                                    </div>
+                                </div>
+                                <hr style="border-top: 1px solid #6B4A4A;">
+                                <h5 class="mb-3" style="color: #6B4A4A;">For Home Service:</h5>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Location:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['reservation_address']; ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Landmark:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['reservation_landmark']; ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Services:</strong>
+                                    </div>
+                                    <div class="col text-end">
+                                        <a href="user_appointment_status(untracked).php?id=<?php echo $reserve['reservation_ID']; ?>" style="color: #6B4A4A; text-decoration: none;">View All</a>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Payment:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['reservation_payment']; ?>
+                                    </div>
+                                </div>
+                                    
+                                <?php if(isset($reserve['therapist_fullname'])): ?>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Assigned Therapist:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reserve['therapist_fullname']; ?>
+                                    </div>
+                                </div>
+                                <?php endif ?>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Remarks:</strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-muted">
+                                        <p><?php echo $reserve['reservation_remarks']; ?></p>
+                                    </div>
+                                </div>
+                                
+                                <?php if($reserve['reservation_status'] === "ACCEPTED"): ?>
+                                    <!-- Empty for accepted status -->
+                                <?php elseif($reserve['reservation_status'] === "PENDING"): ?>
+                                    <div class="text-center mt-3">
+                                        <a href="user_appointment_status.php?cancel=<?php echo $reserve['reservation_ID']; ?>" class="btn" style="color: #6B4A4A; text-decoration: none;">Cancel Reservation</a>
+                                    </div>
+                                <?php endif ?>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
                 <?php endforeach; ?>
-
             </tbody>
         </table>
 
+        
     </div>
 
     <?php include "side/js_sidebar.php"; ?>

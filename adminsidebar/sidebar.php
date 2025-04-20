@@ -47,4 +47,4 @@
         </div>
 
 
-        <?php include './middleware/message.php' ?>
+        <?php require_once __DIR__ . '/../middleware/message.php'; ?>

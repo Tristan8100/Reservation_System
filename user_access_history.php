@@ -20,6 +20,12 @@ function disp($use){
     }
 }
 
+//delete reservation
+if(isset($_GET['id'])){
+    $reservationcontrol->deleteuserreservation($_GET['id'], $userID);
+    
+}
+
 
 //category
 $allcategory = $categorycontrol->fetchcategory();
@@ -58,9 +64,19 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
         }
 
         .contr {
-            display: none;
+            width: 600px;
+            position: fixed;
+            top: 5%;
             left: 50%;
             transform: translateX(-50%);
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: none;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            color: #333;
             -webkit-animation-name: animatetop;
             -webkit-animation-duration: 0.4s;
             animation-name: animatetop;
@@ -78,7 +94,7 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
         to {top:0; opacity:1}
         }
 
-        @media (max-width: 700px) { /* Adjust 600px to your desired breakpoint */
+        @media (max-width: 700px) {
         .hidde {
             display: none;
         }
@@ -86,15 +102,16 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
     </style>
 </head>
 <body>
-    <div class="container-fluid heaad" style="z-index: 0; padding: 10px; height: 50px; position: absolute; top: 0%; width: 70%; margin-left: 120px;">
-        <div style="font-size: 30px;">User Access History</div>
-    </div>
+    
 
     <img class="pic0" src="images/menu.png" style="margin-top: 10px;" >
     <?php include "side/sidebar.php"; ?>
 
     
     <div class="main_content1">
+    <div class="heaad">
+        <div style="font-size: 30px;">User Access History</div>
+    </div>
 
         <div style="padding: 10px; display:flex; justify-content: end; align-items: center;">
             <a style="background-color: #6B4A4A; color: white;" class="btn"  href="user_dashboard.php" >Back</a>
@@ -120,61 +137,126 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                 <td><button class="btn tochh" id="<?php echo $reservation['reservation_ID']; ?>" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
 
-                <div class="contr shadow" id="<?php echo $reservation['reservation_ID']; ?>" style="padding: 10px; width: 650px; border-radius: 10px; height: 600px; position: fixed; color: black; background-color: aliceblue;">
+                <div class="contr shadow" id="<?php echo $reservation['reservation_ID']; ?>" style="padding: 20px; width: 600px; border-radius: 15px; height: auto; position: fixed; color: #333; background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
                     <form class="forr">
-                            <div class="textabove" style="font-size: 30px; font-weight: 500; text-align: center;">
-                                Your Appointment
-                            </div>
-                            <br>
-                            <div class="container">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <h5 class="col card-title">Reservation ID</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_ID']; ?></h5>
+                        <div class="text-center mb-4">
+                            <h3 style="font-weight: 600; color: #6B4A4A;">Your Appointment</h3>
+                        </div>
+                        <div class="container">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Reservation ID:</strong>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Reservation type</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_type']; ?></h5>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reservation['reservation_ID']; ?>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Reservation Date/Time</h5>
-                                        <h5 class="col card-title text-muted"><?php echo date('F j, Y, g:i A', strtotime($reservation['reservation_datetime'])); ?></h5>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Reservation Type:</strong>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Phone number</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_phone']; ?></h5>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reservation['reservation_type']; ?>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Preffered therapist</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_gender']; ?></h5>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Reservation Date/Time:</strong>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Duration</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_duration']; ?> minutes</h5>
+                                    <div class="col text-end text-muted">
+                                        <?php echo date('F j, Y, g:i A', strtotime($reservation['reservation_datetime'])); ?>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Total</h5>
-                                        <h5 class="col card-title text-muted">₱<?php echo $reservation['reservation_total']; ?></h5>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Phone Number:</strong>
                                     </div>
-                                    <div style="border: 1px solid; color:#6B4A4A;"></div>
-                                    <h5 >For Home Service:</h5>
-                                    <div class="row">
-                                        <h5 class="col card-title">location</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_address']; ?></h5>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reservation['reservation_phone']; ?>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">landmark</h5>
-                                        <h5 class="col card-title text-muted"><?php echo $reservation['reservation_landmark']; ?></h5>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Preferred Therapist:</strong>
                                     </div>
-                                    <div class="row">
-                                        <h5 class="col card-title">Services</h5>
-                                        <a href="user_access_history(tracked).php?id=<?php echo $reservation['reservation_ID']; ?>">View All</a>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reservation['reservation_gender']; ?>
                                     </div>
-                                    <h5 class="col card-title">Remarks</h5>
-                                    <p class="card-text"><?php echo $reservation['reservation_remarks']; ?></p>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Duration:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reservation['reservation_duration']; ?> minutes
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Total:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        ₱<?php echo $reservation['reservation_total']; ?>
+                                    </div>
+                                </div>
+                                <hr style="border-top: 1px solid #6B4A4A;">
+                                <h5 class="mb-3" style="color: #6B4A4A;">For Home Service:</h5>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Location:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reservation['reservation_address']; ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Landmark:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reservation['reservation_landmark']; ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Payment:</strong>
+                                    </div>
+                                    <div class="col text-end text-muted">
+                                        <?php echo $reservation['reservation_payment']; ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <strong>Services:</strong>
+                                    </div>
+                                    <div class="col text-end">
+                                        <a href="user_access_history(tracked).php?id=<?php echo $reservation['reservation_ID']; ?>" style="color: #6B4A4A; text-decoration: none;">View All</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Remarks:</strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-muted">
+                                        <p><?php echo $reservation['reservation_remarks']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Delete:</strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-muted">
+                                        <a href="user_access_history.php?id=<?php echo $reservation['reservation_ID']; ?>" style="color: red; text-decoration: none;">Delete Reservation</a>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                    </form>
                 </div>
                 <?php endforeach ?>
 
@@ -189,25 +271,14 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
     <?php include "side/js_sidebar.php"; ?>
     <script>
        //menuu 
-        const heaad = document.querySelector('.heaad');
+
         const toc = document.querySelectorAll('.tochh');
         const contr = document.querySelectorAll('.contr');
 
         console.log(sidebar);
-        function checckk(){
-            heaad.style.marginLeft = '350px';
-        }
-
-        
-        menuu.addEventListener('click', ()=> {
-            checckk();
-        })
 
         window.addEventListener('click', ()=> {
             event.stopPropagation();
-            if(!sidebar.contains(event.target)){
-                heaad.style.marginLeft = '120px';
-            }
 
             if(!event.target.closest('.contr') && !event.target.closest('.tochh')){
                 closeee();

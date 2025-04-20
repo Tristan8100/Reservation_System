@@ -256,6 +256,7 @@
             color: #000000;
             text-decoration: none;
        }
+       
 
        @media (max-width: 1200px) {
             .bodydiv{
@@ -269,7 +270,17 @@
             }
        }
 
-       @media (max-width: 768px) {
+       @media (max-width: 1050px) {
+        .card1 {
+            width: 250px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #F0FFFF;
+        }
+       }
+
+       @media (max-width: 900px) {
             .services {
                 display: flex;
                 flex-direction: column;
@@ -297,25 +308,6 @@
                 flex-direction: column;
             }
 
-            .promote{
-                font-size: 40px;
-            }
-            .sidebar{
-                width: 100px;
-            }
-            .options{
-                font-size: 0px;
-                padding-left: 30px;
-            }
-            .uppertext{
-                font-size: 0px;
-            }
-            .uppertext_gmail{
-                font-size: 0px;
-            }
-            .logout{
-                width: 90px;
-            }
         }
 
         @media (max-width: 600px) {

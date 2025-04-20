@@ -11,7 +11,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="MVC/user_routes.php?logout=1" class="logout">
+                <a href="MVC/user_routes.php?logout=1" class="logout d-flex justify-content-center align-items-center" style="height: 30px;">
                         Log out
                 </a>
             </div>
@@ -52,4 +52,4 @@
         </div>
 
 
-        <?php include './middleware/message.php' ?>
+        <?php require_once __DIR__ . '/../middleware/message.php'; ?>

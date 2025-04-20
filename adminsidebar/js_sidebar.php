@@ -32,12 +32,30 @@
             menuu.addEventListener('click', ()=> {
                 event.stopPropagation();
                 sidebar.style.display = 'block';
+                sidebar.animate([
+                    { transform: 'translateX(-100%)' },
+                    { transform: 'translateX(0)' }
+                ], {
+                    duration: 300,
+                    easing: 'ease-out'
+                });
                 load();
             })
             window.addEventListener('click', ()=> {
                 if(!sidebar.contains(event.target)){
-                sidebar.style.display = 'none';
-                load();
+                const animate = sidebar.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-100%)' }
+                ], {
+                    duration: 300,
+                    easing: 'ease-out'
+                });
+
+                animate.onfinish = () => {
+                    sidebar.style.display = 'none';
+                    load();
+                };
+
                 }
                 console.log(event.target);
 

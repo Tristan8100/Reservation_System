@@ -9,11 +9,13 @@
     //require 'phpmailer/src/PHPMailer.php';
     //require 'phpmailer/src/SMTP.php';
     
-    require 'PHPMailer/src/Exception.php';
-    require 'PHPMailer/src/PHPMailer.php';
-    require 'PHPMailer/src/SMTP.php';
+    include_once __DIR__ . '/../PHPMailer/src/Exception.php';
+    include_once __DIR__ . '/../PHPMailer/src/PHPMailer.php';
+    include_once __DIR__ . '/../PHPMailer/src/SMTP.php';
 
-    include "MVC/user_model.php";
+    include_once __DIR__ . '/user_model.php';
+    require_once __DIR__ . '/../middleware/encrypt_decrypt.php';
+
 
     class usercontrol extends usermodel{
 
@@ -37,10 +39,10 @@
                 //header('location: create_account.php?mess="succ"');
             } else if ($val1) {
                 //email already used
-                header('location: create_account.php?mess="already_used"');
+                header('location: create_account.php?mess='.encrypt('already_used'));
             } else if ($val1 === false){
                 //error
-                header('location: create_account.php?mess="err"');
+                header('location: create_account.php?mess='.encrypt('Error'));
             }
         }
 
@@ -77,7 +79,7 @@
             } else if($val){
                 $check = $this->updatestatus($val['user_ID']);
                 if($check === true){
-                    header("location: login_form.php?verified='SUCCESS'");
+                    header("location: login_form.php?verified=".encrypt('Success'));
                 } else {
                     echo "FAILED";
                 }
@@ -88,7 +90,7 @@
         public function processlogin($em, $pass){
             $compare = $this->loginselect($em);
             if($compare === 'NO USER'){
-                header('location: login_form.php?mess=No User Found');
+                header('location: login_form.php?mess='.encrypt('No User Found'));
             } else if ($compare) {
                 if(password_verify($pass, $compare['user_password'])){
                     if($compare['user_status'] === "REGISTERED"){
@@ -113,14 +115,14 @@
                     }
                     
                 } else {
-                    header('location: login_form.php?mess=Wrong Credentials');
+                    header('location: login_form.php?mess='.encrypt('Wrong Credentials'));
                 }
             }
         }
 
         public function forgorpass($em){
             $val = $this->loginselect($em);
-            if($val){
+            if($val != 'NO USER'){
                 echo "yess";
                 $randomNumber = round(rand(1000, 9999) + rand() / getrandmax(), 4);
                 $rand = floor($randomNumber);
@@ -132,7 +134,7 @@
                 }
                 
             } else {
-                echo "WRONG EMAIL";
+                header('location: forgot_password.php?mess='.encrypt("Email Don't Exist"));
             }
         }
 
@@ -157,27 +159,22 @@
 
             $mail->send();
 
-            $message = 'Send Succesfully';
-            header("location: forgot_password.php?messforgor='CHECK YOUR EMAIL'");
+            $message = 'Success Pasword Reset Code Sent';
+            header("location: forgot_password_code.php?mess=".encrypt($message));
         }
 
         public function resetaccount($code){
             $val = $this->selectcode($code);
-            if($val === "NOT FOUND"){
-                echo "WRONG CODE";
+            if(!$val){
+                header("location: forgot_password_code.php?mess=".encrypt('Wrong Code'));
             } else if($val){
-                $check = $this->updatestatus($val['user_ID']);
-                if($check === true){
-                    header("location: login_form.php?verified='SUCCESS'");
-                } else {
-                    echo "FAILED";
-                }
+                header('location: reset_password.php?getcode='.$code.'');
             }
 
         }
 
         public function updatepassword($pass, $code){
-            echo $code;
+            //echo $code;
             $val = $this->selectcode($code);
             if($val){
                 $hashedPassword = password_hash($pass, PASSWORD_BCRYPT);
@@ -185,10 +182,11 @@
                 if($check === true){
                     //
                     $this->deletecode($val['user_ID']);
-                    header('location: login_form.php');
+                    unset($_SESSION['codee']);
+                    header('location: login_form.php?mess='.encrypt('Success Password Updated'));
                 }
             } else {
-                echo "----NO USER FOUND11";
+                header('location: reset_password.php?mess='.encrypt('Code'.$_SESSION['codee'].' Not Found'));
             }
         }
 
@@ -199,9 +197,18 @@
         public function uploadimg($im, $id){
             $im = $this->updatepic($im, $id);
             if($im === true){
-                header('location: user_account_settings.php?mess=Success');
+                header('location: user_account_settings.php?mess='.encrypt('Success: Image Updated'));
             } else if($im === false){
-                echo "falll";
+                header('location: user_account_settings.php?mess='.encrypt('Something went wrong'));
+            }
+        }
+
+        public function uploadimgadmin($im, $id){
+            $im = $this->updatepic($im, $id);
+            if($im === true){
+                header('location: admin_account_settings.php?mess='.encrypt('Success: Image Updated'));
+            } else if($im === false){
+                header('location: admin_account_settings.php?mess='.encrypt('Something went wrong'));
             }
         }
 
@@ -220,7 +227,7 @@
             $hashedPassword = password_hash($pass, PASSWORD_BCRYPT);
             $check = $this->updatepasswordDB($hashedPassword, $id);
             if($check){
-                header('location: login_form.php');
+                header('location: login_form.php?mess='.encrypt('Success: Password Updated'));
             } else {
                 return false;
             }
@@ -229,7 +236,7 @@
         public function updateinfo($fn, $un, $id){
             $check = $this->updateinfoDB($fn, $un, $id);
             if($check){
-                header('location: login_form.php');
+                header('location: login_form.php?mess='.encrypt('Success: Information Updated'));
             }
         }
 
@@ -252,7 +259,7 @@
         public function createtherapist($tf, $te, $tg, $tn){
             $val = $this->addtherapist($tf, $te, $tg, $tn);
             if($val){
-                header('location: admin_manage_therapist_add.php?mess=Success');
+                header('location: admin_manage_therapist_add.php?mess='.encrypt('Success'));
             }
         }
 
@@ -279,14 +286,14 @@
         public function updateonetherapist($tf, $te, $tg, $tn, $id){
             $val = $this->updatetherapist($tf, $te, $tg, $tn, $id);
             if($val){
-                header('location: admin_manage_therapist.php?mess=successfull');
+                header('location: admin_manage_therapist.php?mess='.encrypt('Success'));
             }
         }
 
         public function deletetherapist($id){
             $val = $this->markasinactive($id);
             if($val){
-                header("location: admin_manage_therapist_all.php");
+                header("location: admin_manage_therapist_all.php?mess=".encrypt('Success: Deleted Successfully'));
             }
         }
     }
@@ -300,11 +307,11 @@
         public function createcategory($cm, $cp){
             $check = $this->checkcategory($cp);
             if(!empty($check)){
-                header('location: admin_manage_services_addcategory.php?warning=No-Duplication');
+                header('location: admin_manage_services_addcategory.php?mess='.encrypt('No-Duplication'));
             } else if(empty($check)){
                 $val = $this->addcategory($cm, $cp);
                 if($val){
-                    header('location: admin_manage_services_addcategory.php?mess=succ');
+                    header('location: admin_manage_services_addcategory.php?mess='.encrypt('Success'));
                 }
             }
         }
@@ -316,7 +323,7 @@
         public function markinactivecategory($id){
             $val = $this->categoryinactive($id);
             if($val){
-                header('location: admin_manage_services.php?mess=Deleted Successfully');
+                header('location: admin_manage_services.php?mess='.encrypt('Success: Deleted Successfully'));
             }
         }
 
@@ -327,11 +334,11 @@
         public function editcategory($cn, $cp, $id){
             $check = $this->checkcategory2($cp, $id);
             if(!empty($check)){
-                header('location: admin_manage_services_addcategory(edit).php?warning=No-Duplication');
+                header('location: admin_manage_services_addcategory(edit).php?mess='.encrypt('No-Duplication'));
             } else if(empty($check)){
                 $val = $this->updatecategory($cn, $cp, $id);
                 if($val){
-                    header('location: admin_manage_services.php?mess=suuuuu');
+                    header('location: admin_manage_services.php?mess='.encrypt('Success'));
                 }
             }
         }
@@ -356,7 +363,7 @@
             } while (!empty($check));
             $val = $this->addservice($newid, $cidfk, $sn, $si, $sdesc, $sp, $sdur);
             if($val){
-                header('location: admin_manage_services.php?mess=successss');
+                header('location: admin_manage_services.php?mess='.encrypt('Success'));
             }
         }
 
@@ -367,7 +374,7 @@
         public function markinactive($id){
             $val = $this->putinactiveservice($id);
             if($val){
-                header('location: admin_manage_services_allservices.php?mess=Deleted Successfully');
+                header('location: admin_manage_services_allservices.php?mess='.encrypt('Success: Deleted Successfully'));
             }
         }
 
@@ -378,7 +385,7 @@
         public function editserviceimg($sn, $cidfk, $sm, $sdesc, $sp, $sdur, $id){
             $check = $this->editservicewithimage($sn, $cidfk, $sm, $sdesc, $sp, $sdur, $id);
             if($check === true){
-                header('location: admin_manage_services.php?editmess=success');
+                header('location: admin_manage_services.php?editmess='.encrypt('Success'));
             }
         }
 
@@ -420,7 +427,7 @@
                     header('location: user_addservice.php?resID='.$newid.'');
                 }
             } else {
-                header('location: user_dashboard.php?mess=Invalid Time');
+                header('location: user_dashboard.php?mess='.encrypt('Invalid Date or Time'));
             }
            
         }
@@ -459,7 +466,12 @@
         }
 
         public function cancelreservation($id){
-            return $this->cancelreserve($id);
+            $val = $this->cancelreserve($id);
+            if($val){
+                header('location: user_appointment_status.php?mess='.encrypt('Success: Cancelled'));
+            } else {
+                header('location: user_appointment_status.php?mess='.encrypt('Error'));
+            }
         }
 
         public function countallpending(){
@@ -501,7 +513,7 @@
             if($check === true){
                 $check2 = $this->reschedule($id);
                 if($check2 === true){
-                    header('location: admin_manage_appointments.php?mess=resched');
+                    header('location: admin_manage_appointments.php?mess='.encrypt('Success: Rescheduled'));
                 }
             }
 
@@ -513,7 +525,7 @@
             if($check === true){
                 $check2 = $this->cancelbyadmin($id);
                 if($check2 === true){
-                    header('location: admin_manage_appointments.php?mess=cancelled');
+                    header('location: admin_manage_appointments.php?mess='.encrypt('Success: Cancelled'));
                 }
             }
 
@@ -524,13 +536,13 @@
 
             $newdatetime->add(new DateInterval('PT' . $minutes . 'M'));
             $formattedDate = $newdatetime->format('Y-m-d H:i:s'); 
-            $message = "Hi " . $name . "your reservation with an ID of " . $id . " on " . $date . "was accepted, the expected time ends: " . $newdatetime->format('Y-m-d H:i:s');
+            $message = "Hi " . $name . "your reservation with an ID of " . $id . " on " . $date . " was accepted, the expected time ends: " . $newdatetime->format('Y-m-d H:i:s');
             $check = $this->sendstatus($email, $sub, $message);
             if($check === true){
                 //send on database
                 $check2 = $this->accept($id, $tid, $formattedDate, $bed);
                 if($check2 === true){
-                    header('location: admin_manage_appointments.php?mess=accepted');
+                    header('location: admin_manage_appointments.php?mess='.encrypt('Success: Accepted'));
                 }
             }
             
@@ -559,8 +571,6 @@
             } else {
                 return false;
             }
-
-            
         }
 
         public function fetchalluntracked(){
@@ -583,7 +593,7 @@
         public function totrackreservation($id, $rs){
             $check = $this->totrack($id, $rs);
             if($check === true){
-                header('location: admin_manage_appointments_all(untracked).php?mess=updated');
+                header('location: admin_manage_appointments_all(untracked).php?mess='.encrypt('Success: Updated'));
             }
         }
 
@@ -592,8 +602,38 @@
             if($val){
                 unset($_SESSION['payment']);
                 unset($_SESSION['resid']);
-                header('location: user_dashboard.php?mess=SUCCESSFULLY PAID');
+                header('location: user_dashboard.php?mess='.encrypt('Success: Payment Completed'));
             }
+        }
+
+        public function deleteuserreservation($id, $uid){
+            $val = $this->deletereservation($id, $uid);
+            if($val){
+                header('location: user_access_history.php?mess='.encrypt('Success: Deleted'));
+            } else {
+                header('location: user_access_history.php?mess='.encrypt('Error'));
+            }
+        }
+
+        public function refundpayment($id, $usid){
+            $val = $this->markAsRefund($id, $usid);
+            if($val){
+                header('location: admin_manage_refunds.php?mess='.encrypt('Success: Refund Processed'));
+            } else {
+                header('location: admin_manage_refunds.php?mess='.encrypt('Error'));
+            }
+        }
+
+        public function fetchrefund(){
+            return $this->getReservationsNotAcceptedOrSuccess(); //NEW
+        }
+
+        public function fetchrefundall(){
+            return $this->getReservationsNotAcceptedOrSuccessWithJoin(); //NEW
+        }
+
+        public function fetchcountrefund(){
+            return $this->countrefund();
         }
 
         public function fetchalltracked(){
@@ -659,11 +699,11 @@
         public function createbed($bn, $br, $ba){
             $check = $this->checkbed($bn);
             if(!empty($check)){
-                header('location: admin_manage_services_addbeds.php?warning=No-Duplication');
+                header('location: admin_manage_services_addbeds.php?warning='.encrypt('No-Duplication'));
             } else if(empty($check)){
                 $val = $this->addbed($bn, $br, $ba);
                 if($val){
-                    header('location: admin_manage_services_addbeds.php?mess=Success');
+                    header('location: admin_manage_services_addbeds.php?mess='.encrypt('Success'));
                 }
             }
         }

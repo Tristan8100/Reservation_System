@@ -41,6 +41,7 @@
             background-color: #FFF0F0;
         }
         .pic0 {
+            margin-right: 20px;
             width: 50px;
             margin-top: 10px;
         }

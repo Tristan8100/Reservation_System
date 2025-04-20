@@ -30,6 +30,8 @@ include 'MVC/user_routes.php';
 
     $countpending = $reservationcontrol->countallpending();
     $countuntracked = $reservationcontrol->fetchalluntracked();
+    $countrefund = $reservationcontrol->fetchcountrefund();
+    
     //var_dump($countuntracked);
 ?>
 
@@ -176,10 +178,11 @@ include 'MVC/user_routes.php';
         <div class="container status-container">Status</div>
 
         <div class="container d-flex flex-wrap justify-content-between gap-3 mt-3 box-container">
+            <!--
             <div class="status-box border">
                 <div class="status-box-title"><?php echo $countpending['total']; ?></div>
                 <div class="status-box-content">Pending Appointments</div>
-            </div>
+            </div> -->
             <div class="status-box border">
                 <a href="admin_manage_appointments_all(tracked).php">
                     <div class="status-box-title">View all Appointments</div>
@@ -190,6 +193,12 @@ include 'MVC/user_routes.php';
                 <a href="admin_manage_appointments_all(untracked).php">
                     <div class="status-box-title"><?php echo $countuntracked['total']; ?></div>
                     <div class="status-box-content">Untracked Appointments</div>
+                </a>
+            </div>
+            <div class="status-box border">
+                <a href="admin_manage_refunds.php">
+                    <div class="status-box-title"><?php echo $countrefund['total']; ?></div>
+                    <div class="status-box-content">Refund Request</div>
                 </a>
             </div>
         </div>

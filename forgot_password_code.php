@@ -1,6 +1,8 @@
 <?php
 
     include 'MVC/user_routes.php';
+    require_once __DIR__ . '/middleware/encrypt_decrypt.php';
+    require_once __DIR__ . '/middleware/message.php';
     //$control
     if(isset($_GET['forgor1'])){
         //$control->resetaccount($_GET['forgor1']);// override
@@ -8,8 +10,10 @@
     }
 
     if(isset($_POST['forg'])){
-        //$control->resetaccount($_POST['resetacc']);
-        header('location: reset_password.php?getcode='.$_POST['resetacc'].'');
+        if(isset($_POST['resetacc'])){
+            $control->resetaccount($_POST['resetacc']);
+        }
+    
     }
 
 ?>
@@ -127,7 +131,7 @@
                 <div class="form-container">
                     <div class="form-header">Enter Forgot Password Code</div>
                     <div class="form-subheader">Enter forgot password code or click the link directly.</div>
-                    <form action="verify_account.php" method="post" style="margin-top: 70px;">
+                    <form action="forgot_password_code.php" method="post" style="margin-top: 70px;">
                         <div class="mb-3">
                             <label for="number" class="form-label">Code</label>
                             <input type="number" id="number" name="resetacc" class="form-control" placeholder="Enter verification code" required>

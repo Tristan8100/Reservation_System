@@ -12,7 +12,7 @@
     }
     
     
-    include 'user_controller.php';
+    require_once __DIR__ . '/user_controller.php';
 
     //include './middleware/message.php';
 

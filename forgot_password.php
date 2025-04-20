@@ -2,6 +2,9 @@
 
     include 'MVC/user_routes.php';
 
+    require_once __DIR__ . '/middleware/encrypt_decrypt.php';
+    require_once __DIR__ . '/middleware/message.php';
+
     if(isset($_POST['submitforgor'])){
         $control->forgorpass($_POST['emailforgor']);
     }

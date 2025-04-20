@@ -1,6 +1,6 @@
 <?php
 
-    include "Database/database.php";
+    require_once __DIR__ . "/../Database/database.php";
 
     class usermodel extends DB{
         
@@ -466,6 +466,77 @@
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } else {
                 return false;
+            }
+        }
+
+        public function deletereservation($id, $userid){
+            $sql = "DELETE FROM reservation WHERE reservation_ID = :id AND user_IDFK = :userid";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':userid', $userid);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function getReservationsNotAcceptedOrSuccess() {
+            $sql = 'SELECT * FROM reservation WHERE reservation_status NOT IN ("ACCEPTED", "SUCCESS") AND reservation_payment IS NOT NULL ORDER BY reservation_datetime DESC';
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        }
+
+        public function getReservationsNotAcceptedOrSuccessWithJoin() {
+            $sql = 'SELECT 
+                r.*, 
+                us.user_fullname, 
+                us.user_email, 
+                GROUP_CONCAT(DISTINCT CONCAT(s.service_name, " (", s.service_ID, ")") SEPARATOR ", ") AS services,
+                GROUP_CONCAT(DISTINCT s.service_image SEPARATOR ", ") AS service_images
+                FROM reservation r
+                LEFT JOIN user us ON us.user_ID = r.user_IDFK
+                LEFT JOIN reservation_services rs ON rs.reservation_IDFK = r.reservation_ID
+                LEFT JOIN `service` s ON s.service_ID = rs.service_IDFK
+                WHERE r.reservation_status NOT IN ("ACCEPTED", "SUCCESS") 
+                  AND r.reservation_payment IS NOT NULL AND r.reservation_payment != "REFUND"
+                GROUP BY r.reservation_ID
+                ORDER BY r.reservation_datetime DESC';
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+            return false;
+            }
+        }
+
+        public function markAsRefund($id, $userId) {
+            $sql = "UPDATE reservation SET reservation_payment = 'REFUND' WHERE reservation_ID = :id AND user_IDFK = :userId";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':userId', $userId);
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        public function countrefund() {
+            $sql = 'SELECT COUNT(*) AS total FROM reservation WHERE reservation_status NOT IN ("ACCEPTED", "SUCCESS") AND reservation_payment IS NOT NULL AND reservation_payment != "REFUND"';
+            $stmt = $this->connect()->prepare($sql);
+            if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+            } else {
+            return false;
             }
         }
 

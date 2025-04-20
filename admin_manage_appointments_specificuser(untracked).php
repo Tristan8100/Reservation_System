@@ -277,6 +277,10 @@ include 'MVC/user_routes.php';
                 <span class="info-value"><?php echo isset($untrackedreservation['reservation_landmark']) ? $untrackedreservation['reservation_landmark'] : ""; ?></span>
             </div>
             <div class="info-row">
+                <span class="info-label">Payment:</span>
+                <span class="info-value"><?php echo isset($untrackedreservation['reservation_payment']) ? $untrackedreservation['reservation_landmark'] : ""; ?></span>
+            </div>
+            <div class="info-row">
                 <span class="info-label">Remarks:</span>
                 <span class="info-value"><?php echo isset($untrackedreservation['reservation_remarks']) ? $untrackedreservation['reservation_remarks'] : ""; ?></span>
             </div>
