@@ -133,13 +133,13 @@
                 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="images/logo.png" class="d-block w-100" alt="Slide 1">
+                            <img src="images/logo.png" class="d-block w-100" alt="Appointment Image">
                         </div>
                         <div class="carousel-item">
-                            <img src="images/bg.png" class="d-block w-100" alt="Slide 2">
+                            <img src="images/despa1.jpg" class="d-block w-100" alt="Background Image">
                         </div>
                         <div class="carousel-item">
-                            <img src="images/spa.jpg" class="d-block w-100" alt="Slide 3">
+                            <img src="images/despa4.jpg" class="d-block w-100" alt="Spa Image">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

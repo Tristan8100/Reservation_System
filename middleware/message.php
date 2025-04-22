@@ -4,15 +4,15 @@ require_once __DIR__ . '/encrypt_decrypt.php';
 
 if(isset($_GET['mess'])){
     $messval = decrypt($_GET['mess'], $secretkey);
-    if(!$messval){
-        $messval = $_GET['mess'];
-    }
+    //if(!$messval){
+    //    $messval = $_GET['mess'];
+    //}
 }
 
 
 ?>
 
-<?php if(isset($messval)): ?>
+<?php if(!empty($messval)): ?>
 
     <style>
         /* Core modal structure (unchanged class) */
@@ -122,7 +122,7 @@ if(isset($_GET['mess'])){
     
     <!-- Optional close button -->
     <button class="modal-close-btn">&times;</button>
-</div>
+    </div>
 
     <script>
         document.addEventListener('click', (event)=>{

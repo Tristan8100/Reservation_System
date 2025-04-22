@@ -42,7 +42,7 @@
         $reservationcontrol->sendcanceladmin($_POST['user_email'], $_POST['cancel'] , $_POST['user_fullname'], $_POST['cancellation_reason'], $_POST['reservation_ID'], $_POST['reservation_datetime']);
     }
 
-    if(isset($_POST['selected_bed']) && isset($_POST['selected_row']) && isset($_POST['submitaccept'])){
+    if(isset($_POST['submitaccept'])){
         $reservationcontrol->acceptreservation($_POST['reservation_ID'], $_POST['selected_row'], $_POST['user_fullname'], $_POST['reservation_datetime'], $_POST['accept'], $_POST['user_email'], $_POST['reservation_duration'], $_POST['selected_bed']);
     }
 

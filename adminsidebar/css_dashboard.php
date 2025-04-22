@@ -15,6 +15,12 @@
         overflow-x: hidden;
     }
 
+    .pic0{
+        width: 50px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
     .uppertext_container, 
     .options, 
     .menu-text {

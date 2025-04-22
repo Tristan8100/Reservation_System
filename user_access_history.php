@@ -95,9 +95,12 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
         }
 
         @media (max-width: 700px) {
-        .hidde {
-            display: none;
-        }
+            .hidde {
+                display: none;
+            }
+            .contr {
+                width: 90%;
+            }
         }
     </style>
 </head>
@@ -137,7 +140,7 @@ $allreservation = $reservationcontrol->notpendingreservationperuser($userID);
                 <td><button class="btn tochh" id="<?php echo $reservation['reservation_ID']; ?>" style="background-color: #A1A1A1; color: white;">view</button></td>
                 </tr>
 
-                <div class="contr shadow" id="<?php echo $reservation['reservation_ID']; ?>" style="padding: 20px; width: 600px; border-radius: 15px; height: auto; position: fixed; color: #333; background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                <div class="contr shadow" id="<?php echo $reservation['reservation_ID']; ?>">
                     <form class="forr">
                         <div class="text-center mb-4">
                             <h3 style="font-weight: 600; color: #6B4A4A;">Your Appointment</h3>

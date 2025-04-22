@@ -142,6 +142,12 @@
         cursor: pointer;
     }
 
+    .pic0{
+        width: 50px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
     @media (max-width: 768px) {
         .sidebar {
             width: 80px;

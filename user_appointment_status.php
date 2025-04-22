@@ -112,7 +112,7 @@ include 'MVC/user_routes.php';
     </style>
 </head>
 <body>
-    <img class="pic0" src="images/menu.png" style="margin-top: 10px;" >
+    <img class="pic0" src="images/menu.png">
     <?php include "side/sidebar.php"; ?>
 
     <div class="main_content1">

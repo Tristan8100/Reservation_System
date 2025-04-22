@@ -53,9 +53,9 @@
             align-items: center;
         }
         .pic0 {
-            border-color: white;
-            height: 80%;
+            height: 70%;
             margin-left: 10px;
+            margin-bottom: 10px;
         }
         .option {
             border-color: white;
@@ -71,7 +71,8 @@
             color: #AACA00;
         }
         .a:hover {
-            background-color: #FFF0F0;
+            background-color: gray;
+            border-radius: 10px;
         }
         .header {
             height: 450px;

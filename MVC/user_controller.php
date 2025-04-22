@@ -496,6 +496,17 @@
 
         public function sendresched($email, $sub ,$time, $name, $datetime, $id){
 
+            if (!isset($email) || $email === '' ||
+                !isset($sub) || $sub === '' ||
+                !isset($time) || $time === '' ||
+                !isset($name) || $name === '' ||
+                !isset($datetime) || $datetime === '' ||
+                !isset($id) || $id === '') {
+                
+                header('location: admin_manage_appointments_all(pending).php?mess='.encrypt('All fields required'));
+                exit(); // Stops execution if validation fails
+            }
+
             $value = "";
             foreach($time as $arr){
                 $value .= "<div>".$arr."</div><br>";
@@ -520,6 +531,20 @@
         }
 
         public function sendcanceladmin($email, $sub , $name, $content, $id, $date){
+
+            if (!isset($email) || $email === '' ||
+                !isset($sub) || $sub === '' ||
+                !isset($name) || $name === '' ||
+                !isset($content) || $content === '' ||
+                !isset($id) || $id === '' ||
+                !isset($date) || $date === '') {
+                
+                header('Location: admin_manage_appointments.php?mess=' . encrypt('All fields required'));
+
+                exit();
+            }
+
+
             $message = "Hi " . $name . "your reservation with an ID of " . $id . "on" . $date . "was cancelled due to: " .$content;
             $check = $this->sendstatus($email, $sub, $message);
             if($check === true){
@@ -532,6 +557,20 @@
         }
 
         public function acceptreservation($id, $tid, $name, $date, $sub, $email, $minutes, $bed){
+
+            if (!isset($id) || $id === '' ||
+                !isset($tid) || $tid === '' ||
+                !isset($name) || $name === '' ||
+                !isset($date) || $date === '' ||
+                !isset($sub) || $sub === '' ||
+                !isset($email) || $email === '' ||
+                !isset($minutes) || $minutes === '' ||
+                !isset($bed) || $bed === '') {
+
+                header('location: admin_manage_appointments_all(pending).php?mess='.encrypt('All fields required'));
+                exit(); // Force stop execution if validation fails
+            }
+
             $newdatetime = new DateTime($date);
 
             $newdatetime->add(new DateInterval('PT' . $minutes . 'M'));
